@@ -1,0 +1,12 @@
+.smile{
+  width: auto;
+  height: auto;
+}
+.smile img{
+  max-width:none;
+  max-height:none;
+}
+
+.wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn.wbb-smilebox .wbb-list {
+    width: 400px;
+}

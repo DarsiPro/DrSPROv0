@@ -1,0 +1,19 @@
+<div id="chat_meta"></div>
+<form action="{{ data.action }}" method="POST" onSubmit="submitChat(this); return false;">
+<div class="chat-addfrom">
+	<div  class="margin">
+		<textarea id="chatModule" name="message">{{ data.message }}</textarea>
+	</div>
+	{% if data.captcha %}
+	<div class="chat_captcha">{{ data.captcha }}</div>
+	{% endif %}
+	<div>
+	        <span style="display:none" id="chatWait" class="vectorcssloader">
+	              <span class="css3loading"></span> 
+            </span>
+			<input type="submit" name="send" value="Отправить"/>
+			<a class="greenlink" id="bigformlink" href="{{ www_root }}/chat/">Расширенная форма</a>
+	</div>
+</div>
+</form>
+<audio id="soundchat" src="{{ template_path }}/sounds/message-in.ogg"></audio>

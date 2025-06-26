@@ -1,0 +1,37 @@
+{% set premoder = mb_strtolower(comment.premoder) %}
+{% set show_panel = 0 %}
+{# Является ли пользователь автором комментария #}
+{% if user.id != 0 and user == comment.user_id %}
+    {% set is_owner = 1 %}
+{% else %}
+    {% set is_owner = 0 %}
+{% endif %}
+
+{# Премодерация комментария #}
+{% if checkAccess(['__other__', 'can_premoder']) and (premoder=='nochecked' or premoder=='rejected') %}
+    <a id="dscpc{{ comment.id }}" class="drs-premoder-confirm moder-confirm" title="{{ __('Confirm') }}" onclick="if (confirm('{{ __('Are you sure?') }}')) {sendu('dscpc{{ comment.id }}')}; return false" href="{{ www_root }}/{{ module }}/premoder_comment/{{ comment.id }}/confirmed/"></a>
+    {% if premoder=='nochecked' %}
+        <a id="dscpr{{ comment.id }}" class="drs-premoder-reject moder-reject" title="{{ __('Reject') }}" onclick="if (confirm('{{ __('Are you sure?') }}')) {sendu('dscpr{{ comment.id }}')}; return false" href="{{ www_root }}/{{ module }}/premoder_comment/{{ comment.id }}/rejected/"></a>
+    {% endif %}
+{% endif %}
+
+{# Редактирование #}
+{% if checkAccess([module, 'edit_materials']) or is_owner and checkAccess([module, 'edit_my_comments']) and (config(['raw_time_mess']) == 0 or comment.raw_time_mess) %}
+    <a class="drs-edit moder-edit" title="{{ __('Edit') }}" href="{{ www_root }}/{{ module }}/edit_comment_form/{{ comment.id }}"></a>
+    {% set show_panel = 1 %}
+{% endif %}
+
+{# Удаление #}
+{% if checkAccess([module, 'delete_materials']) or is_owner and checkAccess([module, 'delete_my_comments']) and (config(['raw_time_mess']) == 0 or comment.raw_time_mess) %}
+    <a id="dscd{{ comment.id }}" title="{{ __('Delete') }}" class="drs-delete moder-delete" onclick="if (confirm('{{ __('Are you sure?') }}')) {sendu('dscd{{ comment.id }}')}; return false" href="{{ www_root }}/{{ module }}/delete_comment/{{ comment.id }}"></a>
+    {% set show_panel = 1 %}
+{% endif %}
+
+{# IP оставившего комментарий #}
+{% if show_panel %}
+    <a target="_blank" href="https://apps.db.ripe.net/search/query.html?searchtext={{ comment.ip }}" class="drs-ip moder-ip" title="IP: {{ comment.ip }}"></a>
+{% endif %}
+
+{% if show_panel and comment.raw_time_mess %}
+    <br><small>Осталось {{ comment.raw_time_mess }} сек.</small>
+{% endif %}

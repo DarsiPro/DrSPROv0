@@ -1,0 +1,105 @@
+<div class="row">
+    <form action="" name="plug" method="POST" class="col s12" enctype="multipart/form-data" onsubmit="sendu(this); return false">
+
+        <h5 class="light">Вывести виджет на страницу можно с помощью метки <b>&#123;&#123; user_rating &#125;&#125;</b></h5>
+        <br>
+
+        <div class="row">
+            <div class="input-field col s6">
+                <input id="limit" name="limit" type="number" class="validate" value="{{ config.limit }}">
+                <label for="limit">Сколько человек выводить в топе:</label>
+            </div>
+            <div class="input-field col s6">
+                <input type="checkbox" id="view_banned" name="view_banned" {% if config.view_banned %}checked="checked"{% endif %} />
+                <label for="view_banned">Показывать забаненых пользователей:</label>
+            </div>
+        </div>
+        
+        <div class="input-field col s12">
+            <select name="usersort">
+                <option value="" disabled selected>Выберите способ для сортировки</option>
+                <option value="rating" {% if config.usersort == "rating" %}selected{% endif %}>По репутации</option>
+                <option value="posts" {% if config.usersort == "posts" %}selected{% endif %}>По количеству сообщений на форуме</option>
+                <option value="puttime" {% if config.usersort == "puttime" %}selected{% endif %}>По дате регистрации</option>
+            </select>
+            <label>Cпособ сортировки</label>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <textarea id="template" name="template" class="materialize-textarea">{{ template }}</textarea>
+                <label for="template">HTML код шаблона</label>
+            </div>
+        </div>
+        <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+            <button class="btn-floating btn-large deep-orange form_save tooltipped" data-position="left" data-tooltip="Сохранить изменения" type="submit" name="send">
+                <i class="large mdi-content-save"></i>
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="row">
+    <ul class="markers">
+        <span>В плагине работают все поля которые есть в базе данных users. <br/> Пример: &#123;&#123; user.названиеполя &#125;&#125;. <br /><b>Для новичков</b> какие поля есть: id; title; main; views; date; category_id; author_id; comments и т.д</span>
+        <h5>Метки вызова генератора в шаблоне</h5>
+        <li><div class="chip">&#123;&#123; user.avatar &#125;&#125;</div> - Ссылка на аватар пользователя, если нету выводит noavatar</li>
+        <li><div class="chip">&#123;&#123; user.profile_url &#125;&#125;</div> - Ссылка на профиль пользователя</li>
+        <li><div class="chip">&#123;&#123; user.name &#125;&#125;</div> - Логин пользователя</li>
+        <li><div class="chip">&#123;&#123; user.posts &#125;&#125;</div> - Количество постов на форуме</li>
+        <li><div class="chip">&#123;&#123; user.rating &#125;&#125;</div> - Количество репутации</li>
+        <li><div class="chip">&#123;&#123; user.load &#125;&#125;</div> - Количество файлов</li>
+        <li><div class="chip">&#123;&#123; user.news &#125;&#125;</div> - Количество новостей</li>
+        <li><div class="chip">&#123;&#123; user.publ &#125;&#125;</div> - Количество статей</li>
+        <li><div class="chip">&#123;&#123; user.comments &#125;&#125;</div> - Количество комментариев</li>
+    </ul>
+</div>
+
+
+<style>
+.chip {
+    display: inline-block;
+    height: 32px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(0,0,0,0.6);
+    line-height: 32px;
+    padding: 0 12px;
+    border-radius: 16px;
+    background-color: #e4e4e4;
+    
+    width: 180px;
+    text-align: center;
+}
+
+.markers li {
+    margin: 1px;
+}
+</style>
+
+
+<script>
+    // Отправляет форму на сервер и отображает статус выполненного действия
+    function sendu(e) {
+        if (e instanceof Object != true) {
+            e = $('#'+e)
+        }
+
+        formname = $(e).attr("name")
+        formData = new FormData(document.forms[formname])
+        
+        xhr = new XMLHttpRequest()
+        xhr.open('POST', $(e).attr("action"), true)
+        xhr.onload = function(e) {
+            if (this.status == 200) {
+                Materialize.toast('Сохранено', 4000);
+            } else {
+                Materialize.toast('Произошла неизвестная ошибка', 4000);
+            }
+        }
+        xhr.send(formData)
+    }
+    $(document).ready(function() {
+        $('select').material_select();
+    });
+</script>

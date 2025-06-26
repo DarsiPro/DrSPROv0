@@ -1,0 +1,16 @@
+<form name="passwd_forum" method="POST" action="{{ drs_request_url }}" onsubmit="sendu(this); return false">
+<div class="material">
+	  <div class="mat-title">Этот форум закрыт на пароль</div>
+	  <div class="mat-content">
+          <ul class="spisok-all">
+              <li>
+                <span class="siu_title"><strong>Пароль от форума:</strong></span>
+                <span class="siu_data"><input type="password" name="forum_lock_pass" /></span>
+              </li>
+              <li>
+                <input type="submit" name="send" value="Отправить">
+              </li>
+		  </ul>
+	  </div>
+</div>
+</form>

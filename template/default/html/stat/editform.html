@@ -1,0 +1,96 @@
+{{ editor_body }}
+{{ script_gentags }}
+<script type="text/javascript">
+maxAttachedFiles = {{ context.max_attaches }};
+</script>
+<form name="sendForm" id="sendForm" action="{{ context.action }}" method="POST" enctype="multipart/form-data" onsubmit="if (checkForm(this)) {{{ default_start_gentags }}sendu('sendForm')}; return false">
+<div class="material">
+	  <div class="mat-title">Редактирование статьи: {{ context.title }}</div>
+	  <div class="mat-content">
+          <ul class="spisok-all">
+		  <li>
+            <span class="siu_title"><strong><font color="red">*</font>Категория:</strong></span>
+            {% if config(['use_multicategories']) %}
+                <span class="siu_data"><select name="cats_selector[]" multiple>{{ context.cats_selector }}</select></span>
+            {% else %}
+                <span class="siu_data"><select name="cats_selector">{{ context.cats_selector }}</select></span>
+            {% endif %}
+          </li>
+		  <li>
+            <span class="siu_title"><strong><font color="red">*</font>Заголовок новости:</strong></span>
+            <span class="siu_data"><input type="text" name="title" maxlength="128" value="{{ context.title }}"></span>
+          </li>
+		  <li class="margin">
+            <textarea {{ editor_text }} class="text-area" name="mainText">{{ context.main_text }}</textarea>
+          </li>
+          {% if checkAccess([module,'upload_files']) and context.locked_attaches == 0 %}
+		  <li>
+            <span class="siu_title"><strong>Загрузить изображения:</strong></span>
+            <span class="siu_data">
+           			<div id="attachments">
+                    {% if context.attaches_list %}
+                        {% for at in context.attaches_list %}
+                        <div>
+                            <input class="attachField" type="file" id="attach{{ at.id }}" name="attach{{ at.id }}" onchange="getFile({{ at.id }})">
+                            <span id="attachMeta{{ at.id }}">
+                                {% if at.is_img %}
+                                    <input type="text" readonly="" value="{IMAGE{{ at.id }}}" title="Вставьте этот код в любое место сообщения" size="8" style="font-family:monospace;color:#FF8E00;">
+                                {% endif %}
+                            </span>
+                            <label><input type="checkbox" name="unlink{{ at.id }}" value="1">Удалить ({{ at.name }})?</label>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                    <div>
+                        <input class="attachField" type="file" id="attach1" name="attach1" onchange="getFile(1)"><span id="attachMeta1"></span>
+                    </div>
+                    {% endif %}
+                    </div>
+                    <input type="button" name="addInput" value="Прикрепить еще файл" onClick="addFileField('attachments');" />
+          </span>
+           </li>
+           {% endif %}
+		  <li>
+            <span class="siu_title"><strong>Дополнительные настройки:</strong></span>
+            <span class="siu_data"><input type="checkbox" onClick="metaTags(this);" /></span>
+          </li>
+		  <li id="meta" style="display:none;">
+            <span class="siu_title"><strong>Meta description:</strong>Нужно для более быстрой индексации поисковыми роботами</span>
+            <span class="siu_data"><textarea name="description">{{ context.description }}</textarea></span>
+          </li>
+		  <li id="tags" style="display:none;">
+            <span class="siu_title"><strong>Теги:</strong>Слова по которым будет искаться материал</span>
+            <span class="siu_data"><input {{ input_gentags }} size="70" type="text" name="tags" value="{{ context.tags }}" />{{ button_gentags }}</span>
+			{{ forms_gentags }}
+          </li>
+		  <li id="sourse" style="display:none;">
+            <span class="siu_title"><strong>Источник:</strong>Настоящий автор статьи</span>
+            <span class="siu_data"><input size="70" type="text" name="sourse" value="{{ context.sourse }}" /></span>
+          </li>
+		  <li id="sourse_email" style="display:none;">
+            <span class="siu_title"><strong>E-Mail автора:</strong></span>
+            <span class="siu_data"><input size="70" type="text" name="sourse_email" value="{{ context.sourse_email }}" /></span>
+          </li>
+		   <li id="sourse_site" style="display:none;">
+            <span class="siu_title"><strong>Ссылка на первоисточник:</strong>Ссылка на тот сайт откуда вы взяли статья</span>
+            <span class="siu_data"><input size="70" type="text" name="sourse_site" value="{{ context.sourse_site }}" /></span>
+          </li>
+		  {% if checkAccess([module,'record_comments_management']) %}
+		  <li>
+            <span class="siu_title"><strong>Разрешить комментирование?:</strong></span>
+            <span class="siu_data"><input type="checkbox" name="commented" value="1" {{ context.commented }} /></span>
+          </li>
+		  {% endif %}
+		  {% if checkAccess([module,'hide_material']) %}
+		  <li>
+            <span class="siu_title"><strong>Доступен для просмотра:</strong></span>
+            <span class="siu_data"><input type="checkbox" name="available" value="1" {{ context.available }} /></span>
+          </li>
+		  {% endif %}
+		  <li>
+            <input type="submit" name="submitForm" value="Отправить" />
+          </li>
+		  </ul>
+	  </div>
+</div>
+</form>

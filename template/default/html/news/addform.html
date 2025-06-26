@@ -1,0 +1,604 @@
+{{ editor_body }}
+{{ script_gentags }}
+<script type="text/javascript">
+maxAttachedFiles = {{ context.max_attaches }};
+</script>
+
+
+<section>
+  <!-- <body> -->
+  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tbody>
+      <tr>
+        <td width="80%"><a href="http://podelki.clan.su/"><!--<s5176>-->Главная<!--</s>--></a> » <a href="/publ/"><!--<s5208>-->Статьи<!--</s>--></a> » Добавление материала</td>
+        <td align="right" style="white-space: nowrap;">[ <a href="/publ/0-0-0-0-1"><!--<s5202>-->Добавить статью<!--</s>--></a> ] </td>
+      </tr>
+    </tbody>
+  </table>
+  <hr>
+
+  <form method="post" id="addEntForm" name="addform" class="mod-0" enctype="multipart/form-data" action="/publ" onsubmit="openery(); return false;">
+    <input type="hidden" name="jkd498" value="1">
+    <input type="hidden" name="jkd428" value="1">
+    <ul class="form-fields">
+
+      <li>
+        <label>Категория <font color="red" class="manStar">*</font>:</label>
+      </li>
+      <li>
+        <table class="x-unselectable u-combo" cellspacing="0" cellpadding="0" border="0" align="left">
+          <tbody>
+            <tr>
+              <td class="u-comboeditcell" onclick="_uMenu.show('uCatsMenu7')">
+                <input id="catSelector9" class="x-selectable u-comboedit u-comboeditimg" type="button" value="- Выбрать категорию -" hidefocus="" autocomplete="off" readonly="">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div id="uCatsMenu7" style="display: none;">
+                  <div class="u-combolist" id="uCatsMenu9">
+                    <div>
+                      <input type="radio" name="ocat" id="cus1" value="1" onclick="insertselcat(this ); setTimeout('_uMenu.hide(\'uCatsMenu7\')',300);">
+                      <label style="vertical-align:middle;" for="cus1">Аппликации</label>
+                    </div>
+                    <div>
+                      <input type="radio" name="ocat" id="cus2" value="2" onclick="insertselcat(this ); setTimeout('_uMenu.hide(\'uCatsMenu7\')',300);">
+                      <label style="vertical-align:middle;" for="cus2">Детские поделки</label>
+                    </div>
+                    <div>
+                      <input type="radio" name="ocat" id="cus3" value="3" onclick="insertselcat(this ); setTimeout('_uMenu.hide(\'uCatsMenu7\')',300);">
+                      <label style="vertical-align:middle;" for="cus3">Красивые</label>
+                    </div>
+                    <div>
+                      <input type="radio" name="ocat" id="cus4" value="4" onclick="insertselcat(this ); setTimeout('_uMenu.hide(\'uCatsMenu7\')',300);">
+                      <label style="vertical-align:middle;" for="cus4">Природные поделки</label>
+                    </div>
+                    <div>
+                      <input type="radio" name="ocat" id="cus5" value="5" onclick="insertselcat(this ); setTimeout('_uMenu.hide(\'uCatsMenu7\')',300);">
+                      <label style="vertical-align:middle;" for="cus5">Новогодние поделки</label>
+                    </div>
+                  </div>
+                </div>
+                <script>
+                  new _uMenu('uCatsMenu7')
+                </script>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li class="notcolumn">
+        <hr>
+      </li>
+
+      <li>
+        <label for="title">Название материала <font color="red" class="manStar">*</font>:</label>
+      </li>
+      <li>
+        <input id="puF1" type="text" class="manFlTitle" size="35" name="title" maxlength="150">
+      </li>
+      <li class="notcolumn">
+        <hr>
+      </li>
+
+      <li class="notcolumn">
+        <div style="float:right; float:inline-end; " class="edtTypeMenu" data-uetarget="brief" flex-end="" quarter-gap="">
+          <span><a href="javascript:;" data-uemode="1" style="display: none;">Визуальный редактор</a><b style="display: inline;">Визуальный редактор</b></span> |
+          <span><a href="javascript:;" data-uemode="3">Панель HTML кодов</a><b style="display: none;">Панель HTML кодов</b></span>
+        </div>
+        <div id="txtPart555brief">
+          <div>Краткое описание <font color="red" class="manStar">*</font>:</div>
+          <div class="ucoz-editor-bbpanel ucoz-editor-panel" style="display:none;"><span style="padding-right:1px;" id="bc1"><input type="button" title="Bold" value="b" onclick="simpletag('b','','','brief','')" class="codeButtons" id="b" style="width:20px;font-weight:bold"></span><span style="padding-right:1px;" id="bc2"><input type="button" title="Italic" value="i" onclick="simpletag('i','','','brief','')" class="codeButtons" id="i" style="width:20px;font-style:italic"></span><span style="padding-right:1px;" id="bc3"><input type="button" title="Underline" value="u" onclick="simpletag('u','','','brief','')" class="codeButtons" id="u" style="width:20px;text-decoration:underline"></span>
+            <span style="padding-right:1px;" id="bc4">
+			<select id="fsize" class="codeButtons" onchange="alterfont(this.options[this.selectedIndex].value,'size','brief','');this.selectedIndex=0;">
+				<option value="0">SIZE</option>
+				<option value="6">6 pt</option>
+				<option value="7">7 pt</option>
+				<option value="8">8 pt</option>
+				<option value="9">9 pt</option>
+				<option value="10">10 pt</option>
+				<option value="11">11 pt</option>
+				<option value="12">12 pt</option>
+				<option value="13">13 pt</option>
+				<option value="14">14 pt</option>
+				<option value="15">15 pt</option>
+				<option value="16">16 pt</option>
+				<option value="17">17 pt</option>
+				<option value="18">18 pt</option>
+				<option value="19">19 pt</option>
+				<option value="20">20 pt</option>
+				<option value="21">21 pt</option>
+				<option value="22">22 pt</option>
+			</select>
+		</span><span style="padding-right:1px;" id="bc6">
+			<select id="fcolor" class="codeButtons" onchange="alterfont(this.options[this.selectedIndex].value, 'color','brief','');this.selectedIndex=0;">
+				<option value="0">COLOR</option>
+				<option value="blue" style="color:Blue">Blue</option>
+				<option value="red" style="color:Red">Red</option>
+				<option value="purple" style="color:Purple">Purple</option>
+				<option value="orange" style="color:Orange">Orange</option>
+				<option value="yellow" style="color:Yellow">Yellow</option>
+				<option value="gray" style="color:Gray">Gray</option>
+				<option value="green" style="color:Green">Green</option>
+			</select>
+		</span><span style="padding-right:1px;" id="bc7"><input type="button" title="URL" value="http://" onclick="tag_url('brief','')" class="codeButtons" style="direction:ltr;width:45px;" id="url"></span><span style="padding-right:1px;" id="bc8"><input type="button" title="E-mail" value="@" onclick="tag_email('brief','')" class="codeButtons" style="width:30px;" id="email"></span><span style="padding-right:1px;" id="bc9"><input type="button" title="Image" value="img" onclick="tag_image('brief','')" class="codeButtons" style="width:35px;" id="img"></span><span style="padding-right:1px;" id="bc18"><input type="button" title="Hide from Guest" value="hide" onclick="simpletag('hide','','','brief','')" class="codeButtons" style="width:40px;" id="hide"></span><span style="padding-right:1px;" id="bc12"><input type="button" title="List" value="list" onclick="tag_list('brief','')" class="codeButtons" id="list" style="width:30px;"></span>
+            <span style="padding-right:1px;" id="bc13"><input type="button" title="Left" style="width:20px;text-align:left;" value="···" onclick="simpletag('l','cdl','···','brief')" class="codeButtons" id="cdl"></span><span style="padding-right:1px;" id="bc14"><input type="button" title="Center" style="width:20px;text-align:center;" value="···" onclick="simpletag('c','cdc','···','brief')" class="codeButtons" id="cdc"></span><span style="padding-right:1px;" id="bc15"><input type="button" title="Right" style="width:20px;text-align:right;" value="···" onclick="simpletag('r','cdr','···','brief')" class="codeButtons" id="cdr"></span>
+            <span style="padding-right:1px;" id="bc16"><input type="button" title="All codes" style="width:60px;" value="All codes" onclick="window.open('/index/17', 'bbcodes', 'scrollbars=1, width=550, height=450, left=0, top=0');" class="codeButtons"></span>
+            <span style="padding-right:1px;" id="bc17"><input style="font-weight:bold;width:20px" type="button" value="/" class="codeButtons codeCloseAll" title="Close all opened codes" onclick="closeall('brief','');"></span>
+            <input type="hidden" id="tagcount" value="0">
+          </div>
+          <div class="ucoz-editor-htpanel ucoz-editor-panel" style="display:none;"><span style="padding-right:1px;" id="hbc1"><input type="button" title="Bold" value="b" onclick="_simpletag('b','brief')" class="codeButtons" name="b" style="font-weight:bold"></span><span style="padding-right:1px;" id="hbc2"><input type="button" title="Italic" value="i" onclick="_simpletag('i','brief')" class="codeButtons" name="i" style="font-style:italic"></span><span style="padding-right:1px;" id="hbc3"><input type="button" title="Underline" value="u" onclick="_simpletag('u','brief')" class="codeButtons" name="u" style="text-decoration:underline"></span>
+            <span style="padding-right:1px;" id="hbc4">
+			<select name="fsize" class="codeButtons" onchange="_alterfont(this.options[this.selectedIndex].value,'size','brief');this.selectedIndex=0;">
+				<option value="0">SIZE</option>
+				<option value="8">8 pt</option>
+				<option value="9">9 pt</option>
+				<option value="10">10 pt</option>
+				<option value="11">11 pt</option>
+				<option value="12">12 pt</option>
+				<option value="13">13 pt</option>
+				<option value="14">14 pt</option>
+				<option value="15">15 pt</option>
+				<option value="16">16 pt</option>
+				<option value="17">17 pt</option>
+				<option value="18">18 pt</option></select></span><span style="padding-right:1px;" id="hbc5">
+			<select name="ffont" class="codeButtons" onchange="_alterfont(this.options[this.selectedIndex].value,'font','brief');this.selectedIndex=0;">
+				<option value="0">FAMILY</option>
+				<option value="Arial">Arial</option>
+				<option value="Times">Times</option>
+				<option value="Courier">Courier</option>
+				<option value="Impact">Impact</option>
+				<option value="Geneva">Geneva</option>
+				<option value="Optima">Optima</option></select></span><span style="padding-right:1px;" id="hbc6">
+			<select name="fcolor" class="codeButtons" onchange="_alterfont(this.options[this.selectedIndex].value,'color','brief');this.selectedIndex=0;">
+				<option value="0">COLOR</option>
+				<option value="blue" style="color:Blue">Blue</option>
+				<option value="red" style="color:Red">Red</option>
+				<option value="purple" style="color:Purple">Purple</option>
+				<option value="orange" style="color:Orange">Orange</option>
+				<option value="yellow" style="color:Yellow">Yellow</option>
+				<option value="gray" style="color:Gray">Gray</option>
+				<option value="green" style="color:Green">Green</option></select></span>
+            <span style="padding-right:1px;" id="hbc7"><input type="button" title="URL" value="http://" onclick="_tag_url('brief')" class="codeButtons" name="url" style="direction:ltr;"></span><span style="padding-right:1px;" id="hbc8"><input type="button" title="E-mail" value="@" onclick="_tag_email('brief')" class="codeButtons" name="email"></span><span style="padding-right:1px;" id="hbc9"><input type="button" title="Image" value="img" onclick="_tag_image('brief')" class="codeButtons" name="img"></span><span style="padding-right:1px;" id="hbc10"><input type="button" title="List" value="list" onclick="_tag_list('brief')" class="codeButtons" name="list"></span>
+            <span style="padding-right:1px;" id="hbc11"><input type="button" title="Left" style="width:60px; text-align:left;" value="···" onclick="_alterfont('left','pos','brief')" class="codeButtons" name="left"></span><span style="padding-right:1px;" id="hbc12"><input type="button" title="Center" style="width:60px; text-align:center;" value="···" onclick="_alterfont('center','pos','brief')" class="codeButtons" name="center"></span><span style="padding-right:1px;" id="hbc13"><input type="button" title="Right" style="width:60px; text-align:right;" value="···" onclick="_alterfont('right','pos','brief')" class="codeButtons" name="right"></span></div>
+          <textarea rows="10" style="width: 100%; height: 250px; visibility: hidden; display: none;" id="brief" name="brief" class="manFl" cols="40" oninput="window.uEditor &amp;&amp; uEditor.checkSymbolsCount(this)"></textarea>
+          <div id="cke_brief" class="cke_1 cke cke_reset cke_chrome cke_editor_brief cke_ltr cke_browser_webkit" dir="ltr" lang="ru" role="application" aria-labelledby="cke_brief_arialbl"><span id="cke_brief_arialbl" class="cke_voice_label">Визуальный текстовый редактор, brief</span>
+            <div class="cke_inner cke_reset" role="presentation"><span id="cke_1_top" class="cke_top cke_reset_all" role="presentation" style="height: auto; user-select: none;"><span id="cke_14" class="cke_voice_label">Панели инструментов редактора</span><span id="cke_1_toolbox" class="cke_toolbox" role="group" aria-labelledby="cke_14" onmousedown="return false;"><span id="cke_18" class="cke_toolbar" aria-labelledby="cke_18_label" role="toolbar"><span id="cke_18_label" class="cke_voice_label">undo</span><span class="cke_toolbar_start"></span><span class="cke_toolgroup" role="presentation"><a id="cke_19" class="cke_button cke_button__undo cke_button_disabled " href="javascript:void('Отменить')" title="Отменить (Ctrl+Z)" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_19_label" aria-describedby="cke_19_description" aria-haspopup="false" aria-disabled="true" onkeydown="return CKEDITOR.tools.callFunction(4,event);" onfocus="return CKEDITOR.tools.callFunction(5,event);" onclick="CKEDITOR.tools.callFunction(6,this);return false;"><span class="cke_button_icon cke_button__undo_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -1176px;background-size:auto;">&nbsp;</span><span id="cke_19_label" class="cke_button_label cke_button__undo_label" aria-hidden="false">Отменить</span><span id="cke_19_description" class="cke_button_label" aria-hidden="false">Комбинация клавиш Ctrl+Z</span></a><a id="cke_20" class="cke_button cke_button__redo cke_button_disabled " href="javascript:void('Повторить')" title="Повторить (Ctrl+Y)" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_20_label" aria-describedby="cke_20_description" aria-haspopup="false" aria-disabled="true" onkeydown="return CKEDITOR.tools.callFunction(7,event);" onfocus="return CKEDITOR.tools.callFunction(8,event);" onclick="CKEDITOR.tools.callFunction(9,this);return false;"><span class="cke_button_icon cke_button__redo_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -1128px;background-size:auto;">&nbsp;</span><span id="cke_20_label" class="cke_button_label cke_button__redo_label" aria-hidden="false">Повторить</span><span id="cke_20_description" class="cke_button_label" aria-hidden="false">Комбинация клавиш Ctrl+Y</span></a></span><span class="cke_toolbar_end"></span></span><span id="cke_21" class="cke_toolbar" aria-labelledby="cke_21_label" role="toolbar"><span id="cke_21_label" class="cke_voice_label">Корректировка</span><span class="cke_toolbar_start"></span><span class="cke_toolgroup" role="presentation"><a id="cke_22" class="cke_button cke_button__find cke_button_off" href="javascript:void('Найти')" title="Найти" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_22_label" aria-describedby="cke_22_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(10,event);" onfocus="return CKEDITOR.tools.callFunction(11,event);" onclick="CKEDITOR.tools.callFunction(12,this);return false;"><span class="cke_button_icon cke_button__find_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -384px;background-size:auto;">&nbsp;</span><span id="cke_22_label" class="cke_button_label cke_button__find_label" aria-hidden="false">Найти</span><span id="cke_22_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_23" class="cke_button cke_button__replace cke_button_off" href="javascript:void('Заменить')" title="Заменить" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_23_label" aria-describedby="cke_23_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(13,event);" onfocus="return CKEDITOR.tools.callFunction(14,event);" onclick="CKEDITOR.tools.callFunction(15,this);return false;"><span class="cke_button_icon cke_button__replace_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -408px;background-size:auto;">&nbsp;</span><span id="cke_23_label" class="cke_button_label cke_button__replace_label" aria-hidden="false">Заменить</span><span id="cke_23_description" class="cke_button_label" aria-hidden="false"></span></a></span><span class="cke_toolbar_end"></span></span><span id="cke_24" class="cke_toolbar" aria-labelledby="cke_24_label" role="toolbar"><span id="cke_24_label" class="cke_voice_label">Ссылки</span><span class="cke_toolbar_start"></span><span class="cke_toolgroup" role="presentation"><a id="cke_25" class="cke_button cke_button__link cke_button_off" href="javascript:void('Вставить/Редактировать ссылку')" title="Вставить/Редактировать ссылку (Ctrl+K)" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_25_label" aria-describedby="cke_25_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(16,event);" onfocus="return CKEDITOR.tools.callFunction(17,event);" onclick="CKEDITOR.tools.callFunction(18,this);return false;"><span class="cke_button_icon cke_button__link_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -720px;background-size:auto;">&nbsp;</span><span id="cke_25_label" class="cke_button_label cke_button__link_label" aria-hidden="false">Вставить/Редактировать ссылку</span><span id="cke_25_description" class="cke_button_label" aria-hidden="false">Комбинация клавиш Ctrl+K</span></a><a id="cke_26" class="cke_button cke_button__unlink cke_button_disabled " href="javascript:void('Убрать ссылку')" title="Убрать ссылку" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_26_label" aria-describedby="cke_26_description" aria-haspopup="false" aria-disabled="true" onkeydown="return CKEDITOR.tools.callFunction(19,event);" onfocus="return CKEDITOR.tools.callFunction(20,event);" onclick="CKEDITOR.tools.callFunction(21,this);return false;"><span class="cke_button_icon cke_button__unlink_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -744px;background-size:auto;">&nbsp;</span><span id="cke_26_label" class="cke_button_label cke_button__unlink_label" aria-hidden="false">Убрать ссылку</span><span id="cke_26_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_27" class="cke_button cke_button__anchor cke_button_off" href="javascript:void('Вставить / редактировать якорь')" title="Вставить / редактировать якорь" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_27_label" aria-describedby="cke_27_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(22,event);" onfocus="return CKEDITOR.tools.callFunction(23,event);" onclick="CKEDITOR.tools.callFunction(24,this);return false;"><span class="cke_button_icon cke_button__anchor_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -696px;background-size:auto;">&nbsp;</span><span id="cke_27_label" class="cke_button_label cke_button__anchor_label" aria-hidden="false">Вставить / редактировать якорь</span><span id="cke_27_description" class="cke_button_label" aria-hidden="false"></span></a></span><span class="cke_toolbar_end"></span></span><span id="cke_28" class="cke_toolbar" aria-labelledby="cke_28_label" role="toolbar"><span id="cke_28_label" class="cke_voice_label">Вставка</span><span class="cke_toolbar_start"></span><span class="cke_toolgroup" role="presentation"><a id="cke_29" class="cke_button cke_button__image cke_button_off" href="javascript:void('Изображение')" title="Изображение" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_29_label" aria-describedby="cke_29_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(25,event);" onfocus="return CKEDITOR.tools.callFunction(26,event);" onclick="CKEDITOR.tools.callFunction(27,this);return false;"><span class="cke_button_icon cke_button__image_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -456px;background-size:auto;">&nbsp;</span><span id="cke_29_label" class="cke_button_label cke_button__image_label" aria-hidden="false">Изображение</span><span id="cke_29_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_30" class="cke_button cke_button__html5audio cke_button_off" href="javascript:void('Вставить HTML5 аудио')" title="Вставить HTML5 аудио" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_30_label" aria-describedby="cke_30_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(28,event);" onfocus="return CKEDITOR.tools.callFunction(29,event);" onclick="CKEDITOR.tools.callFunction(30,this);return false;"><span class="cke_button_icon cke_button__html5audio_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -1200px;background-size:auto;">&nbsp;</span><span id="cke_30_label" class="cke_button_label cke_button__html5audio_label" aria-hidden="false">Вставить HTML5 аудио</span><span id="cke_30_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_31" class="cke_button cke_button__table cke_button_off" href="javascript:void('Таблица')" title="Таблица" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_31_label" aria-describedby="cke_31_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(31,event);" onfocus="return CKEDITOR.tools.callFunction(32,event);" onclick="CKEDITOR.tools.callFunction(33,this);return false;"><span class="cke_button_icon cke_button__table_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -1080px;background-size:auto;">&nbsp;</span><span id="cke_31_label" class="cke_button_label cke_button__table_label" aria-hidden="false">Таблица</span><span id="cke_31_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_32" class="cke_button cke_button__horizontalrule cke_button_off" href="javascript:void('Вставить горизонтальную линию')" title="Вставить горизонтальную линию" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_32_label" aria-describedby="cke_32_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(34,event);" onfocus="return CKEDITOR.tools.callFunction(35,event);" onclick="CKEDITOR.tools.callFunction(36,this);return false;"><span class="cke_button_icon cke_button__horizontalrule_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -432px;background-size:auto;">&nbsp;</span><span id="cke_32_label" class="cke_button_label cke_button__horizontalrule_label" aria-hidden="false">Вставить горизонтальную линию</span><span id="cke_32_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_33" class="cke_button cke_button__specialchar cke_button_off" href="javascript:void('Вставить специальный символ')" title="Вставить специальный символ" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_33_label" aria-describedby="cke_33_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(37,event);" onfocus="return CKEDITOR.tools.callFunction(38,event);" onclick="CKEDITOR.tools.callFunction(39,this);return false;"><span class="cke_button_icon cke_button__specialchar_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -1056px;background-size:auto;">&nbsp;</span><span id="cke_33_label" class="cke_button_label cke_button__specialchar_label" aria-hidden="false">Вставить специальный символ</span><span id="cke_33_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_34" class="cke_button cke_button__youtube cke_button_off" href="javascript:void('Вставить YouTube видео')" title="Вставить YouTube видео" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_34_label" aria-describedby="cke_34_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(40,event);" onfocus="return CKEDITOR.tools.callFunction(41,event);" onclick="CKEDITOR.tools.callFunction(42,this);return false;"><span class="cke_button_icon cke_button__youtube_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/youtube/images/icon.png?t=KA9B');background-position:0 0px;background-size:16px;">&nbsp;</span><span id="cke_34_label" class="cke_button_label cke_button__youtube_label" aria-hidden="false">Вставить YouTube видео</span><span id="cke_34_description" class="cke_button_label" aria-hidden="false"></span></a></span><span class="cke_toolbar_end"></span></span><span id="cke_35" class="cke_toolbar" aria-labelledby="cke_35_label" role="toolbar"><span id="cke_35_label" class="cke_voice_label">Инструменты</span><span class="cke_toolbar_start"></span><span class="cke_toolgroup" role="presentation"><a id="cke_36" class="cke_button cke_button__maximize cke_button_off" href="javascript:void('Развернуть')" title="Развернуть" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_36_label" aria-describedby="cke_36_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(43,event);" onfocus="return CKEDITOR.tools.callFunction(44,event);" onclick="CKEDITOR.tools.callFunction(45,this);return false;"><span class="cke_button_icon cke_button__maximize_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -864px;background-size:auto;">&nbsp;</span><span id="cke_36_label" class="cke_button_label cke_button__maximize_label" aria-hidden="false">Развернуть</span><span id="cke_36_description" class="cke_button_label" aria-hidden="false"></span></a>
+              </span><span class="cke_toolbar_end"></span></span><span id="cke_37" class="cke_toolbar" aria-labelledby="cke_37_label" role="toolbar"><span id="cke_37_label" class="cke_voice_label">Документ</span><span class="cke_toolbar_start"></span><span class="cke_toolgroup" role="presentation"><a id="cke_38" class="cke_button cke_button__source cke_button_off" href="javascript:void('Источник')" title="Источник" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_38_label" aria-describedby="cke_38_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(46,event);" onfocus="return CKEDITOR.tools.callFunction(47,event);" onclick="CKEDITOR.tools.callFunction(48,this);return false;"><span class="cke_button_icon cke_button__source_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -1032px;background-size:auto;">&nbsp;</span><span id="cke_38_label" class="cke_button_label cke_button__source_label" aria-hidden="false">Источник</span><span id="cke_38_description" class="cke_button_label" aria-hidden="false"></span></a>
+              </span><span class="cke_toolbar_end"></span></span><span class="cke_toolbar_break"></span><span id="cke_39" class="cke_toolbar" aria-labelledby="cke_39_label" role="toolbar"><span id="cke_39_label" class="cke_voice_label">Простые стили</span><span class="cke_toolbar_start"></span><span class="cke_toolgroup" role="presentation"><a id="cke_40" class="cke_button cke_button__bold cke_button_off" href="javascript:void('Полужирный')" title="Полужирный (Ctrl+B)" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_40_label" aria-describedby="cke_40_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(49,event);" onfocus="return CKEDITOR.tools.callFunction(50,event);" onclick="CKEDITOR.tools.callFunction(51,this);return false;"><span class="cke_button_icon cke_button__bold_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 0px;background-size:auto;">&nbsp;</span><span id="cke_40_label" class="cke_button_label cke_button__bold_label" aria-hidden="false">Полужирный</span><span id="cke_40_description" class="cke_button_label" aria-hidden="false">Комбинация клавиш Ctrl+B</span></a><a id="cke_41" class="cke_button cke_button__italic cke_button_off" href="javascript:void('Курсив')" title="Курсив (Ctrl+I)" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_41_label" aria-describedby="cke_41_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(52,event);" onfocus="return CKEDITOR.tools.callFunction(53,event);" onclick="CKEDITOR.tools.callFunction(54,this);return false;"><span class="cke_button_icon cke_button__italic_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -24px;background-size:auto;">&nbsp;</span><span id="cke_41_label" class="cke_button_label cke_button__italic_label" aria-hidden="false">Курсив</span><span id="cke_41_description" class="cke_button_label" aria-hidden="false">Комбинация клавиш Ctrl+I</span></a><a id="cke_42" class="cke_button cke_button__underline cke_button_off" href="javascript:void('Подчеркнутый')" title="Подчеркнутый (Ctrl+U)" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_42_label" aria-describedby="cke_42_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(55,event);" onfocus="return CKEDITOR.tools.callFunction(56,event);" onclick="CKEDITOR.tools.callFunction(57,this);return false;"><span class="cke_button_icon cke_button__underline_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -120px;background-size:auto;">&nbsp;</span><span id="cke_42_label" class="cke_button_label cke_button__underline_label" aria-hidden="false">Подчеркнутый</span><span id="cke_42_description" class="cke_button_label" aria-hidden="false">Комбинация клавиш Ctrl+U</span></a><a id="cke_43" class="cke_button cke_button__strike cke_button_off" href="javascript:void('Зачеркнутый')" title="Зачеркнутый" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_43_label" aria-describedby="cke_43_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(58,event);" onfocus="return CKEDITOR.tools.callFunction(59,event);" onclick="CKEDITOR.tools.callFunction(60,this);return false;"><span class="cke_button_icon cke_button__strike_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -48px;background-size:auto;">&nbsp;</span><span id="cke_43_label" class="cke_button_label cke_button__strike_label" aria-hidden="false">Зачеркнутый</span><span id="cke_43_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_44" class="cke_button cke_button__subscript cke_button_off" href="javascript:void('Подстрочный индекс')" title="Подстрочный индекс" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_44_label" aria-describedby="cke_44_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(61,event);" onfocus="return CKEDITOR.tools.callFunction(62,event);" onclick="CKEDITOR.tools.callFunction(63,this);return false;"><span class="cke_button_icon cke_button__subscript_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -72px;background-size:auto;">&nbsp;</span><span id="cke_44_label" class="cke_button_label cke_button__subscript_label" aria-hidden="false">Подстрочный индекс</span><span id="cke_44_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_45" class="cke_button cke_button__superscript cke_button_off" href="javascript:void('Надстрочный индекс')" title="Надстрочный индекс" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_45_label" aria-describedby="cke_45_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(64,event);" onfocus="return CKEDITOR.tools.callFunction(65,event);" onclick="CKEDITOR.tools.callFunction(66,this);return false;"><span class="cke_button_icon cke_button__superscript_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -96px;background-size:auto;">&nbsp;</span><span id="cke_45_label" class="cke_button_label cke_button__superscript_label" aria-hidden="false">Надстрочный индекс</span><span id="cke_45_description" class="cke_button_label" aria-hidden="false"></span></a><span class="cke_toolbar_separator" role="separator"></span><a id="cke_46" class="cke_button cke_button__removeformat cke_button_off" href="javascript:void('Убрать форматирование')" title="Убрать форматирование" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_46_label" aria-describedby="cke_46_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(67,event);" onfocus="return CKEDITOR.tools.callFunction(68,event);" onclick="CKEDITOR.tools.callFunction(69,this);return false;"><span class="cke_button_icon cke_button__removeformat_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -984px;background-size:auto;">&nbsp;</span><span id="cke_46_label" class="cke_button_label cke_button__removeformat_label" aria-hidden="false">Убрать форматирование</span><span id="cke_46_description" class="cke_button_label" aria-hidden="false"></span></a></span><span class="cke_toolbar_end"></span></span><span id="cke_47" class="cke_toolbar" aria-labelledby="cke_47_label" role="toolbar"><span id="cke_47_label" class="cke_voice_label">Абзац</span><span class="cke_toolbar_start"></span><span class="cke_toolgroup" role="presentation"><a id="cke_48" class="cke_button cke_button__numberedlist cke_button_off" href="javascript:void('Вставить / удалить нумерованный список')" title="Вставить / удалить нумерованный список" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_48_label" aria-describedby="cke_48_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(70,event);" onfocus="return CKEDITOR.tools.callFunction(71,event);" onclick="CKEDITOR.tools.callFunction(72,this);return false;"><span class="cke_button_icon cke_button__numberedlist_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -840px;background-size:auto;">&nbsp;</span><span id="cke_48_label" class="cke_button_label cke_button__numberedlist_label" aria-hidden="false">Вставить / удалить нумерованный список</span><span id="cke_48_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_49" class="cke_button cke_button__bulletedlist cke_button_off" href="javascript:void('Вставить / удалить маркированный список')" title="Вставить / удалить маркированный список" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_49_label" aria-describedby="cke_49_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(73,event);" onfocus="return CKEDITOR.tools.callFunction(74,event);" onclick="CKEDITOR.tools.callFunction(75,this);return false;"><span class="cke_button_icon cke_button__bulletedlist_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -792px;background-size:auto;">&nbsp;</span><span id="cke_49_label" class="cke_button_label cke_button__bulletedlist_label" aria-hidden="false">Вставить / удалить маркированный список</span><span id="cke_49_description" class="cke_button_label" aria-hidden="false"></span></a><span class="cke_toolbar_separator" role="separator"></span><a id="cke_50" class="cke_button cke_button__outdent cke_button_disabled " href="javascript:void('Уменьшить отступ')" title="Уменьшить отступ" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_50_label" aria-describedby="cke_50_description" aria-haspopup="false" aria-disabled="true" onkeydown="return CKEDITOR.tools.callFunction(76,event);" onfocus="return CKEDITOR.tools.callFunction(77,event);" onclick="CKEDITOR.tools.callFunction(78,this);return false;"><span class="cke_button_icon cke_button__outdent_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -552px;background-size:auto;">&nbsp;</span><span id="cke_50_label" class="cke_button_label cke_button__outdent_label" aria-hidden="false">Уменьшить отступ</span><span id="cke_50_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_51" class="cke_button cke_button__indent cke_button_off" href="javascript:void('Увеличить отступ')" title="Увеличить отступ" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_51_label" aria-describedby="cke_51_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(79,event);" onfocus="return CKEDITOR.tools.callFunction(80,event);" onclick="CKEDITOR.tools.callFunction(81,this);return false;"><span class="cke_button_icon cke_button__indent_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -504px;background-size:auto;">&nbsp;</span><span id="cke_51_label" class="cke_button_label cke_button__indent_label" aria-hidden="false">Увеличить отступ</span><span id="cke_51_description" class="cke_button_label" aria-hidden="false"></span></a><span class="cke_toolbar_separator" role="separator"></span><a id="cke_52" class="cke_button cke_button__blockquote cke_button_off" href="javascript:void('Цитата')" title="Цитата" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_52_label" aria-describedby="cke_52_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(82,event);" onfocus="return CKEDITOR.tools.callFunction(83,event);" onclick="CKEDITOR.tools.callFunction(84,this);return false;"><span class="cke_button_icon cke_button__blockquote_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -144px;background-size:auto;">&nbsp;</span><span id="cke_52_label" class="cke_button_label cke_button__blockquote_label" aria-hidden="false">Цитата</span><span id="cke_52_description" class="cke_button_label" aria-hidden="false"></span></a><span class="cke_toolbar_separator" role="separator"></span><a id="cke_53" class="cke_button cke_button__justifyleft cke_button_off" href="javascript:void('По левому краю')" title="По левому краю" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_53_label" aria-describedby="cke_53_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(85,event);" onfocus="return CKEDITOR.tools.callFunction(86,event);" onclick="CKEDITOR.tools.callFunction(87,this);return false;"><span class="cke_button_icon cke_button__justifyleft_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -624px;background-size:auto;">&nbsp;</span><span id="cke_53_label" class="cke_button_label cke_button__justifyleft_label" aria-hidden="false">По левому краю</span><span id="cke_53_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_54" class="cke_button cke_button__justifycenter cke_button_off" href="javascript:void('По центру')" title="По центру" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_54_label" aria-describedby="cke_54_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(88,event);" onfocus="return CKEDITOR.tools.callFunction(89,event);" onclick="CKEDITOR.tools.callFunction(90,this);return false;"><span class="cke_button_icon cke_button__justifycenter_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -600px;background-size:auto;">&nbsp;</span><span id="cke_54_label" class="cke_button_label cke_button__justifycenter_label" aria-hidden="false">По центру</span><span id="cke_54_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_55" class="cke_button cke_button__justifyright cke_button_off" href="javascript:void('По правому краю')" title="По правому краю" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_55_label" aria-describedby="cke_55_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(91,event);" onfocus="return CKEDITOR.tools.callFunction(92,event);" onclick="CKEDITOR.tools.callFunction(93,this);return false;"><span class="cke_button_icon cke_button__justifyright_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -648px;background-size:auto;">&nbsp;</span><span id="cke_55_label" class="cke_button_label cke_button__justifyright_label" aria-hidden="false">По правому краю</span><span id="cke_55_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_56" class="cke_button cke_button__justifyblock cke_button_off" href="javascript:void('По ширине')" title="По ширине" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_56_label" aria-describedby="cke_56_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(94,event);" onfocus="return CKEDITOR.tools.callFunction(95,event);" onclick="CKEDITOR.tools.callFunction(96,this);return false;"><span class="cke_button_icon cke_button__justifyblock_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -576px;background-size:auto;">&nbsp;</span><span id="cke_56_label" class="cke_button_label cke_button__justifyblock_label" aria-hidden="false">По ширине</span><span id="cke_56_description" class="cke_button_label" aria-hidden="false"></span></a></span><span class="cke_toolbar_end"></span></span><span id="cke_57" class="cke_toolbar cke_toolbar_last" aria-labelledby="cke_57_label" role="toolbar"><span id="cke_57_label" class="cke_voice_label">Стили</span><span class="cke_toolbar_start"></span><span id="cke_15" class="cke_combo cke_combo__format cke_combo_off" role="presentation"><span id="cke_15_label" class="cke_combo_label">Форматирование</span><a class="cke_combo_button" title="Форматирование" tabindex="-1" href="javascript:void('Форматирование')" hidefocus="true" role="button" aria-labelledby="cke_15_label" aria-haspopup="listbox" onkeydown="return CKEDITOR.tools.callFunction(98,event,this);" onfocus="return CKEDITOR.tools.callFunction(99,event);" onclick="CKEDITOR.tools.callFunction(97,this);return false;" aria-expanded="false"><span id="cke_15_text" class="cke_combo_text cke_combo_inlinelabel">Форматирование</span><span class="cke_combo_open"><span class="cke_combo_arrow"></span></span></a></span><span id="cke_16" class="cke_combo cke_combo__font cke_combo_off" role="presentation"><span id="cke_16_label" class="cke_combo_label">Шрифт</span><a class="cke_combo_button" title="Шрифт" tabindex="-1" href="javascript:void('Шрифт')" hidefocus="true" role="button" aria-labelledby="cke_16_label" aria-haspopup="listbox" onkeydown="return CKEDITOR.tools.callFunction(101,event,this);" onfocus="return CKEDITOR.tools.callFunction(102,event);" onclick="CKEDITOR.tools.callFunction(100,this);return false;" aria-expanded="false"><span id="cke_16_text" class="cke_combo_text cke_combo_inlinelabel">Шрифт</span><span class="cke_combo_open"><span class="cke_combo_arrow"></span></span></a></span><span id="cke_17" class="cke_combo cke_combo__fontsize cke_combo_off" role="presentation"><span id="cke_17_label" class="cke_combo_label">Размер</span><a class="cke_combo_button" title="Размер шрифта" tabindex="-1" href="javascript:void('Размер шрифта')" hidefocus="true" role="button" aria-labelledby="cke_17_label" aria-haspopup="listbox" onkeydown="return CKEDITOR.tools.callFunction(104,event,this);" onfocus="return CKEDITOR.tools.callFunction(105,event);" onclick="CKEDITOR.tools.callFunction(103,this);return false;" aria-expanded="false"><span id="cke_17_text" class="cke_combo_text cke_combo_inlinelabel">Размер</span><span class="cke_combo_open"><span class="cke_combo_arrow"></span></span></a></span><span class="cke_toolgroup" role="presentation"><a id="cke_58" class="cke_button cke_button__textcolor cke_button_expandable cke_button_off" href="javascript:void('Цвет текста')" title="Цвет текста" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_58_label" aria-describedby="cke_58_description" aria-haspopup="listbox" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(106,event);" onfocus="return CKEDITOR.tools.callFunction(107,event);" onclick="CKEDITOR.tools.callFunction(108,this);return false;" aria-expanded="false"><span class="cke_button_icon cke_button__textcolor_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -336px;background-size:auto;">&nbsp;</span><span id="cke_58_label" class="cke_button_label cke_button__textcolor_label" aria-hidden="false">Цвет текста</span><span id="cke_58_description" class="cke_button_label" aria-hidden="false"></span><span class="cke_button_arrow"></span></a><a id="cke_59" class="cke_button cke_button__bgcolor cke_button_expandable cke_button_off" href="javascript:void('Цвет фона')" title="Цвет фона" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_59_label" aria-describedby="cke_59_description" aria-haspopup="listbox" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(109,event);" onfocus="return CKEDITOR.tools.callFunction(110,event);" onclick="CKEDITOR.tools.callFunction(111,this);return false;" aria-expanded="false"><span class="cke_button_icon cke_button__bgcolor_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -312px;background-size:auto;">&nbsp;</span><span id="cke_59_label" class="cke_button_label cke_button__bgcolor_label" aria-hidden="false">Цвет фона</span><span id="cke_59_description" class="cke_button_label" aria-hidden="false"></span><span class="cke_button_arrow"></span></a></span><span class="cke_toolbar_end"></span></span>
+              </span>
+              </span>
+              <div id="cke_1_contents" class="cke_contents cke_reset" role="presentation" style="height: 250px;"><span id="cke_64" class="cke_voice_label">Нажмите ALT-0 для открытия справки</span>
+                <iframe src="" frameborder="0" class="cke_wysiwyg_frame cke_reset" title="Визуальный текстовый редактор, brief" aria-describedby="cke_64" tabindex="0" allowtransparency="true" style="width: 100%; height: 100%;"></iframe>
+              </div><span id="cke_1_bottom" class="cke_bottom cke_reset_all" role="presentation" style="user-select: none;"><span id="cke_1_resizer" class="cke_resizer cke_resizer_vertical cke_resizer_ltr" title="Перетащите для изменения размера" onmousedown="CKEDITOR.tools.callFunction(3, event)">◢</span><span id="cke_1_path_label" class="cke_voice_label">Путь элементов</span><span id="cke_1_path" class="cke_path" role="group" aria-labelledby="cke_1_path_label"><span class="cke_path_empty">&nbsp;</span></span>
+              <div class="cke_wordcount" style="" title="Статистика"><span id="cke_wordcount_brief" class="cke_path_item">Параграфов: 0, Слов: 0, Символов: 0</span></div>
+              </span>
+            </div>
+          </div>
+          <input type="hidden" id="edttbrief" name="edttbrief" value="1" autocomplete="off">
+          <div class="ucoz-editor-bottom u-gap flex-align-center gap" style="display: none;">
+            <label>
+              <input id="format_brief" type="checkbox" name="format_brief" value="1" data-choice=""> Заменять переводы строк тегом <b>&lt;BR&gt;</b></label>
+            <label>
+              <input id="html_brief" type="checkbox" name="html_brief" value="1" checked=""> Включить HTML теги</label>
+          </div>
+          <div flex-justify-end="" flex-end="" id="briefSymbolsStat" class="symbols-stat-wrapper fHelp">
+            Слов: <span class="symbols-stat" id="briefWordsCount">0</span>, Символов: <span class="symbols-stat" id="briefSymbolsCount">0/0</span>
+          </div>
+        </div>
+      </li>
+      <li class="notcolumn">
+        <hr>
+      </li>
+
+      <li class="notcolumn">
+        <div style="float:right; float:inline-end; " class="edtTypeMenu" data-uetarget="message" flex-end="" quarter-gap="">
+          <span><a href="javascript:;" data-uemode="1" style="display: none;">Визуальный редактор</a><b style="display: inline;">Визуальный редактор</b></span> |
+          <span><a href="javascript:;" data-uemode="3">Панель HTML кодов</a><b style="display: none;">Панель HTML кодов</b></span>
+        </div>
+        <div id="txtPart555message">
+          <div>Полный текст материала <font color="red" class="manStar">*</font>:</div>
+          <div class="ucoz-editor-bbpanel ucoz-editor-panel" style="display:none;"><span style="padding-right:1px;" id="bc1"><input type="button" title="Bold" value="b" onclick="simpletag('b','','','message','')" class="codeButtons" id="b" style="width:20px;font-weight:bold"></span><span style="padding-right:1px;" id="bc2"><input type="button" title="Italic" value="i" onclick="simpletag('i','','','message','')" class="codeButtons" id="i" style="width:20px;font-style:italic"></span><span style="padding-right:1px;" id="bc3"><input type="button" title="Underline" value="u" onclick="simpletag('u','','','message','')" class="codeButtons" id="u" style="width:20px;text-decoration:underline"></span>
+            <span style="padding-right:1px;" id="bc4">
+			<select id="fsize" class="codeButtons" onchange="alterfont(this.options[this.selectedIndex].value,'size','message','');this.selectedIndex=0;">
+				<option value="0">SIZE</option>
+				<option value="6">6 pt</option>
+				<option value="7">7 pt</option>
+				<option value="8">8 pt</option>
+				<option value="9">9 pt</option>
+				<option value="10">10 pt</option>
+				<option value="11">11 pt</option>
+				<option value="12">12 pt</option>
+				<option value="13">13 pt</option>
+				<option value="14">14 pt</option>
+				<option value="15">15 pt</option>
+				<option value="16">16 pt</option>
+				<option value="17">17 pt</option>
+				<option value="18">18 pt</option>
+				<option value="19">19 pt</option>
+				<option value="20">20 pt</option>
+				<option value="21">21 pt</option>
+				<option value="22">22 pt</option>
+			</select>
+		</span><span style="padding-right:1px;" id="bc6">
+			<select id="fcolor" class="codeButtons" onchange="alterfont(this.options[this.selectedIndex].value, 'color','message','');this.selectedIndex=0;">
+				<option value="0">COLOR</option>
+				<option value="blue" style="color:Blue">Blue</option>
+				<option value="red" style="color:Red">Red</option>
+				<option value="purple" style="color:Purple">Purple</option>
+				<option value="orange" style="color:Orange">Orange</option>
+				<option value="yellow" style="color:Yellow">Yellow</option>
+				<option value="gray" style="color:Gray">Gray</option>
+				<option value="green" style="color:Green">Green</option>
+			</select>
+		</span><span style="padding-right:1px;" id="bc7"><input type="button" title="URL" value="http://" onclick="tag_url('message','')" class="codeButtons" style="direction:ltr;width:45px;" id="url"></span><span style="padding-right:1px;" id="bc8"><input type="button" title="E-mail" value="@" onclick="tag_email('message','')" class="codeButtons" style="width:30px;" id="email"></span><span style="padding-right:1px;" id="bc9"><input type="button" title="Image" value="img" onclick="tag_image('message','')" class="codeButtons" style="width:35px;" id="img"></span><span style="padding-right:1px;" id="bc18"><input type="button" title="Hide from Guest" value="hide" onclick="simpletag('hide','','','message','')" class="codeButtons" style="width:40px;" id="hide"></span><span style="padding-right:1px;" id="bc12"><input type="button" title="List" value="list" onclick="tag_list('message','')" class="codeButtons" id="list" style="width:30px;"></span>
+            <span style="padding-right:1px;" id="bc13"><input type="button" title="Left" style="width:20px;text-align:left;" value="···" onclick="simpletag('l','cdl','···','message')" class="codeButtons" id="cdl"></span><span style="padding-right:1px;" id="bc14"><input type="button" title="Center" style="width:20px;text-align:center;" value="···" onclick="simpletag('c','cdc','···','message')" class="codeButtons" id="cdc"></span><span style="padding-right:1px;" id="bc15"><input type="button" title="Right" style="width:20px;text-align:right;" value="···" onclick="simpletag('r','cdr','···','message')" class="codeButtons" id="cdr"></span>
+            <span style="padding-right:1px;" id="bc16"><input type="button" title="All codes" style="width:60px;" value="All codes" onclick="window.open('/index/17', 'bbcodes', 'scrollbars=1, width=550, height=450, left=0, top=0');" class="codeButtons"></span>
+            <span style="padding-right:1px;" id="bc17"><input style="font-weight:bold;width:20px" type="button" value="/" class="codeButtons codeCloseAll" title="Close all opened codes" onclick="closeall('message','');"></span>
+            <input type="hidden" id="tagcount" value="0">
+          </div>
+          <div class="ucoz-editor-htpanel ucoz-editor-panel" style="display:none;"><span style="padding-right:1px;" id="hbc1"><input type="button" title="Bold" value="b" onclick="_simpletag('b','message')" class="codeButtons" name="b" style="font-weight:bold"></span><span style="padding-right:1px;" id="hbc2"><input type="button" title="Italic" value="i" onclick="_simpletag('i','message')" class="codeButtons" name="i" style="font-style:italic"></span><span style="padding-right:1px;" id="hbc3"><input type="button" title="Underline" value="u" onclick="_simpletag('u','message')" class="codeButtons" name="u" style="text-decoration:underline"></span>
+            <span style="padding-right:1px;" id="hbc4">
+			<select name="fsize" class="codeButtons" onchange="_alterfont(this.options[this.selectedIndex].value,'size','message');this.selectedIndex=0;">
+				<option value="0">SIZE</option>
+				<option value="8">8 pt</option>
+				<option value="9">9 pt</option>
+				<option value="10">10 pt</option>
+				<option value="11">11 pt</option>
+				<option value="12">12 pt</option>
+				<option value="13">13 pt</option>
+				<option value="14">14 pt</option>
+				<option value="15">15 pt</option>
+				<option value="16">16 pt</option>
+				<option value="17">17 pt</option>
+				<option value="18">18 pt</option></select></span><span style="padding-right:1px;" id="hbc5">
+			<select name="ffont" class="codeButtons" onchange="_alterfont(this.options[this.selectedIndex].value,'font','message');this.selectedIndex=0;">
+				<option value="0">FAMILY</option>
+				<option value="Arial">Arial</option>
+				<option value="Times">Times</option>
+				<option value="Courier">Courier</option>
+				<option value="Impact">Impact</option>
+				<option value="Geneva">Geneva</option>
+				<option value="Optima">Optima</option></select></span><span style="padding-right:1px;" id="hbc6">
+			<select name="fcolor" class="codeButtons" onchange="_alterfont(this.options[this.selectedIndex].value,'color','message');this.selectedIndex=0;">
+				<option value="0">COLOR</option>
+				<option value="blue" style="color:Blue">Blue</option>
+				<option value="red" style="color:Red">Red</option>
+				<option value="purple" style="color:Purple">Purple</option>
+				<option value="orange" style="color:Orange">Orange</option>
+				<option value="yellow" style="color:Yellow">Yellow</option>
+				<option value="gray" style="color:Gray">Gray</option>
+				<option value="green" style="color:Green">Green</option></select></span>
+            <span style="padding-right:1px;" id="hbc7"><input type="button" title="URL" value="http://" onclick="_tag_url('message')" class="codeButtons" name="url" style="direction:ltr;"></span><span style="padding-right:1px;" id="hbc8"><input type="button" title="E-mail" value="@" onclick="_tag_email('message')" class="codeButtons" name="email"></span><span style="padding-right:1px;" id="hbc9"><input type="button" title="Image" value="img" onclick="_tag_image('message')" class="codeButtons" name="img"></span><span style="padding-right:1px;" id="hbc10"><input type="button" title="List" value="list" onclick="_tag_list('message')" class="codeButtons" name="list"></span>
+            <span style="padding-right:1px;" id="hbc11"><input type="button" title="Left" style="width:60px; text-align:left;" value="···" onclick="_alterfont('left','pos','message')" class="codeButtons" name="left"></span><span style="padding-right:1px;" id="hbc12"><input type="button" title="Center" style="width:60px; text-align:center;" value="···" onclick="_alterfont('center','pos','message')" class="codeButtons" name="center"></span><span style="padding-right:1px;" id="hbc13"><input type="button" title="Right" style="width:60px; text-align:right;" value="···" onclick="_alterfont('right','pos','message')" class="codeButtons" name="right"></span></div>
+          <textarea rows="10" style="width: 100%; height: 400px; visibility: hidden; display: none;" id="message" name="message" class="manFl" cols="40" oninput="window.uEditor &amp;&amp; uEditor.checkSymbolsCount(this)"></textarea>
+          <div id="cke_message" class="cke_2 cke cke_reset cke_chrome cke_editor_message cke_ltr cke_browser_webkit" dir="ltr" lang="ru" role="application" aria-labelledby="cke_message_arialbl"><span id="cke_message_arialbl" class="cke_voice_label">Визуальный текстовый редактор, message</span>
+            <div class="cke_inner cke_reset" role="presentation"><span id="cke_2_top" class="cke_top cke_reset_all" role="presentation" style="height: auto; user-select: none;"><span id="cke_73" class="cke_voice_label">Панели инструментов редактора</span><span id="cke_2_toolbox" class="cke_toolbox" role="group" aria-labelledby="cke_73" onmousedown="return false;"><span id="cke_77" class="cke_toolbar" aria-labelledby="cke_77_label" role="toolbar"><span id="cke_77_label" class="cke_voice_label">undo</span><span class="cke_toolbar_start"></span><span class="cke_toolgroup" role="presentation"><a id="cke_78" class="cke_button cke_button__undo cke_button_disabled " href="javascript:void('Отменить')" title="Отменить (Ctrl+Z)" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_78_label" aria-describedby="cke_78_description" aria-haspopup="false" aria-disabled="true" onkeydown="return CKEDITOR.tools.callFunction(119,event);" onfocus="return CKEDITOR.tools.callFunction(120,event);" onclick="CKEDITOR.tools.callFunction(121,this);return false;"><span class="cke_button_icon cke_button__undo_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -1176px;background-size:auto;">&nbsp;</span><span id="cke_78_label" class="cke_button_label cke_button__undo_label" aria-hidden="false">Отменить</span><span id="cke_78_description" class="cke_button_label" aria-hidden="false">Комбинация клавиш Ctrl+Z</span></a><a id="cke_79" class="cke_button cke_button__redo cke_button_disabled " href="javascript:void('Повторить')" title="Повторить (Ctrl+Y)" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_79_label" aria-describedby="cke_79_description" aria-haspopup="false" aria-disabled="true" onkeydown="return CKEDITOR.tools.callFunction(122,event);" onfocus="return CKEDITOR.tools.callFunction(123,event);" onclick="CKEDITOR.tools.callFunction(124,this);return false;"><span class="cke_button_icon cke_button__redo_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -1128px;background-size:auto;">&nbsp;</span><span id="cke_79_label" class="cke_button_label cke_button__redo_label" aria-hidden="false">Повторить</span><span id="cke_79_description" class="cke_button_label" aria-hidden="false">Комбинация клавиш Ctrl+Y</span></a></span><span class="cke_toolbar_end"></span></span><span id="cke_80" class="cke_toolbar" aria-labelledby="cke_80_label" role="toolbar"><span id="cke_80_label" class="cke_voice_label">Корректировка</span><span class="cke_toolbar_start"></span><span class="cke_toolgroup" role="presentation"><a id="cke_81" class="cke_button cke_button__find cke_button_off" href="javascript:void('Найти')" title="Найти" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_81_label" aria-describedby="cke_81_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(125,event);" onfocus="return CKEDITOR.tools.callFunction(126,event);" onclick="CKEDITOR.tools.callFunction(127,this);return false;"><span class="cke_button_icon cke_button__find_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -384px;background-size:auto;">&nbsp;</span><span id="cke_81_label" class="cke_button_label cke_button__find_label" aria-hidden="false">Найти</span><span id="cke_81_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_82" class="cke_button cke_button__replace cke_button_off" href="javascript:void('Заменить')" title="Заменить" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_82_label" aria-describedby="cke_82_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(128,event);" onfocus="return CKEDITOR.tools.callFunction(129,event);" onclick="CKEDITOR.tools.callFunction(130,this);return false;"><span class="cke_button_icon cke_button__replace_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -408px;background-size:auto;">&nbsp;</span><span id="cke_82_label" class="cke_button_label cke_button__replace_label" aria-hidden="false">Заменить</span><span id="cke_82_description" class="cke_button_label" aria-hidden="false"></span></a></span><span class="cke_toolbar_end"></span></span><span id="cke_83" class="cke_toolbar" aria-labelledby="cke_83_label" role="toolbar"><span id="cke_83_label" class="cke_voice_label">Ссылки</span><span class="cke_toolbar_start"></span><span class="cke_toolgroup" role="presentation"><a id="cke_84" class="cke_button cke_button__link cke_button_off" href="javascript:void('Вставить/Редактировать ссылку')" title="Вставить/Редактировать ссылку (Ctrl+K)" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_84_label" aria-describedby="cke_84_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(131,event);" onfocus="return CKEDITOR.tools.callFunction(132,event);" onclick="CKEDITOR.tools.callFunction(133,this);return false;"><span class="cke_button_icon cke_button__link_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -720px;background-size:auto;">&nbsp;</span><span id="cke_84_label" class="cke_button_label cke_button__link_label" aria-hidden="false">Вставить/Редактировать ссылку</span><span id="cke_84_description" class="cke_button_label" aria-hidden="false">Комбинация клавиш Ctrl+K</span></a><a id="cke_85" class="cke_button cke_button__unlink cke_button_disabled " href="javascript:void('Убрать ссылку')" title="Убрать ссылку" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_85_label" aria-describedby="cke_85_description" aria-haspopup="false" aria-disabled="true" onkeydown="return CKEDITOR.tools.callFunction(134,event);" onfocus="return CKEDITOR.tools.callFunction(135,event);" onclick="CKEDITOR.tools.callFunction(136,this);return false;"><span class="cke_button_icon cke_button__unlink_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -744px;background-size:auto;">&nbsp;</span><span id="cke_85_label" class="cke_button_label cke_button__unlink_label" aria-hidden="false">Убрать ссылку</span><span id="cke_85_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_86" class="cke_button cke_button__anchor cke_button_off" href="javascript:void('Вставить / редактировать якорь')" title="Вставить / редактировать якорь" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_86_label" aria-describedby="cke_86_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(137,event);" onfocus="return CKEDITOR.tools.callFunction(138,event);" onclick="CKEDITOR.tools.callFunction(139,this);return false;"><span class="cke_button_icon cke_button__anchor_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -696px;background-size:auto;">&nbsp;</span><span id="cke_86_label" class="cke_button_label cke_button__anchor_label" aria-hidden="false">Вставить / редактировать якорь</span><span id="cke_86_description" class="cke_button_label" aria-hidden="false"></span></a></span><span class="cke_toolbar_end"></span></span><span id="cke_87" class="cke_toolbar" aria-labelledby="cke_87_label" role="toolbar"><span id="cke_87_label" class="cke_voice_label">Вставка</span><span class="cke_toolbar_start"></span><span class="cke_toolgroup" role="presentation"><a id="cke_88" class="cke_button cke_button__image cke_button_off" href="javascript:void('Изображение')" title="Изображение" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_88_label" aria-describedby="cke_88_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(140,event);" onfocus="return CKEDITOR.tools.callFunction(141,event);" onclick="CKEDITOR.tools.callFunction(142,this);return false;"><span class="cke_button_icon cke_button__image_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -456px;background-size:auto;">&nbsp;</span><span id="cke_88_label" class="cke_button_label cke_button__image_label" aria-hidden="false">Изображение</span><span id="cke_88_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_89" class="cke_button cke_button__html5audio cke_button_off" href="javascript:void('Вставить HTML5 аудио')" title="Вставить HTML5 аудио" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_89_label" aria-describedby="cke_89_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(143,event);" onfocus="return CKEDITOR.tools.callFunction(144,event);" onclick="CKEDITOR.tools.callFunction(145,this);return false;"><span class="cke_button_icon cke_button__html5audio_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -1200px;background-size:auto;">&nbsp;</span><span id="cke_89_label" class="cke_button_label cke_button__html5audio_label" aria-hidden="false">Вставить HTML5 аудио</span><span id="cke_89_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_90" class="cke_button cke_button__table cke_button_off" href="javascript:void('Таблица')" title="Таблица" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_90_label" aria-describedby="cke_90_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(146,event);" onfocus="return CKEDITOR.tools.callFunction(147,event);" onclick="CKEDITOR.tools.callFunction(148,this);return false;"><span class="cke_button_icon cke_button__table_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -1080px;background-size:auto;">&nbsp;</span><span id="cke_90_label" class="cke_button_label cke_button__table_label" aria-hidden="false">Таблица</span><span id="cke_90_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_91" class="cke_button cke_button__horizontalrule cke_button_off" href="javascript:void('Вставить горизонтальную линию')" title="Вставить горизонтальную линию" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_91_label" aria-describedby="cke_91_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(149,event);" onfocus="return CKEDITOR.tools.callFunction(150,event);" onclick="CKEDITOR.tools.callFunction(151,this);return false;"><span class="cke_button_icon cke_button__horizontalrule_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -432px;background-size:auto;">&nbsp;</span><span id="cke_91_label" class="cke_button_label cke_button__horizontalrule_label" aria-hidden="false">Вставить горизонтальную линию</span><span id="cke_91_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_92" class="cke_button cke_button__specialchar cke_button_off" href="javascript:void('Вставить специальный символ')" title="Вставить специальный символ" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_92_label" aria-describedby="cke_92_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(152,event);" onfocus="return CKEDITOR.tools.callFunction(153,event);" onclick="CKEDITOR.tools.callFunction(154,this);return false;"><span class="cke_button_icon cke_button__specialchar_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -1056px;background-size:auto;">&nbsp;</span><span id="cke_92_label" class="cke_button_label cke_button__specialchar_label" aria-hidden="false">Вставить специальный символ</span><span id="cke_92_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_93" class="cke_button cke_button__youtube cke_button_off" href="javascript:void('Вставить YouTube видео')" title="Вставить YouTube видео" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_93_label" aria-describedby="cke_93_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(155,event);" onfocus="return CKEDITOR.tools.callFunction(156,event);" onclick="CKEDITOR.tools.callFunction(157,this);return false;"><span class="cke_button_icon cke_button__youtube_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/youtube/images/icon.png?t=KA9B');background-position:0 0px;background-size:16px;">&nbsp;</span><span id="cke_93_label" class="cke_button_label cke_button__youtube_label" aria-hidden="false">Вставить YouTube видео</span><span id="cke_93_description" class="cke_button_label" aria-hidden="false"></span></a></span><span class="cke_toolbar_end"></span></span><span id="cke_94" class="cke_toolbar" aria-labelledby="cke_94_label" role="toolbar"><span id="cke_94_label" class="cke_voice_label">Инструменты</span><span class="cke_toolbar_start"></span><span class="cke_toolgroup" role="presentation"><a id="cke_95" class="cke_button cke_button__maximize cke_button_off" href="javascript:void('Развернуть')" title="Развернуть" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_95_label" aria-describedby="cke_95_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(158,event);" onfocus="return CKEDITOR.tools.callFunction(159,event);" onclick="CKEDITOR.tools.callFunction(160,this);return false;"><span class="cke_button_icon cke_button__maximize_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -864px;background-size:auto;">&nbsp;</span><span id="cke_95_label" class="cke_button_label cke_button__maximize_label" aria-hidden="false">Развернуть</span><span id="cke_95_description" class="cke_button_label" aria-hidden="false"></span></a>
+              </span><span class="cke_toolbar_end"></span></span><span id="cke_96" class="cke_toolbar" aria-labelledby="cke_96_label" role="toolbar"><span id="cke_96_label" class="cke_voice_label">Документ</span><span class="cke_toolbar_start"></span><span class="cke_toolgroup" role="presentation"><a id="cke_97" class="cke_button cke_button__source cke_button_off" href="javascript:void('Источник')" title="Источник" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_97_label" aria-describedby="cke_97_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(161,event);" onfocus="return CKEDITOR.tools.callFunction(162,event);" onclick="CKEDITOR.tools.callFunction(163,this);return false;"><span class="cke_button_icon cke_button__source_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -1032px;background-size:auto;">&nbsp;</span><span id="cke_97_label" class="cke_button_label cke_button__source_label" aria-hidden="false">Источник</span><span id="cke_97_description" class="cke_button_label" aria-hidden="false"></span></a>
+              </span><span class="cke_toolbar_end"></span></span><span class="cke_toolbar_break"></span><span id="cke_98" class="cke_toolbar" aria-labelledby="cke_98_label" role="toolbar"><span id="cke_98_label" class="cke_voice_label">Простые стили</span><span class="cke_toolbar_start"></span><span class="cke_toolgroup" role="presentation"><a id="cke_99" class="cke_button cke_button__bold cke_button_off" href="javascript:void('Полужирный')" title="Полужирный (Ctrl+B)" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_99_label" aria-describedby="cke_99_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(164,event);" onfocus="return CKEDITOR.tools.callFunction(165,event);" onclick="CKEDITOR.tools.callFunction(166,this);return false;"><span class="cke_button_icon cke_button__bold_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 0px;background-size:auto;">&nbsp;</span><span id="cke_99_label" class="cke_button_label cke_button__bold_label" aria-hidden="false">Полужирный</span><span id="cke_99_description" class="cke_button_label" aria-hidden="false">Комбинация клавиш Ctrl+B</span></a><a id="cke_100" class="cke_button cke_button__italic cke_button_off" href="javascript:void('Курсив')" title="Курсив (Ctrl+I)" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_100_label" aria-describedby="cke_100_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(167,event);" onfocus="return CKEDITOR.tools.callFunction(168,event);" onclick="CKEDITOR.tools.callFunction(169,this);return false;"><span class="cke_button_icon cke_button__italic_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -24px;background-size:auto;">&nbsp;</span><span id="cke_100_label" class="cke_button_label cke_button__italic_label" aria-hidden="false">Курсив</span><span id="cke_100_description" class="cke_button_label" aria-hidden="false">Комбинация клавиш Ctrl+I</span></a><a id="cke_101" class="cke_button cke_button__underline cke_button_off" href="javascript:void('Подчеркнутый')" title="Подчеркнутый (Ctrl+U)" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_101_label" aria-describedby="cke_101_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(170,event);" onfocus="return CKEDITOR.tools.callFunction(171,event);" onclick="CKEDITOR.tools.callFunction(172,this);return false;"><span class="cke_button_icon cke_button__underline_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -120px;background-size:auto;">&nbsp;</span><span id="cke_101_label" class="cke_button_label cke_button__underline_label" aria-hidden="false">Подчеркнутый</span><span id="cke_101_description" class="cke_button_label" aria-hidden="false">Комбинация клавиш Ctrl+U</span></a><a id="cke_102" class="cke_button cke_button__strike cke_button_off" href="javascript:void('Зачеркнутый')" title="Зачеркнутый" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_102_label" aria-describedby="cke_102_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(173,event);" onfocus="return CKEDITOR.tools.callFunction(174,event);" onclick="CKEDITOR.tools.callFunction(175,this);return false;"><span class="cke_button_icon cke_button__strike_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -48px;background-size:auto;">&nbsp;</span><span id="cke_102_label" class="cke_button_label cke_button__strike_label" aria-hidden="false">Зачеркнутый</span><span id="cke_102_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_103" class="cke_button cke_button__subscript cke_button_off" href="javascript:void('Подстрочный индекс')" title="Подстрочный индекс" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_103_label" aria-describedby="cke_103_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(176,event);" onfocus="return CKEDITOR.tools.callFunction(177,event);" onclick="CKEDITOR.tools.callFunction(178,this);return false;"><span class="cke_button_icon cke_button__subscript_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -72px;background-size:auto;">&nbsp;</span><span id="cke_103_label" class="cke_button_label cke_button__subscript_label" aria-hidden="false">Подстрочный индекс</span><span id="cke_103_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_104" class="cke_button cke_button__superscript cke_button_off" href="javascript:void('Надстрочный индекс')" title="Надстрочный индекс" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_104_label" aria-describedby="cke_104_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(179,event);" onfocus="return CKEDITOR.tools.callFunction(180,event);" onclick="CKEDITOR.tools.callFunction(181,this);return false;"><span class="cke_button_icon cke_button__superscript_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -96px;background-size:auto;">&nbsp;</span><span id="cke_104_label" class="cke_button_label cke_button__superscript_label" aria-hidden="false">Надстрочный индекс</span><span id="cke_104_description" class="cke_button_label" aria-hidden="false"></span></a><span class="cke_toolbar_separator" role="separator"></span><a id="cke_105" class="cke_button cke_button__removeformat cke_button_off" href="javascript:void('Убрать форматирование')" title="Убрать форматирование" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_105_label" aria-describedby="cke_105_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(182,event);" onfocus="return CKEDITOR.tools.callFunction(183,event);" onclick="CKEDITOR.tools.callFunction(184,this);return false;"><span class="cke_button_icon cke_button__removeformat_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -984px;background-size:auto;">&nbsp;</span><span id="cke_105_label" class="cke_button_label cke_button__removeformat_label" aria-hidden="false">Убрать форматирование</span><span id="cke_105_description" class="cke_button_label" aria-hidden="false"></span></a></span><span class="cke_toolbar_end"></span></span><span id="cke_106" class="cke_toolbar" aria-labelledby="cke_106_label" role="toolbar"><span id="cke_106_label" class="cke_voice_label">Абзац</span><span class="cke_toolbar_start"></span><span class="cke_toolgroup" role="presentation"><a id="cke_107" class="cke_button cke_button__numberedlist cke_button_off" href="javascript:void('Вставить / удалить нумерованный список')" title="Вставить / удалить нумерованный список" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_107_label" aria-describedby="cke_107_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(185,event);" onfocus="return CKEDITOR.tools.callFunction(186,event);" onclick="CKEDITOR.tools.callFunction(187,this);return false;"><span class="cke_button_icon cke_button__numberedlist_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -840px;background-size:auto;">&nbsp;</span><span id="cke_107_label" class="cke_button_label cke_button__numberedlist_label" aria-hidden="false">Вставить / удалить нумерованный список</span><span id="cke_107_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_108" class="cke_button cke_button__bulletedlist cke_button_off" href="javascript:void('Вставить / удалить маркированный список')" title="Вставить / удалить маркированный список" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_108_label" aria-describedby="cke_108_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(188,event);" onfocus="return CKEDITOR.tools.callFunction(189,event);" onclick="CKEDITOR.tools.callFunction(190,this);return false;"><span class="cke_button_icon cke_button__bulletedlist_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -792px;background-size:auto;">&nbsp;</span><span id="cke_108_label" class="cke_button_label cke_button__bulletedlist_label" aria-hidden="false">Вставить / удалить маркированный список</span><span id="cke_108_description" class="cke_button_label" aria-hidden="false"></span></a><span class="cke_toolbar_separator" role="separator"></span><a id="cke_109" class="cke_button cke_button__outdent cke_button_disabled " href="javascript:void('Уменьшить отступ')" title="Уменьшить отступ" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_109_label" aria-describedby="cke_109_description" aria-haspopup="false" aria-disabled="true" onkeydown="return CKEDITOR.tools.callFunction(191,event);" onfocus="return CKEDITOR.tools.callFunction(192,event);" onclick="CKEDITOR.tools.callFunction(193,this);return false;"><span class="cke_button_icon cke_button__outdent_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -552px;background-size:auto;">&nbsp;</span><span id="cke_109_label" class="cke_button_label cke_button__outdent_label" aria-hidden="false">Уменьшить отступ</span><span id="cke_109_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_110" class="cke_button cke_button__indent cke_button_off" href="javascript:void('Увеличить отступ')" title="Увеличить отступ" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_110_label" aria-describedby="cke_110_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(194,event);" onfocus="return CKEDITOR.tools.callFunction(195,event);" onclick="CKEDITOR.tools.callFunction(196,this);return false;"><span class="cke_button_icon cke_button__indent_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -504px;background-size:auto;">&nbsp;</span><span id="cke_110_label" class="cke_button_label cke_button__indent_label" aria-hidden="false">Увеличить отступ</span><span id="cke_110_description" class="cke_button_label" aria-hidden="false"></span></a><span class="cke_toolbar_separator" role="separator"></span><a id="cke_111" class="cke_button cke_button__blockquote cke_button_off" href="javascript:void('Цитата')" title="Цитата" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_111_label" aria-describedby="cke_111_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(197,event);" onfocus="return CKEDITOR.tools.callFunction(198,event);" onclick="CKEDITOR.tools.callFunction(199,this);return false;"><span class="cke_button_icon cke_button__blockquote_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -144px;background-size:auto;">&nbsp;</span><span id="cke_111_label" class="cke_button_label cke_button__blockquote_label" aria-hidden="false">Цитата</span><span id="cke_111_description" class="cke_button_label" aria-hidden="false"></span></a><span class="cke_toolbar_separator" role="separator"></span><a id="cke_112" class="cke_button cke_button__justifyleft cke_button_off" href="javascript:void('По левому краю')" title="По левому краю" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_112_label" aria-describedby="cke_112_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(200,event);" onfocus="return CKEDITOR.tools.callFunction(201,event);" onclick="CKEDITOR.tools.callFunction(202,this);return false;"><span class="cke_button_icon cke_button__justifyleft_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -624px;background-size:auto;">&nbsp;</span><span id="cke_112_label" class="cke_button_label cke_button__justifyleft_label" aria-hidden="false">По левому краю</span><span id="cke_112_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_113" class="cke_button cke_button__justifycenter cke_button_off" href="javascript:void('По центру')" title="По центру" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_113_label" aria-describedby="cke_113_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(203,event);" onfocus="return CKEDITOR.tools.callFunction(204,event);" onclick="CKEDITOR.tools.callFunction(205,this);return false;"><span class="cke_button_icon cke_button__justifycenter_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -600px;background-size:auto;">&nbsp;</span><span id="cke_113_label" class="cke_button_label cke_button__justifycenter_label" aria-hidden="false">По центру</span><span id="cke_113_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_114" class="cke_button cke_button__justifyright cke_button_off" href="javascript:void('По правому краю')" title="По правому краю" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_114_label" aria-describedby="cke_114_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(206,event);" onfocus="return CKEDITOR.tools.callFunction(207,event);" onclick="CKEDITOR.tools.callFunction(208,this);return false;"><span class="cke_button_icon cke_button__justifyright_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -648px;background-size:auto;">&nbsp;</span><span id="cke_114_label" class="cke_button_label cke_button__justifyright_label" aria-hidden="false">По правому краю</span><span id="cke_114_description" class="cke_button_label" aria-hidden="false"></span></a><a id="cke_115" class="cke_button cke_button__justifyblock cke_button_off" href="javascript:void('По ширине')" title="По ширине" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_115_label" aria-describedby="cke_115_description" aria-haspopup="false" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(209,event);" onfocus="return CKEDITOR.tools.callFunction(210,event);" onclick="CKEDITOR.tools.callFunction(211,this);return false;"><span class="cke_button_icon cke_button__justifyblock_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -576px;background-size:auto;">&nbsp;</span><span id="cke_115_label" class="cke_button_label cke_button__justifyblock_label" aria-hidden="false">По ширине</span><span id="cke_115_description" class="cke_button_label" aria-hidden="false"></span></a></span><span class="cke_toolbar_end"></span></span><span id="cke_116" class="cke_toolbar cke_toolbar_last" aria-labelledby="cke_116_label" role="toolbar"><span id="cke_116_label" class="cke_voice_label">Стили</span><span class="cke_toolbar_start"></span><span id="cke_74" class="cke_combo cke_combo__format cke_combo_off" role="presentation"><span id="cke_74_label" class="cke_combo_label">Форматирование</span><a class="cke_combo_button" title="Форматирование" tabindex="-1" href="javascript:void('Форматирование')" hidefocus="true" role="button" aria-labelledby="cke_74_label" aria-haspopup="listbox" onkeydown="return CKEDITOR.tools.callFunction(213,event,this);" onfocus="return CKEDITOR.tools.callFunction(214,event);" onclick="CKEDITOR.tools.callFunction(212,this);return false;" aria-expanded="false"><span id="cke_74_text" class="cke_combo_text cke_combo_inlinelabel">Форматирование</span><span class="cke_combo_open"><span class="cke_combo_arrow"></span></span></a></span><span id="cke_75" class="cke_combo cke_combo__font cke_combo_off" role="presentation"><span id="cke_75_label" class="cke_combo_label">Шрифт</span><a class="cke_combo_button" title="Шрифт" tabindex="-1" href="javascript:void('Шрифт')" hidefocus="true" role="button" aria-labelledby="cke_75_label" aria-haspopup="listbox" onkeydown="return CKEDITOR.tools.callFunction(216,event,this);" onfocus="return CKEDITOR.tools.callFunction(217,event);" onclick="CKEDITOR.tools.callFunction(215,this);return false;" aria-expanded="false"><span id="cke_75_text" class="cke_combo_text cke_combo_inlinelabel">Шрифт</span><span class="cke_combo_open"><span class="cke_combo_arrow"></span></span></a></span><span id="cke_76" class="cke_combo cke_combo__fontsize cke_combo_off" role="presentation"><span id="cke_76_label" class="cke_combo_label">Размер</span><a class="cke_combo_button" title="Размер шрифта" tabindex="-1" href="javascript:void('Размер шрифта')" hidefocus="true" role="button" aria-labelledby="cke_76_label" aria-haspopup="listbox" onkeydown="return CKEDITOR.tools.callFunction(219,event,this);" onfocus="return CKEDITOR.tools.callFunction(220,event);" onclick="CKEDITOR.tools.callFunction(218,this);return false;" aria-expanded="false"><span id="cke_76_text" class="cke_combo_text cke_combo_inlinelabel">Размер</span><span class="cke_combo_open"><span class="cke_combo_arrow"></span></span></a></span><span class="cke_toolgroup" role="presentation"><a id="cke_117" class="cke_button cke_button__textcolor cke_button_expandable cke_button_off" href="javascript:void('Цвет текста')" title="Цвет текста" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_117_label" aria-describedby="cke_117_description" aria-haspopup="listbox" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(221,event);" onfocus="return CKEDITOR.tools.callFunction(222,event);" onclick="CKEDITOR.tools.callFunction(223,this);return false;" aria-expanded="false"><span class="cke_button_icon cke_button__textcolor_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -336px;background-size:auto;">&nbsp;</span><span id="cke_117_label" class="cke_button_label cke_button__textcolor_label" aria-hidden="false">Цвет текста</span><span id="cke_117_description" class="cke_button_label" aria-hidden="false"></span><span class="cke_button_arrow"></span></a><a id="cke_118" class="cke_button cke_button__bgcolor cke_button_expandable cke_button_off" href="javascript:void('Цвет фона')" title="Цвет фона" tabindex="-1" hidefocus="true" role="button" aria-labelledby="cke_118_label" aria-describedby="cke_118_description" aria-haspopup="listbox" aria-disabled="false" onkeydown="return CKEDITOR.tools.callFunction(224,event);" onfocus="return CKEDITOR.tools.callFunction(225,event);" onclick="CKEDITOR.tools.callFunction(226,this);return false;" aria-expanded="false"><span class="cke_button_icon cke_button__bgcolor_icon" style="background-image:url('https://podelki.clan.su/.s/src/ckeditor/plugins/icons.png?t=KA9B');background-position:0 -312px;background-size:auto;">&nbsp;</span><span id="cke_118_label" class="cke_button_label cke_button__bgcolor_label" aria-hidden="false">Цвет фона</span><span id="cke_118_description" class="cke_button_label" aria-hidden="false"></span><span class="cke_button_arrow"></span></a></span><span class="cke_toolbar_end"></span></span>
+              </span>
+              </span>
+              <div id="cke_2_contents" class="cke_contents cke_reset" role="presentation" style="height: 400px;"><span id="cke_122" class="cke_voice_label">Нажмите ALT-0 для открытия справки</span>
+                <iframe src="" frameborder="0" class="cke_wysiwyg_frame cke_reset" title="Визуальный текстовый редактор, message" aria-describedby="cke_122" tabindex="0" allowtransparency="true" style="width: 100%; height: 100%;"></iframe>
+              </div><span id="cke_2_bottom" class="cke_bottom cke_reset_all" role="presentation" style="user-select: none;"><span id="cke_2_resizer" class="cke_resizer cke_resizer_vertical cke_resizer_ltr" title="Перетащите для изменения размера" onmousedown="CKEDITOR.tools.callFunction(118, event)">◢</span><span id="cke_2_path_label" class="cke_voice_label">Путь элементов</span><span id="cke_2_path" class="cke_path" role="group" aria-labelledby="cke_2_path_label"><span class="cke_path_empty">&nbsp;</span></span>
+              <div class="cke_wordcount" style="" title="Статистика"><span id="cke_wordcount_message" class="cke_path_item">Параграфов: 0, Слов: 0, Символов: 0</span></div>
+              </span>
+            </div>
+          </div>
+          <input type="hidden" id="edttmessage" name="edttmessage" value="1" autocomplete="off">
+          <div class="ucoz-editor-bottom u-gap flex-align-center gap" style="display: none;">
+            <label>
+              <input id="format_message" type="checkbox" name="format_message" value="1" data-choice=""> Заменять переводы строк тегом <b>&lt;BR&gt;</b></label>
+            <label>
+              <input id="html_message" type="checkbox" name="html_message" value="1" checked=""> Включить HTML теги</label>
+          </div>
+          <div flex-justify-end="" flex-end="" id="messageSymbolsStat" class="symbols-stat-wrapper fHelp">
+            Слов: <span class="symbols-stat" id="messageWordsCount">0</span>, Символов: <span class="symbols-stat" id="messageSymbolsCount">0/0</span>
+          </div>
+        </div>
+      </li>
+      <li class="notcolumn">
+        <hr>
+      </li>
+
+      <li>
+        <label for="file1">Изображения <a href="javascript:;" rel="nofollow" onclick="new _uWnd('HelpWd', uCoz.sign[5255], 360, 150, { align:'justify', closeonesc:1 }, { url:'/index/90-5' })" class="noun uHelp"><b>?</b></a>:</label>
+      </li>
+      <li>
+        <div id="imageUploaderWrapper">
+
+          <div id="imageUploaderTypeSwitcher" class="image-uploader-type-switcher"><b>Стандартный загрузчик</b>|<a href="javascript:;" onclick="switchImageUploader(this)" data-type="1">Мультизагрузчик</a></div>
+          <div id="imageUploaderFields">
+            <div id="imblock1" class="">
+              <span data-num="1" id="iplus"><button type="button" onclick="addImgF(this)" title="Добавить поле для файла">+</button></span>
+              <input type="file" id="fln1" name="file1" size="20" onchange="getimage(this, 1);" accept="image/jpg, image/jpeg, image/jpe, image/png, image/gif, image/webp">
+              <article id="iCode1" class="u-hidden" data-viewport="large"></article>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <label for="aname">Полное имя:</label>
+      </li>
+      <li>
+        <input type="text" class="manFlaName" size="35" id="puF4" name="aname" maxlength="35">
+      </li>
+
+      <li>
+        <label for="aemail">E-mail:</label>
+      </li>
+      <li>
+        <input type="text" class="manFlaEmail" size="35" id="puF5" name="aemail" maxlength="60">
+      </li>
+
+      <li>
+        <label for="asite">Web-site:</label>
+      </li>
+      <li>
+        <input type="text" class="manFlaSite" size="35" id="puF6" name="asite" maxlength="85">
+      </li>
+      <li class="notcolumn">
+        <hr>
+      </li>
+
+      <li>
+        <label for="source">Ссылка на источник материала:</label>
+      </li>
+      <li>
+        <input type="text" class="manFlSource" size="35" id="puF7" name="source" maxlength="120">
+      </li>
+      <li class="notcolumn">
+        <hr>
+      </li>
+
+      <!-- OTHER1..5 -->
+
+      <!-- /OTHER1..5 -->
+
+      <!-- FREE EXTRAFIELDS -->
+
+      <!-- /FREE EXTRAFIELDS -->
+
+      <li>
+        <label for="tags">Теги (через запятую):</label>
+      </li>
+      <li>
+        <div style="position:relative;">
+          <div id="_usuggest0" unselectable="on" style="position: absolute; z-index: 5; display: none; zoom: 1;">
+            <div class="u-sugglist" style="zoom:1" unselectable="on">
+              <div style="zoom:1" unselectable="on">
+                <table border="0" cellspacing="0" class="x-unselectable u-suggcont" width="100%" unselectable="on"></table>
+              </div>
+            </div>
+          </div>
+          <input type="text" name="tags" id="suggEdit" maxlength="300" class="x-selectable u-suggedit undefined" autocomplete="disabled" style="position: relative;">
+        </div>
+        <script>
+          new _uSuggestList('suggList', 'suggEdit', {
+            separator: ',',
+            colwidth: ['100%'],
+            url: '/feat/?a=1'
+          });
+        </script>
+      </li>
+      <li class="notcolumn">
+        <hr>
+      </li>
+
+      <li>
+        <label>Материал добавил:</label>
+      </li>
+      <li>
+        <input type="hidden" id="cheldu4" name="user" value=""><b id="usr29Bl">rrew</b> &nbsp; <span style="font-size:80%">[<a href="javascript:;" rel="nofollow" onclick="new _uWnd('chUsr34', ' ', -300, -75, { closeonesc:1, resize:0 }, {url:'/index/89'}); return false;">Выбрать пользователя</a>]</span></li>
+      <li class="notcolumn">
+        <hr>
+      </li>
+
+      <li>
+        <label>Опции материала:</label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" name="is_pending" value="1"> Материал <b>не</b>доступен для просмотра</label> [<a href="javascript:;" rel="nofollow" onclick="new _uWnd('HelpWd', uCoz.sign[5255], 360, 150, { align:'justify', closeonesc:1 }, { url:'/index/90-6' })" class="noun "><b>?</b></a>]
+        <br>
+        <label>
+          <input checked="" type="checkbox" name="coms_allowed" value="1"> Позволить оставлять комментарии</label>
+        <br>
+        <label>
+          <input type="checkbox" name="uto" value="1"> Заменить внешние ссылки используя сервис u.to</label> [<a href="javascript:;" rel="nofollow" onclick="new _uWnd('HelpWd', uCoz.sign[5255], 360, 150, { align:'justify', closeonesc:1 }, { url:'/index/90-18' })" class="noun "><b>?</b></a>]</li>
+      <li class="notcolumn">
+        <hr>
+      </li>
+
+      <li class="notcolumn form-buttons">
+        <input type="submit" style="display:none;" id="doSmbBt">
+        <input type="button" class="manFlSbm" id="puF9" style="font-weight:bold;" value="Добавить" onclick="document.getElementById('doSmbBt').click();">
+        <input class="manFlRst" type="reset" id="puF10" value="Очистить" onclick="">
+      </li>
+    </ul>
+    <script type="ucoz/microtemplate" id="imageViewTemplate">
+      <div class=iCode_block>
+        <div class=iCode_el>
+          <input class=iCode_main_inp type=text readonly onclick="select(this)" name=h{{num}} value={{code}}>
+          <span class=iCode_el_tooltip>[[1110046]]</span>
+        </div>
+        ??hasImgDims=
+        <input type=text name=iws{{num}} value={{width}} size=3 maxlength=4 title="Width">x
+        <input type=text name=ihs{{num}} value={{height}} size=3 maxlength=4 title="Height">?? ??canTitleAlt=
+        <span id=gbut{{num}} onclick="g_open_iCode({{num}});"></span>??
+      </div>
+      <div id=iCode_{{num}}>
+        ??canTitleAlt=
+        <div class=iCode_block>
+          <div class="iCode_el">
+            <input class=iCode_main_inp type=text readonly onclick="select(this)" name=t{{num}} value="{{titleCode}}"><span class=iCode_el_tooltip>[[1110048]]</span></div>
+          <div class=iCode_in flex-grow1>
+            <input type=text name=img{{num}}_title value="{{title}}" maxlength=70 title='[[1110044]]'>
+          </div>
+        </div>?? ??canTitleAlt=
+        <div class=iCode_block>
+          <div class="iCode_el">
+            <input class=iCode_main_inp type=text readonly onclick="select(this)" name=a{{num}} value="{{altCode}}"><span class=iCode_el_tooltip>[[1110049]]</span></div>
+          <div class=iCode_in flex-grow1>
+            <input type=text name=img{{num}}_alt value="{{alt}}" maxlength=70 title='[[1110045]]'>
+          </div>
+        </div>??
+        <div class=iPhotoPrev>
+          <a href="{{previewSrcFull}}" class=ulightbox>
+            <img src="/.s/src/panel-v2/images/img-placeholder.svg" data-src="{{previewSrcSmall}}" /></a>
+          ??canDelete=
+          <label flex-align-center flex-justify-center>
+            <input type=checkbox name=del_img{{num}} value=1> [[3038]]</label>??
+        </div>
+      </div>
+    </script>
+
+    <script type="ucoz/microtemplate" id="imageFieldTemplate">
+      <div id="imblock{{num}}" class="{{class}}">
+        <span data-num="{{num}}" id="{{plusId}}">{{button}}</span>{{edit}}
+        <input type=file id="fln{{num}}" name=file{{num}} size=20 onchange="getimage(this, {{num}});" accept="image/jpg, image/jpeg, image/jpe, image/png, image/gif, image/webp">
+        <article id="iCode{{num}}" class="u-hidden"></article>
+      </div>
+    </script>
+    <input type="hidden" name="a" value="12">
+    <input type="hidden" name="ssid" value="OUF9bZPA">
+
+  </form>
+  <!-- </body> -->
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<form name="sendForm" id="sendForm" action="{{ context.action }}" method="POST" enctype="multipart/form-data" onsubmit="if (checkForm(this)) {{{ default_start_gentags }}sendu('sendForm')}; return false">
+<div class="material">
+	  <div class="mat-title">Добавление новости</div>
+	  <div class="mat-content">
+          <ul class="spisok-all">
+          <li>
+            <span class="siu_title"><strong><font color="red">*</font>Категория:</strong></span>
+            {% if config(['use_multicategories']) %}
+                <span class="siu_data"><select name="cats_selector[]" multiple>{{ context.cats_selector }}</select></span>
+            {% else %}
+                <span class="siu_data"><select name="cats_selector">{{ context.cats_selector }}</select></span>
+            {% endif %}
+          </li>
+		  <li>
+            <span class="siu_title"><strong><font color="red">*</font>Заголовок новости:</strong></span>
+            <span class="siu_data"><input type="text" name="title" maxlength="128" value="{{ context.title }}"></span>
+          </li>
+		  <li class="margin">
+            <textarea {{ editor_text }} class="text-area" name="mainText">{{ context.main_text }}</textarea>
+          </li>
+          {% if checkAccess([module,'upload_files']) and context.locked_attaches == 0 %}
+		  <li>
+            <span class="siu_title"><strong>Прикрепления:</strong></span>
+            <span class="siu_data" id="attachments">
+                <input class="attachField" type="file" id="attach1" name="attach1" onchange="getFile(1)"><span id="attachMeta1"></span>
+                <input type="button" name="addInput" value="Прикрепить еще файл" onclick="addFileField('attachments');">
+		   </span>
+          </li>
+          {% endif %}
+		  <li>
+            <span class="siu_title"><strong>Дополнительные настройки:</strong></span>
+            <span class="siu_data"><input type="checkbox" onClick="metaTags(this);" /></span>
+          </li>
+		  <li id="meta" style="display:none;">
+            <span class="siu_title"><strong>Meta description:</strong>Нужно для более быстрой индексации поисковыми роботами</span>
+            <span class="siu_data"><textarea name="description">{{ context.description }}</textarea></span>
+          </li>
+		  <li id="tags" style="display:none;">
+            <span class="siu_title"><strong>Теги:</strong>Слова по которым будет искаться материал</span>
+            <span class="siu_data"><input {{ input_gentags }} size="70" type="text" name="tags" value="{{ context.tags }}" />{{ button_gentags }}</span>
+			{{ forms_gentags }}
+          </li>
+		  <li id="sourse" style="display:none;">
+            <span class="siu_title"><strong>Источник:</strong>Настоящий автор новости</span>
+            <span class="siu_data"><input size="70" type="text" name="sourse" value="{{ context.sourse }}" /></span>
+          </li>
+		  <li id="sourse_email" style="display:none;">
+            <span class="siu_title"><strong>E-Mail автора:</strong></span>
+            <span class="siu_data"><input size="70" type="text" name="sourse_email" value="{{ context.sourse_email }}" /></span>
+          </li>
+		   <li id="sourse_site" style="display:none;">
+            <span class="siu_title"><strong>Ссылка на первоисточник:</strong>Ссылка на тот сайт откуда вы взяли новость</span>
+            <span class="siu_data"><input size="70" type="text" name="sourse_site" value="{{ context.sourse_site }}" /></span>
+          </li>
+		  {% if checkAccess([module,'record_comments_management']) %}
+		  <li>
+            <span class="siu_title"><strong>Разрешить комментирование?:</strong></span>
+            <span class="siu_data"><input type="checkbox" name="commented" value="1" {{ context.commented }} /></span>
+          </li>
+		  {% endif %}
+		  {% if checkAccess([module,'hide_material']) %}
+		  <li>
+            <span class="siu_title"><strong>Доступен для просмотра:</strong></span>
+            <span class="siu_data"><input type="checkbox" name="available" value="1" {{ context.available }} /></span>
+          </li>
+		  {% endif %}
+		  <li>
+            <input type="submit" name="submitForm" value="Отправить" />
+          </li>
+		  </ul>
+	  </div>
+</div>
+</form>

@@ -1,0 +1,15 @@
+{
+    "title": "Топ пользователей",
+    "desc": "Стандартный топ пользователей + шаблонизатор",
+    "limit": 4,
+    "usersort": "rating",
+    "view_banned": 1,
+    "icon" : "screenshot.png",
+    "points" : "before_view",
+    "action":{
+        "allow":{
+            "1":["index"]
+        }
+    },
+    "active": 1
+}

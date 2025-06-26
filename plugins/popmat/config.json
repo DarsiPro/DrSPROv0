@@ -1,0 +1,16 @@
+{
+    "title":"popmat",
+    "desc":"Выводит топ материалов (c сортировкой) в метку {{ popmat }}",
+    "limit":"5",
+    "short_main":"140",
+    "short_title":"50",
+    "module":"stat",
+    "sort":"views",
+    "points":"before_view",
+    "action":{
+        "allow":{
+            "1":["index"]
+        }
+    },
+    "active": 1
+}

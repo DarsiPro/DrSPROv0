@@ -1,0 +1,82 @@
+# Запрещаем просмотр структуры запрошенных директорий.
+Options -Indexes
+
+# Устанавливаем временную зону
+<IfModule mod_setenvif.c>
+    SetEnv TZ Europe/Moscow
+</IfModule>
+
+# Устанавливаем файл запуска по умолчанию
+# !!! DirectoryIndex index.php
+
+# Кодировка по умолчанию
+AddDefaultCharset UTF-8
+
+# Запрещаем вывод сигнатуры с информацией о сервере.
+ServerSignature Off
+
+# Меняем некоторые настройки сервера
+<ifModule mod_php.c>
+    php_flag register_globals off
+    php_flag magic_quotes_gpc off
+    php_value upload_max_filesize 100M
+    php_value post_max_size 100M
+    php_value default_charset utf-8
+    php_value max_execution_time 200
+</ifModule>
+
+# Принудительно устанавливаем mime типы для некоторых расширений
+AddType application/x-javascript .js
+AddType text/css .css
+AddType text/xml .xml
+
+# Кеширование статики
+<ifModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/x-icon "access plus 2592000 seconds"
+    ExpiresByType image/gif "access plus 2592000 seconds"
+    ExpiresByType image/jpeg "access plus 2592000 seconds"
+    ExpiresByType image/png "access plus 2592000 seconds"
+    ExpiresByType text/css "access plus 604800 seconds"
+    ExpiresByType text/javascript "access plus 216000 seconds"
+    ExpiresByType application/x-javascript "access plus 216000 seconds"
+</ifModule>
+
+# Сжатие возвращаемых данных
+<ifModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain text/html
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript application/javascript application/x-javascript
+    AddOutputFilterByType DEFLATE text/xml application/xml application/xhtml+xml application/rss+xml
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE application/vnd.ms-fontobject application/x-font-ttf font/opentype image/svg+xml image/x-icon
+    # Сжимаем всегда, кроме случаев когда браузер не поддерживает
+    <IfModule mod_setenvif.c>
+        BrowserMatch ^Mozilla/4 gzip-only-text/html
+        BrowserMatch ^Mozilla/4\.0[678] no-gzip
+        BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+    </IfModule>
+</ifModule>
+
+# Наводим красоту и перенаправляем запрос на обработку в CMS
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    #RewriteBase /
+
+    RewriteCond %{HTTP_HOST} ^www\.(.+) [NC]
+    RewriteRule .* http://%1/$0 [R=301,L]
+
+    RewriteCond %{THE_REQUEST} ^GET.*index\.php [NC]
+    RewriteRule (.*?)index\.php/*(.*) $1$2 [R=301,L]
+
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
+
+# Устанавливаем красивые странички при возникновении ошибок сервера
+ErrorDocument 500 "server is temporarily not available. <br /> Сервер временно не доступен."
+ErrorDocument 402 sys/inc/error.php
+ErrorDocument 403 sys/inc/error.php
+ErrorDocument 404 sys/inc/error.php
+ErrorDocument 408 "server is temporarily not available. <br /> Возможно сервер перегружен, попробуйте еще раз или зайдите позже."

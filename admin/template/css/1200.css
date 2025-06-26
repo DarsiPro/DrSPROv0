@@ -1,0 +1,48 @@
+/**
+ *
+ * '||''|.                            '||
+ *  ||   ||    ....  .... ...   ....   ||    ...   ... ...  ... ..
+ *  ||    || .|...||  '|.  |  .|...||  ||  .|  '|.  ||'  ||  ||' ''
+ *  ||    || ||        '|.|   ||       ||  ||   ||  ||    |  ||
+ * .||...|'   '|...'    '|     '|...' .||.  '|..|'  ||...'  .||.
+ *                                                  ||
+ * --------------- By Display:inline ------------- '''' -----------
+ *
+ * Styles override for 1200+ pixels screens
+ */
+
+/* Class used to determine which media queries are on */
+#mediaquery-checker {
+	width: 50px;
+}
+
+/* Columns */
+.columns:last-child {
+	margin-bottom: -25px;
+}
+.columns > div {
+	margin-bottom: 25px;
+}
+
+/* These styles define the columns size. They must be redefined for each responsive size */
+.column,
+.s1		{ width: 6.0833%; }
+.s2	{ width: 14.4167%; }
+.s3	{ width: 22.75%; }
+.s4	{ width: 31.0833%; }
+.s5	{ width: 39.4167%; }
+.s6	{ width: 47.75%; }
+.s7	{ width: 56.0833%; }
+.s8	{ width: 64.4167%; }
+.s9	{ width: 72.72%; }
+.s10	{ width: 81.0833%; }
+.s11	{ width: 89.4167%; }
+.s12	{ width: 97.75%; }
+
+/* Line breaks to ensure correct float */
+.new-row-tablet {
+	clear: none;
+}
+.new-row-desktop {
+	clear: left;
+}

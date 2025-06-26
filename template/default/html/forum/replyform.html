@@ -1,0 +1,19 @@
+{{ editor_body }}
+<script>
+maxAttachedFiles = {{ context.max_attaches }};
+</script>
+<div class="forumblock">
+       <form name="sendForm" id="sendForm" action="{{ context.action }}" method="POST" enctype="multipart/form-data" onsubmit="if (checkForm(this)) {sendu('sendForm')}; return false">       
+	        <div class="titleanswer">Форма для ответа</div>
+	        <div class="answertextarea"><textarea {{ editor_forum_text }} class="text-area" name="mainText">{{ context.main_text }}</textarea></div>
+	        <div class="margin floatfix">
+			  <input class="fright" type="submit" name="submitForm" value="Ответить" />
+			  {% if checkAccess(['forum','upload_files']) and context.locked_attaches == 0 %}
+			  <div id="attachments">Прикрепить файлы:<br/>
+			  <input class="attachField" type="file" id="attach1" name="attach1"  onChange="getFile(1)" /><span id="attachMeta1"></span>
+			  <input type="button" name="addInput" value="Прикрепить еще файл" onClick="addFileField('attachments');" />
+			  </div>
+              {% endif %}
+			</div>
+       </form>
+</div>

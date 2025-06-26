@@ -1,0 +1,23 @@
+{% if entities %}
+{% for entity in entities %}
+<div class="material">
+		  <div class="mat-title"><a href="{{ entity.entry_url }}"><h1>{{ entity.title }}</h1></a><div class="mod-panel">{% include "../includes/moder_panel.html" %}</div></div>
+		  <div class="mat-content">
+		    <div class="topinfo">
+		        <span class="left">Раздел: <a href="{{ entity.category_url }}">{{ entity.category.title }}</a></span>
+				<span>Просмотров: {{ entity.views }}</span>
+				<span>Комментарии: {{ entity.comments }}</span>
+		        <span class="right">Автор: <a href="{{ entity.profile_url }}">{{ entity.author.name }}</a></span>
+		    </div>
+		    <div class="announce">{{ entity.announce }}</div>
+		    <div class="footerinfo">
+		       Добавлено: {{ DrsDate(entity.date) }}
+	       </div>
+		 </div>
+</div>
+{% endfor %}
+{% else %}
+<div class="informs">
+Материалов еще не добавлено.
+</div>
+{% endif %}

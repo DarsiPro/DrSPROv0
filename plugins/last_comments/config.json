@@ -1,0 +1,13 @@
+{
+    "title":"Последние комментарии",
+    "desc":"Выводит последние комментарии из материалов в метку {{ last_comments }}",
+    "points" : "before_view",
+    "limit":"5",
+    "shot_comm":"100",
+    "action":{
+        "allow":{
+            "1":["index"]
+        }
+    },
+    "active": 1
+}

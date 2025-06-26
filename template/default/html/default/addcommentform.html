@@ -1,0 +1,29 @@
+{{ editor_body }}
+<div class="material addcomment">
+    <form method="POST" id="sendForm" name="sendForm" action="{{ context.action }}" onsubmit="sendu(this);return false;">
+        <div class="inftitle">Добавление комментария</div>
+        <div class="mat-content">
+            <ul class="spisok-all">
+                <input type="text" name="reply" value="{{ context.reply }}" style="display: none" />
+                {% if user.id == 0 %}
+                    <li>
+                        <span class="siu_title"><strong><font color="red">*</font>Псевдоним:</strong></span>
+                        <span class="siu_data"><input {{ context.disabled }} type="text" name="login" size="47" value="{{ context.add_comment_name }}" /></span>
+                    </li>
+                {% endif %}
+                {% if context.add_comment_captcha %}
+                    <li>
+                        <span class="siu_title"><strong><font color="red">*</font>Код подтверждения:</strong>Введите код с картинки, для проверки, что вы не робот.</span>
+                        <span class="siu_data">{{ context.add_comment_captcha }}</span>
+                    </li> 
+                {% endif %}
+                <li class="margin" style="overflow:visible;">
+                    <textarea {{ editor_text }} name="message" >{{ context.add_comment_message }}</textarea>
+                </li>
+                <li>
+                    <a class="canselReplyComment" onClick="canselReplyComment()" style="padding-right: 10px; display: none">Отменить</a><input type="submit" name="send" value="Отправить" />
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>

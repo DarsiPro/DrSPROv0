@@ -1,0 +1,17 @@
+<div class="block">
+<div class="blockstop">Топ материалов</div>
+<div class="blokscontent">
+<ul class="mini_list">
+{% if mats %}
+    {% for mat in mats %}
+        <li>
+            <img src="{{ template_path }}/img/lastmaterials.png" alt="" />
+            <a href="{{ mat.url }}" title="{{ mat.title }}">{{ mat.title }}</a>
+        </li>
+    {% endfor %}
+{% else %}
+    Сначала добавьте новость :)
+{% endif %}
+</ul>
+</div>
+</div>

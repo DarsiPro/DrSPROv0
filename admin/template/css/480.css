@@ -1,0 +1,92 @@
+/**
+ *
+ * '||''|.                            '||
+ *  ||   ||    ....  .... ...   ....   ||    ...   ... ...  ... ..
+ *  ||    || .|...||  '|.  |  .|...||  ||  .|  '|.  ||'  ||  ||' ''
+ *  ||    || ||        '|.|   ||       ||  ||   ||  ||    |  ||
+ * .||...|'   '|...'    '|     '|...' .||.  '|..|'  ||...'  .||.
+ *                                                  ||
+ * --------------- By Display:inline ------------- '''' -----------
+ *
+ * Styles override for 480+ pixels screens
+ */
+
+/* Class used to determine which media queries are on */
+#mediaquery-checker {
+	width: 20px;
+}
+
+/* Columns */
+
+/* These styles define the columns size. They must be redefined for each responsive size */
+.column,
+.s1			{ width: 6.0833%; }
+.s2		{ width: 14.4167%; }
+.s3		{ width: 22.75%; }
+.s4		{ width: 31.0833%; }
+.s5		{ width: 39.4167%; }
+.s6		{ width: 47.75%; }
+.s7		{ width: 56.0833%; }
+.s8		{ width: 64.4167%; }
+.s9		{ width: 72.72%; }
+.s10		{ width: 81.0833%; }
+.s11		{ width: 89.4167%; }
+.s12		{ width: 97.75%; }
+
+.s1-tablet		{ width: 6.0833%; }
+.s2-tablet		{ width: 14.4167%; }
+.s3-tablet	{ width: 22.75%; }
+.s4-tablet	{ width: 31.0833%; }
+.s5-tablet	{ width: 39.4167%; }
+.s6-tablet		{ width: 47.75%; }
+.s7-tablet	{ width: 56.0833%; }
+.s8-tablet	{ width: 64.4167%; }
+.s9-tablet	{ width: 72.72%; }
+.s10-tablet		{ width: 81.0833%; }
+.s11-tablet	{ width: 89.4167%; }
+.s12-tablet	{ width: 97.75%; }
+
+.s1-mobile		{ width: 6.0833%; }
+.s2-mobile		{ width: 14.4167%; }
+.s3-mobile	{ width: 22.75%; }
+.s4-mobile	{ width: 31.0833%; }
+.s5-mobile	{ width: 39.4167%; }
+.s6-mobile		{ width: 47.75%; }
+.s7-mobile	{ width: 56.0833%; }
+.s8-mobile	{ width: 64.4167%; }
+.s9-mobile	{ width: 72.72%; }
+.s10-mobile		{ width: 81.0833%; }
+.s11-mobile	{ width: 89.4167%; }
+.s12-mobile	{ width: 97.75%; }
+
+.s1-mobile-landscape		{ width: 6.0833%; }
+.s2-mobile-landscape		{ width: 14.4167%; }
+.s3-mobile-landscape		{ width: 22.75%; }
+.s4-mobile-landscape		{ width: 31.0833%; }
+.s5-mobile-landscape		{ width: 39.4167%; }
+.s6-mobile-landscape		{ width: 47.75%; }
+.s7-mobile-landscape		{ width: 56.0833%; }
+.s8-mobile-landscape		{ width: 64.4167%; }
+.s9-mobile-landscape		{ width: 72.72%; }
+.s10-mobile-landscape		{ width: 81.0833%; }
+.s11-mobile-landscape	{ width: 89.4167%; }
+.s12-mobile-landscape	{ width: 97.75%; }
+
+/* Line breaks to ensure correct float */
+.new-row-mobile-portrait {
+	clear: none;
+}
+.new-row-mobile-landscape {
+	clear: left;
+}
+
+/* 8. Main columns */
+#shortcuts {
+	width: 400px;
+}
+#shortcuts li.current > a > span {
+     margin-left: 0; 
+}
+#shortcuts  li a:hover > span {
+	padding: 12px 21px;
+}

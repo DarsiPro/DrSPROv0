@@ -1,0 +1,29 @@
+{% if entities %}
+<div class="material">
+    <div class="inftitle">Комментарии</div>
+    <div class="mat-content">
+        <ul class="userlist">
+            {% for comment in entities %}
+                <li class="comment_tree">
+                    <div style="padding-left: {{ comment.lvl * 5 }}%">
+                        <div class="userlistavatar">{{ comment.avatar }}</div>
+                            <div class="listuser">
+                                <ul class="listuserbuttons">
+                                    {% if config(['comments_tree']) %}<a onClick="replyComment(this, {{ comment.id }}, '{{ comment.name }}');">Ответить</a>{% endif %}<li style="padding: 6px;" class="mod-panel">{% include "../includes/moder_panel_comment.html" %}</li>
+                                    {% if comment.entry_url %}<li><a href="{{ comment.entry_url }}" class="button2">Перейти к материалу...</a></li>{% endif %}
+                                </ul>
+                                <h3 class="userlisttitle">{{ comment.name_a }}</h3>
+                                <div class="text">
+                                    {{ comment.message }}
+                                </div>
+                                <div>
+                                    {% if comment.editdate %}<span><b>Комментарий был изменён:</b> {{ DrsDate(comment.editdate) }}</span>{% endif %}<span><b>Дата отправления:</b> {{ DrsDate(comment.date) }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endif %}

@@ -1,0 +1,111 @@
+<div class="row">
+    <form action="" name="plug" method="POST" class="col s12" enctype="multipart/form-data" onsubmit="sendu(this); return false">
+        <div class="row">
+            <div class="col s12">
+                <h5>Дефолтные настройки для значений на сайте</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <input id="min_word" name="min_word" type="number" class="validate" value="{{ config.min_word }}">
+                <label for="min_word">Минимальная длинна тега: <small>по умолчанию</small></label>
+            </div>
+            <div class="input-field col s6">
+                <input id="min_repeat" name="min_repeat" type="number" class="validate" value="{{ config.min_repeat }}">
+                <label for="min_repeat">Минимально количество совпадений: <small>по умолчанию</small></label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="ignoring" name="ignoring" type="text" value="{{ config.ignoring }}">
+                <label for="ignoring">Слова исключения: <small>по умолчанию</small></label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <h5>Зарезервированные настройки (доступно только с этой страницы)</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="ignoring_hide" name="ignoring_hide" type="text" value="{{ config.ignoring_hide }}">
+                <label for="ignoring_hide">Слова исключения:</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <textarea id="template" name="template" class="materialize-textarea">{{ template }}</textarea>
+                <label for="template">Содержимое метки &#123;&#123; forms_gentags &#125;&#125;</label>
+            </div>
+        </div>
+        <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+            <button class="btn-floating btn-large deep-orange form_save tooltipped" data-position="left" data-tooltip="Сохранить изменения" type="submit" name="send">
+                <i class="large mdi-content-save"></i>
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="row">
+    <ul class="markers">
+        <h5>Метки вызова генератора в шаблоне</h5>
+        <li><div class="chip">&#123;&#123; script_gentags &#125;&#125;</div> - Подключает скрипт с генератором тегов (должна быть подключена после jquery и до остальных меток и поля с текстом).</li>
+        <li><div class="chip">&#123;&#123; input_gentags &#125;&#125;</div> - Выводит идентификатор для поля, в который нужно вывести генерированные теги</li>
+        <li><div class="chip">&#123;&#123; button_gentags &#125;&#125;</div> - Выводит кнопку запуска генератора</li>
+        <li><div class="chip">&#123;&#123; forms_gentags &#125;&#125;</div> - Выводит дополнительные поля для настройки генератора (настраивается из админки)</li>
+
+        <h5>Метки использующиеся в плагине для дополнительных форм настройки генератора &#123;&#123; forms_gentags &#125;&#125;</h5>
+        <li><div class="chip">&#123;&#123; gentags.length_id &#125;&#125;</div> - Значение идентификатора для минимальной длинный слова</li>
+        <li><div class="chip">&#123;&#123; gentags.length_val &#125;&#125;</div> - Дефолтное значение value для минимальной длинный слова</li>
+        <li><div class="chip">&#123;&#123; gentags.repeat_id &#125;&#125;</div> - Значение идентификатора для минимального количества повторений слова</li>
+        <li><div class="chip">&#123;&#123; gentags.repeat_val &#125;&#125;</div> - Дефолтное значение value для минимального количества повторений слова</li>
+        <li><div class="chip">&#123;&#123; gentags.ignore_id &#125;&#125;</div> - Значение идентификатора для формы со словами-исключениями</li>
+        <li><div class="chip">&#123;&#123; gentags.ignore_val &#125;&#125;</div> - Дефолтное значение value для слов-исключений</li>
+    </ul>
+</div>
+
+
+<style>
+.chip {
+    display: inline-block;
+    height: 32px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(0,0,0,0.6);
+    line-height: 32px;
+    padding: 0 12px;
+    border-radius: 16px;
+    background-color: #e4e4e4;
+    
+    width: 180px;
+    text-align: center;
+}
+
+.markers li {
+    margin: 1px;
+}
+</style>
+
+
+<script>
+    // Отправляет форму на сервер и отображает статус выполненного действия
+    function sendu(e) {
+        if (e instanceof Object != true) {
+            e = $('#'+e)
+        }
+
+        formname = $(e).attr("name")
+        formData = new FormData(document.forms[formname])
+        
+        xhr = new XMLHttpRequest()
+        xhr.open('POST', $(e).attr("action"), true)
+        xhr.onload = function(e) {
+            if (this.status == 200) {
+                Materialize.toast('Сохранено', 4000);
+            } else {
+                Materialize.toast('Произошла неизвестная ошибка', 4000);
+            }
+        }
+        xhr.send(formData)
+    }
+</script>

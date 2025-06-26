@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+<title>{{ title }}</title>
+
+<meta name="description" content="{{ meta_description }}" />
+<meta name="keywords" content="{{ meta_keywords }}" />
+<meta charset="UTF-8"/>
+
+<meta name='generator' content='DarsiPro CMS' />
+
+<link rel="shortcut icon" href="{{ template_path }}/favicon.ico" type="image/x-icon" />
+<link rel="apple-touch-icon" href="{{ template_path }}/img/apple-touch-icon.png" />
+<link type="text/css" rel="StyleSheet" href="{{ template_path }}/css/style.css" />
+
+<script type="text/javascript" src="{{ www_root }}/data/js/jquery.js"></script>
+<script type="text/javascript">
+    var WWW_ROOT = "{{ www_root }}",
+        LANG = "{{ lang }}";
+</script>
+<script type="text/javascript" src="{{ www_root }}/data/js/darsi.js"></script>
+
+<script type="text/javascript" src="{{ template_path }}/js/default.js"></script>
+
+<!-- FancyBOX -->
+<link type="text/css" rel="StyleSheet" href="{{ template_path }}/css/jquery.fancybox.css" />
+<script type="text/javascript" src="{{ template_path }}/js/jquery.fancybox.js"></script>
+<!--/FancyBOX -->
+
+<script type="text/javascript">
+{% if user.id %}
+    check_pm();
+{% endif %}
+</script>
+</head>
+
+
+<body>
+{% include '../includes/headpanel.html' %}
+<div class="global">
+{% include '../includes/header.html' %}
+<div class="sider">
+    <div class="sidertop bigmenu">
+      {{ mainmenu }}
+      <div class="search">
+       <form method="POST" action="{{ www_root }}/search/"> 
+        <input type="hidden" name="subaction" value="search"> 
+        <input name="search" placeholder="Найти что-нибудь..." type="text"> 
+        <input value="GO!" type="submit" name="send"> 
+       </form> 
+      </div>
+    </div>
+    <!---------------------------------------------------------------------------CONTENT/----------------------------------------------------------------------------------------------->
+    <div class="content">
+<div class="spedbar">
+    <div>
+        {{ navigation }}
+    </div>
+</div>
+
+<div class="material">
+      <div class="mat-title"><span id="switchsound"></span><h1>Общий чат</h1></div>
+      <div class="mat-content">
+      {{ content }}
+      </div>
+</div>
+<style type="text/css">
+#bigformlink {display:none;}
+.scrollBox {padding: 10px 8%;background: rgba(255, 224, 0, 0.08);border-bottom: 1px solid #bbb;}
+#chatModule {min-height: 100px;}
+#chat {height: 320px;}
+#chat .block_chat {padding: 10px!important;font-size: 16px!important;}
+#chat .mess {padding-top: 10px!important;font-size: 14px!important;}
+.chat-addfrom .chat_captcha {white-space: normal;height: auto;margin: 18px;padding: 0;width: 122px;text-align: center;}
+.chat-addfrom .chat_captcha input {display: block;margin: 3px -3px 10px;width: 120px;}
+.chat-addfrom input[type="submit"] {margin: 0 10px;}
+#chat .jspVerticalBar {width: 15px;}
+</style>
+
+    <div class="material">
+           <div class="inftitle">Сейчас online: {{ all_online }}. Зарегистрированных: {{ users_online }}. Гостей: {{ guests_online }}. </div>
+           <div class="infcont">{{ online_users_list }}</div>
+        </div>
+    </div>
+    <!---------------------------------------------------------------------------/CONTENT----------------------------------------------------------------------------------------------->
+</div>
+<!--------------------------------------------------------FOOTER-BUTTONS------------------------------------------------------------------>
+{% include '../includes/footer.html' %}
+</div>
+</body>
+</html>

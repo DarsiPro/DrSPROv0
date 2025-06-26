@@ -1,0 +1,12 @@
+data/avatars/*
+data/config/*
+data/acl/*
+data/files/*
+sys/logs/*
+sys/cache/*
+sys/tmp/*
+sitemap.xml
+robots.txt
+.directory
+.DS_Store
+Thumbs.db

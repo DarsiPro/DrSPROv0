@@ -1,0 +1,89 @@
+<div class="row">
+    <form action="" name="plug" method="POST" class="col s12" enctype="multipart/form-data" onsubmit="sendu(this); return false">
+
+        <h5 class="light">Вывести виджет на страницу можно с помощью метки <b>&#123;&#123; last_comments &#125;&#125;</b></h5>
+        <br>
+
+        <div class="row">
+            <div class="input-field col s6">
+                <input id="limit" name="limit" type="number" class="validate" value="{{ config.limit }}">
+                <label for="limit">Сколько комментариев выводить в топе:</label>
+            </div>
+            <div class="input-field col s6">
+                <input id="shot_comm" name="shot_comm" type="number" class="validate" value="{{ config.shot_comm }}">
+                <label for="shot_comm">Ограничение длины комментариев:</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <textarea id="template" name="template" class="materialize-textarea">{{ template }}</textarea>
+                <label for="template">HTML код шаблона</label>
+            </div>
+        </div>
+        <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+            <button class="btn-floating btn-large deep-orange form_save tooltipped" data-position="left" data-tooltip="Сохранить изменения" type="submit" name="send">
+                <i class="large mdi-content-save"></i>
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="row">
+    <ul class="markers">
+        <h5>Метки вызова генератора в шаблоне</h5>
+        <li><div class="chip">&#123;&#123; comm.avatar &#125;&#125;</div> - ссылка на аватар пользователя, если нету выводит noavatar</li>
+        <li><div class="chip">&#123;&#123; comm.number &#125;&#125;</div> - Выводит порядковый номер комментария в блоке</li>
+        <li><div class="chip">&#123;&#123; comm.title &#125;&#125;</div> - Название материала к которому добавлен комментарий</li>
+        <li><div class="chip">&#123;&#123; comm.module &#125;&#125;</div> - Выводит модуль, к которому добавлен комментарий (Например: "К фотографии")</li>
+        <li><div class="chip">&#123;&#123; comm.date &#125;&#125;</div> - Дата добавления </li>
+        <li><div class="chip">&#123;&#123; comm.url &#125;&#125;</div> - Адрес материала, к которому добавлен комментарий </li>
+        <li><div class="chip">&#123;&#123; comm.name &#125;&#125;</div> - Автор комментария</li>
+        <li><div class="chip">&#123;&#123; comm.message &#125;&#125;</div> - Текст комментария</li>
+    </ul> 
+</div>
+
+
+<style>
+.chip {
+    display: inline-block;
+    height: 32px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(0,0,0,0.6);
+    line-height: 32px;
+    padding: 0 12px;
+    border-radius: 16px;
+    background-color: #e4e4e4;
+    
+    width: 180px;
+    text-align: center;
+}
+
+.markers li {
+    margin: 1px;
+}
+</style>
+
+
+<script>
+    // Отправляет форму на сервер и отображает статус выполненного действия
+    function sendu(e) {
+        if (e instanceof Object != true) {
+            e = $('#'+e)
+        }
+
+        formname = $(e).attr("name")
+        formData = new FormData(document.forms[formname])
+        
+        xhr = new XMLHttpRequest()
+        xhr.open('POST', $(e).attr("action"), true)
+        xhr.onload = function(e) {
+            if (this.status == 200) {
+                Materialize.toast('Сохранено', 4000);
+            } else {
+                Materialize.toast('Произошла неизвестная ошибка', 4000);
+            }
+        }
+        xhr.send(formData)
+    }
+</script>

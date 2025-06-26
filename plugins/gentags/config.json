@@ -1,0 +1,22 @@
+{
+    "title": "Генератор тегов",
+    "desc": "Функциональный js-генератор тегов",
+    "min_word":"4",
+    "min_repeat":"3",
+    "ignoring":"",
+    "ignoring_hide":"nbsp,amp,quot,",
+    "text_obj":"#editor",
+    "text_editor_obj":".wysibb-text-editor",
+    "ignore_obj":"noRepeat",
+    "length_obj":"minLength",
+    "repeat_obj":"minRepeat",
+    "tags_obj":"keywords",
+    "icon":"screenshot.jpg",
+    "points" : "before_view",
+    "action":{
+        "allow":{
+            "1":["add_form","edit_form"]
+        }
+    },
+    "active": 1
+}

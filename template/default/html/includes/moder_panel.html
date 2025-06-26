@@ -1,0 +1,46 @@
+{% set premoder = mb_strtolower(entity.premoder) %}
+{# Является ли пользователь автором материала #}
+{% if user.id != 0 and user == entity.author_id %}
+    {% set is_owner = 1 %}
+{% else %}
+    {% set is_owner = 0 %}
+{% endif %}
+{# Модуль, с которым работаем. Условие для возможности вывода на главной странице #}
+{% if entity.module_name %}
+    {% set this_module = entity.module_name %}
+{% else %}
+    {% set this_module = module %}
+{% endif %}
+
+{# Премодерация материала #}
+{% if checkAccess(['__other__', 'can_premoder']) and (premoder=='nochecked' or premoder=='rejected') %}
+    <a class="drs-premoder-confirm moder-confirm" title="{{ __('Confirm') }}" onclick="if (confirm('{{ __('Are you sure?') }}'))" href="{{ www_root }}/{{ this_module }}/premoder/{{ entity.id }}/confirmed/"></a>
+    {% if premoder=='nochecked' %}
+        <a class="drs-premoder-reject moder-reject" title="{{ __('Reject') }}" onclick="if (confirm('{{ __('Are you sure?') }}'))" href="{{ www_root }}/{{ this_module }}/premoder/{{ entity.id }}/rejected/"></a>
+    {% endif %}
+{% endif %}
+
+{# Редактирование #}
+{% if checkAccess([this_module, 'edit_materials']) or is_owner and checkAccess([this_module, 'edit_mine_materials']) %}
+    <a class="drs-edit moder-edit" href="{{ www_root }}/{{ this_module }}/edit_form/{{ entity.id }}"></a>
+{% endif %}
+
+{# Закрепить в топе или разово вывести в топ #}
+{% if checkAccess([this_module, 'up_materials']) %}
+    <a id="dsms{{ entity.id }}" class="drs-star moder-star" onclick="if (confirm('{{ __('Are you sure?') }}')) {sendu('dsms{{ entity.id }}')}; return false" href="{{ www_root }}/{{ this_module }}/fix_on_top/{{ entity.id }}"></a>
+    <a id="dsmu{{ entity.id }}" class="drs-up moder-up" onclick="if (confirm('{{ __('Are you sure?') }}')) {sendu('dsmu{{ entity.id }}')}; return false" href="{{ www_root }}/{{ this_module }}/upper/{{ entity.id }}"></a>
+{% endif %}
+
+{# Показ на главной странице #}
+{% if checkAccess([this_module, 'on_home']) %}
+    {% if entity.view_on_home == 1 %}
+        <a id="dsmo{{ entity.id }}" class="drs-on moder-on" onclick="if (confirm('{{ __('Are you sure?') }}')) {sendu('dsmo{{ entity.id }}')}; return false" href="{{ www_root }}/{{ this_module }}/off_home/{{ entity.id }}"></a>
+    {% else %}
+        <a id="dsmo{{ entity.id }}" class="drs-off moder-off" onclick="if (confirm('{{ __('Are you sure?') }}')) {sendu('dsmo{{ entity.id }}')}; return false" href="{{ www_root }}/{{ this_module }}/on_home/{{ entity.id }}"></a>
+    {% endif %}
+{% endif %}
+
+{# Удаление #}
+{% if checkAccess([this_module, 'delete_materials']) or is_owner and checkAccess([this_module, 'delete_mine_materials']) %}
+    <a id="dsmd{{ entity.id }}" class="drs-delete moder-delete" onclick="if (confirm('{{ __('Are you sure?') }}')) {sendu('dsmd{{ entity.id }}')}; return false" href="{{ www_root }}/{{ this_module }}/delete/{{ entity.id }}"></a>
+{% endif %}

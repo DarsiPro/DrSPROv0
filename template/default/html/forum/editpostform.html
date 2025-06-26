@@ -1,0 +1,38 @@
+{{ editor_body }}
+<script>
+maxAttachedFiles = {{ context.max_attaches }};
+</script>
+<form name="sendForm" id="sendForm" action="{{ context.action }}" method="POST" enctype="multipart/form-data" onsubmit="if (checkForm(this)) {sendu('sendForm')}; return false">
+<div class="forumblock">
+	  <div class="forumtitle">Редактирование сообщения</div>
+	  <div class="answertextarea"><textarea {{ editor_text }} class="text-area" name="mainText">{{ context.main_text }}</textarea></div>
+	        <div class="margin floatfix">
+			{% if checkAccess([module,'edit_posts']) %}
+				Добавить строку "Отредактировано": <input type="checkbox" name="add_editor"{% if context.add_editor %}checked="checked"{% endif %}/>
+			{% endif %}
+			<input class="fright" type="submit" name="submitForm" value="Ответить" />
+              {% if checkAccess([module,'upload_files']) and context.locked_attaches == 0 %}
+                <div id="attachments">Прикрепленные файлы:<br/>
+                        {% if context.attaches_list %}
+                            {% for at in context.attaches_list %}
+                            <div>
+                                <input class="attachField" type="file" id="attach{{ at.id }}" name="attach{{ at.id }}"  onChange="getFile({{ at.id }})" />
+                                <span id="attachMeta{{ at.id }}">
+                                    {% if at.is_img %}
+                                        <input type="text" readonly="" value="{IMAGE{{ at.id }}}" title="Вставьте этот код в любое место сообщения" size="8" style="font-family:monospace;color:#FF8E00;">
+                                    {% endif %}
+                                </span>
+                                <label><input type="checkbox" name="unlink{{ at.id }}" value="1">Удалить({{ at.name }}) ?</label>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                        <div>
+                            <input class="attachField" type="file" id="attach1" name="attach1"  onChange="getFile(1)" /><span id="attachMeta1"></span>
+                        </div>
+                        {% endif %}
+                </div>
+                <input type="button" name="addInput" value="Прикрепить еще файлы" onClick="addFileField('attachments');" />
+              {% endif %}
+			</div>
+</div>
+</form>

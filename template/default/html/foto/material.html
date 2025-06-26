@@ -1,0 +1,27 @@
+<div class="material">
+      <div class="mat-title"><a href="{{ entity.entry_url }}"><h1>{{ entity.title }}</h1></a></div>
+	  <div class="mat-content">
+	    <div class="photos_albums_container">
+		    <div class="bigimg margin">
+		      <a class="bigimglink gallery" href="{{ entity.main }}"><img alt="{{ entity.foto_alt }}" src="{{ entity.main }}"/></a>
+			  <a class="rotatorimg before" title="Предыдущее фото" href="{{ entity.previous_url }}"></a>
+			  <a class="rotatorimg after" title="Следующее фото" href="{{ entity.next_url }}"></a>
+			</div>
+            <div class="infomats">
+		        <div class="namesmats"><b class="title">{{ entity.title }}</b>
+                  <br />{{ entity.description }}
+				</div>
+		        <div class="infomatsright">
+			      <b>Автор:</b><a href="{{ entity.profile_url }}"> {{ entity.author.name }}</a>
+				  <br /><b>Альбом:</b> <a href="{{ entity.category_url }}">{{ entity.category.title }}</a>
+			      <br /><b>Просмотров:</b> {{ entity.views }}
+			      <br /><b>Дата:</b> {{ DrsDate(entity.date) }}
+				  {% if entity.commented %}<br /><b>Комментариев:</b> {{ entity.comments }}{% endif %}
+			      <br />{% include "../includes/moder_panel.html" %}
+			    </div>
+	        </div>
+		</div>
+      </div>
+</div>
+{{ relmat }}
+

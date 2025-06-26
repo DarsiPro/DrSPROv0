@@ -1,0 +1,37 @@
+{% if forum_cats %}
+{% for category in forum_cats %}
+<div class="lineblock">
+	  <div class="linetitle"><h1>{{ category.title }}</h1></div>
+	  <div class="linehead"><div class="forheadpost"></div></div>
+	  {% if category.forums %}
+	  {% for forum in category.forums %}
+	  <div class="linecontent" id="{{ category.id }}">
+	    <div class="forstatus"><span><img class="iconline" src="{{ forum.icon_url }}" alt=""/></span></div><div class="forname"><div class="mozilacostil">
+			{% if forum.admin_bar %}<div class="moderline">{{ forum.admin_bar }}</div>{% endif %}
+			<div class="lineinfo"><a class="namefor" href="{{ forum.forum_url }}"><h2>{{ forum.title }}</h2></a>
+			<div class="fordescription">{{ forum.description }}</div>
+		    {% if forum.subforums %}
+			  <ul class="subforums">
+		    {% for subforum in forum.subforums %}
+				<li><a href="{{ subforum.forum_url }}"><h3>{{ subforum.title }}</h3></a>{% if subforum.description %}({{ subforum.description }}){% endif %}<b>;</b></li>
+		    {% endfor %}
+			  </ul>
+		   {% endif %}
+		    </div>
+			</div>
+		</div><div class="forteme">
+		{% if forum.themes %}
+		<ul>
+			<li>Тем: <strong>{{ forum.themes }}</strong></li>
+			<li>Ответов: <strong>{{ forum.posts }}</strong></li>
+		</ul>
+		{% endif %}
+		</div><div class="fornewmess">{{ forum.last_post }}</div>
+	  </div>
+	  {% endfor %}
+	  {% endif %}
+</div>
+{% endfor %}
+{% else %}
+<div class="informs">Не создано ни одного раздела.</div>
+{% endif %}

@@ -1,0 +1,84 @@
+
+{{ editor_body }}
+
+<script>
+function sendPM() {
+    $('#send_pm_a').hide();
+    $('#send_pm_form').show();
+}
+
+// подставляем id юзера с которого был переход
+window.onload = function(){
+    var id;
+	id = intURLafter();// получаем id юзера из url
+    if (id !== undefined) {
+	     var backlink = $('#backuplink'), backlinkhref = '{{ www_root }}/users/info/';
+	     backlink.attr("href", backlinkhref + id);
+		 backlink.html("К профилю {{ context.interlocutor }}");
+		 
+		 var pmlink = $('#pm'), pmlinkhref = '{{ www_root }}/users/send_pm_form/';
+	     pmlink.attr("href", pmlinkhref + id);
+	}
+}
+
+</script>
+
+<div class="material">
+	  <div class="mat-title">Беседа с {{ context.interlocutor }}</div>
+	  <div class="mat-content">
+	  <div class="userblock">
+		  <ul class="userslinks">
+		         <li><a id="backuplink" href="{{ www_root }}/users/info/{{ user.id }}">Мой профиль</a></li>
+                 <li><a href="{{ www_root }}/users/pm/">Сообщения</a></li>
+				 <li><a id="pm" href="{{ www_root }}/users/send_pm_form/">Отправить ЛС</a></li>
+		  </ul>
+	      <div class="userinfo">
+		    <ul class="userlist">
+			   <li class="sendbutton" id="send_pm_a" onclick="sendPM()">Развернуть форму для ответа</li>
+			   <li id="send_pm_form" style="display: none;overflow: visible;">
+			      <form name="sendForm" id="sendForm" action="{{ www_root }}/users/send_pm" method="POST" enctype="multipart/form-data" onsubmit="sendu('sendForm'); return false">
+			         <textarea {{ editor_text }} class="text-area" name="mainText"></textarea>
+			         <input type="text" name="toUser" id="toUser" maxlength="30" value="{{ context.interlocutor }}" style="display: none" />
+			         <input class="subm" type="submit" name="submitForm" value="Отправить" />
+                  </form>
+			   </li>
+			
+		     {% if messages %}
+             {% for message in messages %}
+                            <li {% if message.viewed != 1 %}class="send"{% endif %}>
+							       <div class="userlistavatar"><img src="{% if message.direction == 'in'  %} {{ getAvatar(message.user.id) }} {% else %} {{ getAvatar(user.id) }} {% endif %}" class="avatar" alt=""/></div>
+							        <div class="listuser">
+								          <ul class="listuserbuttons">
+                                              <li>{{ message.delete }}<input type="checkbox" class="packPoint" onClick="if(this.checked){addToPackage(this.value);}else{delFromPackage(this.value);}" value="{{ message.id }}" /></li>									
+								          </ul>
+								          <h3 class="userlisttitle">
+										  {% if message.direction == 'in'  %}
+										  <a href="{{ www_root }}/users/info/{{ message.user.id }}">{{ context.interlocutor }}</a>
+										  {% else %}
+										  <a style="color: #787C88;text-decoration: none;cursor: default;">{{ user.name }}</a>
+										  {% endif %}
+										  </h3>
+										  <div class="text">
+			                                {{ message.text }}
+		                                  </div>
+								          <div>
+								               <span>Дата написания: {{ DrsDate(message.sendtime) }}</span>
+								          </div>
+							        </div>
+                            </li>
+			{% endfor %}
+			{% else %}
+                <li>
+                    Нет сообщений
+                </li>
+            {% endif %}
+			
+	           <li>	
+			     Удалить отмеченные сообщения: <input id="packButton" type="button" disabled="disabled" onClick="sendPack('{{ www_root }}/users/delete_message_pack/');" value="(0)">
+	            <div style="display:none;"><form id="actionPack" action="" method="POST"></form></div>
+	           <li>
+           </ul>	
+	      </div>
+	  </div>
+	  </div>
+    </div>

@@ -1,0 +1,29 @@
+{% if users %}
+<div class="block">
+    <div class="blockstop">Топ пользователей</div>
+    <div class="blokscontent users_rating">
+    {% for user in users %}
+        <div class="etopu">
+            <img src="{{ user.avatar }}" title="{{ user.name }}" alt="">
+            <div class="ttop">
+                <a href="{{ user.profile_url }}">{{ user.name }}</a><br>
+				<span>Репутация:</span>
+                {% if user.rating %}
+				    {% if user.rating >= 1 %}
+						<div class="repcount" title="Репутация пользователя {{ user.name }} равна: {{ user.rating }}" style="background-color: #780;"><span>{{ user.rating }}</span></div>
+				    {% else %}
+						<div class="repcount" title="Репутация пользователя {{ user.name }} равна: {{ user.rating }}" style="background-color: #C54C4C;"><span>{{ user.rating }}</span></div>
+					{% endif %}
+				{% else %}
+					<div class="repcount" title="Репутация пользователя {{ user.name }} равна: {{ user.rating }}" style="background-color: #999;"><span>{{ user.rating }}</span></div>
+                {% endif %}
+                <br>Сообщений: {{ user.posts }}
+            </div>
+        </div>
+    {% endfor %}
+        <div class="ebottomu">
+            <a class="button2" href="{{ www_root }}/users/index?order=rating">Весь рейтинг</a>
+        </div>
+    </div>
+</div>
+{% endif %}

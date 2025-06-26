@@ -1,0 +1,93 @@
+{% if forum.subforums %}
+<div class="lineblock">
+	  <div class="linetitle">{{ forum.cat_name }}</div>
+	  <div class="linehead"><div class="forheadpost"></div></div>
+	  {% if forum.subforums %}
+	  {% for subforum in forum.subforums %}
+	  <div class="linecontent">
+	    <div class="forstatus"><span><img class="iconline" src="{{ subforum.icon_url }}" alt=""/></span></div><div class="forname"><div class="mozilacostil">
+			{% if subforum.admin_bar %}<div class="moderline">{{ subforum.admin_bar }}</div>{% endif %}
+			<div class="lineinfo"><a class="namefor" href="{{ subforum.forum_url }}"><h2>{{ subforum.title }}</h2></a>
+			<div class="fordescription">{{ subforum.description }}</div>
+		</div>
+		</div></div><div class="forteme">
+		{% if subforum.themes %}
+		<ul>
+			<li>Тем: <strong>{{ subforum.themes }}</strong></li>
+			<li>Ответов: <strong>{{ subforum.posts }}</strong></li>
+		</ul>
+		{% endif %}
+		</div><div class="fornewmess">{{ subforum.last_post }}</div>
+	  </div>
+	  {% endfor %}
+	  {% endif %}
+</div>
+{% endif %}
+
+    {% if add_link %}
+	<a href="{{ www_root }}/forum/add_theme_form/{{ forum.id }}" class="newtembutton button">Новая тема</a>
+	{% endif %}
+	<span class="meta">{{ meta }}</span> 
+         {% if pagination %}
+	     <div class="paginator">
+            <div class="pages">{{ pagination }}</div>
+         </div>
+		 {% endif %}
+	{% if themes %}
+	<div class="lineblock">
+	  <div class="linetitle"><h1>{{ forum.title }}</h1></div>
+	  <div class="linehead order"><div class="forstatus"></div><div class="forname">{{ getOrderLink(['title','Тема']) }}</div><div class="forteme">{{ getOrderLink(['posts','Ответы']) }} / {{ getOrderLink(['views','Просмотры']) }}</div><div class="fornewmess">{{ getOrderLink(['last_post','Обновления']) }}</div></div>
+	  {% for theme in themes %}  
+	  <div class="linecontent {{ theme.drs_css_class }}"><div class="forstatus"><span>{{ theme.themeicon }}</span></div><div class="forname"><div class="mozilacostil">{% if theme.adminbar %}<div class="moderline">{{ theme.adminbar }}</div>{% endif %}<div class="lineinfo">{{ theme.importantly }}<a class="namefor" href="{{ theme.theme_url }}"><h2>{{ theme.title }}</h2></a>{{ theme.near_pages }}<div class="fordescription">{{ theme.description }}</div></div></div></div>
+	  <div class="forteme">
+		<ul>
+			<li>Ответов: <strong>{{ theme.posts }}</strong></li>
+			<li>Просмотров: <strong>{{ theme.views }}</strong></li>
+			<li>Автор: <strong>{{ theme.author.name }}</strong></li>
+		</ul>
+		</div>
+	  <div class="fornewmess">{{ DrsDate(theme.last_post) }}<br />Сообщение от: <span class="lastPostUser">{{ theme.last_user }}</span><br />{{ theme.last_page }}</div></div>
+	  {% endfor %}
+	</div>
+	  {% else %}
+	  <div class="informs">Тем еще не создано.</div>
+	  {% endif %}
+      {% if pagination %}<div class="paginator"><div class="pages">{{ pagination }}</div></div>{% endif %}
+	<div style="clear:both;"></div>
+	
+     <div class="material">
+           <div class="inftitle">В этом форуме <b>{{ forum.themes }}</b> тем. На странице показано <b>{{ forum.count_themes_here }}</b> тем.</div>
+	       <div class="infcont">Форум просматривают: {{ forum.who_is_here }}</div>
+	</div>
+	
+	<div class="material">
+           <div class="inftitle">Иконки состояния тем форума</div>
+	       <div class="infcont">
+		       <ul class="spisokico">
+					<li>
+						<span class="siu_title"><img src="{{ template_path }}/img/folder.gif" alt=""/></span>
+						<span class="siu_data">Нет непрочитанных сообщений</span>
+		            </li>
+					<li>
+						<span class="siu_title"><img src="{{ template_path }}/img/folder_new.gif" alt=""/></span>
+						<span class="siu_data">Непрочитанные сообщения</span>
+		            </li>
+					<li>
+						<span class="siu_title"><img src="{{ template_path }}/img/folder_lock.gif" alt=""/></span>
+						<span class="siu_data">Закрытая тема</span>
+		            </li>
+					<li>
+						<span class="siu_title"><img src="{{ template_path }}/img/folder_lock_new.gif" alt=""/></span>
+						<span class="siu_data">Закрытая тема с новыми сообщениями</span>
+		            </li>
+					<li>
+						<span class="siu_title"><img src="{{ template_path }}/img/folder_hot.gif" alt=""/></span>
+						<span class="siu_data">Горячая тема</span>
+		            </li>
+					<li>
+						<span class="siu_title"><img src="{{ template_path }}/img/folder_hot_new.gif" alt=""/></span>
+						<span class="siu_data">Горячая тема с новыми сообщениями</span>
+		            </li>
+		       </ul>
+		   </div>
+	</div>

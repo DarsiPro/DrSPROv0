@@ -1,0 +1,24 @@
+
+<div class="block">
+<div class="blockstop">Последние комментарии</div>
+<div class="blokscontent">
+<ul class="lastcomments">
+{% if comments %}
+    {% for comm in comments %}
+        <li class="comments_li east" title="Написано {{ comm.module }} {{ comm.title }}">
+            <div class="comm_top">
+                <div class="left"><img src="{{ comm.avatar }}" width="50px" height="50px" title="{{ comm.name }}" alt=""/></div>
+                <div class="left">
+                    <div class="comm_write">Написал <b>{{ comm.name }}</b></div>
+                    <div class="comm_time">{{ DrsDate(comm.date) }}</div>
+                </div>
+            </div>
+            <a class="comm_new" href="{{ comm.url }}">{{ comm.message }} </a>
+        </li>
+    {% endfor %}
+{% else %}
+    Ещё ни кто не оставил комментарий. Будь первым!
+{% endif %}
+</ul>
+</div>
+</div>

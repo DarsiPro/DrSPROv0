@@ -1,0 +1,46 @@
+<div class="material">
+      <div class="mat-title"><a href="{{ entity.entry_url }}"><h1>{{ entity.title }}</h1></a><div class="mod-panel">{% include "../includes/moder_panel.html" %}</div></div>
+	  <div class="mat-content">
+		    <div class="main_text margin">{{ entity.main_text }}</div>
+			{% if entity.img.attach_all %}
+            <div class="screenshots"><div>
+            {% for img in entity.img.attach_all %}
+			 <a class="gallery" rel="example_group" href="{{ img.full }}"><img src="{{ img.small }}" alt=""/></a>
+			{% endfor %}
+			</div></div>
+            {% endif %}
+            <div class="infomats">
+		        <div class="namesmats">
+				{% if checkAccess([module,'download_files']) %}
+                  {% if entity.attachment %}
+				       <span class="downloadbutton"><div>{{ entity.attachment }}<div class="infoload">Downloads: {{ entity.downloads }}</div></div></span>
+		          {% else %}
+				  <div class="errorfile">
+		              Файл не найден
+				  </div>
+		          {% endif %}
+		        {% else %}
+				<div class="errorfile">
+		          У вас нет прав на скачивание файла
+				</div>
+		        {% endif %}
+				{% if entity.tags %}
+				<br /><b>Теги: </b>{% for tag in entity.tags %}<a href="{{ www_root }}/loads/index/{{ tag }}">{{ tag }}</a>; {% endfor %}
+				{% endif %}
+				{% if entity.sourse %}<br /><b>Источник:</b> {{ entity.sourse }}{% endif %}
+				</div>
+		        <div class="infomatsright">
+			      <b>Автор:</b><a href="{{ entity.profile_url }}"> {{ entity.author.name }}</a>
+				  <br /><b>Категория:</b> <a href="{{ entity.category_url }}">{{ entity.category.title }}</a>
+			      <br /><b>Просмотров:</b> {{ entity.views }}
+				  {% if entity.commented %}<br /><b>Комментариев:</b> {{ entity.comments }}{% endif %}
+				  <br />
+				  <br /><script language="JavaScript" type="text/javascript" src="{{ template_path }}/js/share.js"></script>
+			    </div>
+	        </div>
+      </div>
+</div>
+{{ relmat }}
+
+
+

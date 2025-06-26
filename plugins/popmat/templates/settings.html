@@ -1,0 +1,121 @@
+<div class="row">
+    <form action="" name="plug" method="POST" class="col s12" enctype="multipart/form-data" onsubmit="sendu(this); return false">
+
+        <h5 class="light">Вывести виджет на страницу можно с помощью метки <b>&#123;&#123; popmat &#125;&#125;</b></h5>
+        <br>
+
+        <div class="input-field col s12">
+            <input id="limit" name="limit" type="number" class="validate" value="{{ config.limit }}">
+            <label for="limit">Количество материалов:</label>
+        </div>
+        
+        <div class="row">
+            <div class="input-field col s6">
+                <input id="short_title" name="short_title" type="number" class="validate" value="{{ config.short_title }}">
+                <label for="short_title">Ограничение заголовка:</label>
+            </div>
+            <div class="input-field col s6">
+                <input id="short_main" name="short_main" type="number" class="validate" value="{{ config.short_main }}">
+                <label for="short_main">Ограничение описания:</label>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="input-field col s6">
+                <select name="module">
+                    <option value="" disabled selected>Выберите модуль для сортировки</option>
+                    <option value="news" {% if config.module == "news" %}selected{% endif %}>Новости</option>
+                    <option value="loads" {% if config.module == "news" %}selected{% endif %}>Файлы</option>
+                    <option value="stat" {% if config.module == "news" %}selected{% endif %}>Статьи</option>
+                </select>
+                <label>Модуль</label>
+            </div>
+            <div class="input-field col s6">
+                <select name="sort">
+                    <option value="" disabled selected>Выберите тип сортировки</option>
+                    <option value="date" {% if config.sort == "date" %}selected{% endif %}>По дате</option>
+                    <option value="views" {% if config.sort == "views" %}selected{% endif %}>По просмотрам</option>
+                    <option value="comments" {% if config.sort == "comments" %}selected{% endif %}>По комментариям</option>
+                    <option value="loads" {% if config.sort == "loads" %}selected{% endif %}>По количеству загрузок (только в модуле Файлы)</option>
+                </select>
+                <label>Тип сортировки</label>
+            </div>
+        </div>
+        
+
+        <div class="row">
+            <div class="input-field col s12">
+                <textarea id="template" name="template" class="materialize-textarea">{{ template }}</textarea>
+                <label for="template">HTML код шаблона</label>
+            </div>
+        </div>
+        <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+            <button class="btn-floating btn-large deep-orange form_save tooltipped" data-position="left" data-tooltip="Сохранить изменения" type="submit" name="send">
+                <i class="large mdi-content-save"></i>
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="row">
+    <ul class="markers">
+        <span>В плагине работают все поля которые есть в базе данных news. <br/> Пример: &#123;&#123; mat.названиеполя &#125;&#125;. <br /><b>Для новичков</b> какие поля есть: id; title; main; views; date; category_id; author_id; comments и т.д</span>
+        <h5>Метки вызова генератора в шаблоне</h5>
+        <li><div class="chip">&#123;&#123; mat.img_url &#125;&#125;</div> - Метка вывода адреса прикрепления</li>
+        <li><div class="chip">&#123;&#123; mat.author_name &#125;&#125;</div> - Ник автора материала</li>
+        <li><div class="chip">&#123;&#123; mat.author_url &#125;&#125;</div> - Ссылка на профиль автора</li>
+        <li><div class="chip">&#123;&#123; mat.url &#125;&#125;</div> - Адрес материала</li>
+        <li><div class="chip">&#123;&#123; mat.title &#125;&#125;</div> - Заголовок</li>
+        <li><div class="chip">&#123;&#123; mat.main &#125;&#125;</div> - Описание</li>
+        <li><div class="chip">&#123;&#123; mat.key_sort &#125;&#125;</div> - Вывод значений того параметра, по которому ведётся сортировка</li>
+    </ul> 
+</div>
+
+
+<style>
+.chip {
+    display: inline-block;
+    height: 32px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(0,0,0,0.6);
+    line-height: 32px;
+    padding: 0 12px;
+    border-radius: 16px;
+    background-color: #e4e4e4;
+    
+    width: 180px;
+    text-align: center;
+}
+
+.markers li {
+    margin: 1px;
+}
+</style>
+
+
+<script>
+    // Отправляет форму на сервер и отображает статус выполненного действия
+    function sendu(e) {
+        if (e instanceof Object != true) {
+            e = $('#'+e)
+        }
+
+        formname = $(e).attr("name")
+        formData = new FormData(document.forms[formname])
+        
+        xhr = new XMLHttpRequest()
+        xhr.open('POST', $(e).attr("action"), true)
+        xhr.onload = function(e) {
+            if (this.status == 200) {
+                Materialize.toast('Сохранено', 4000);
+            } else {
+                Materialize.toast('Произошла неизвестная ошибка', 4000);
+            }
+        }
+        xhr.send(formData)
+    }
+    $(document).ready(function() {
+        $('select').material_select();
+    });
+</script>

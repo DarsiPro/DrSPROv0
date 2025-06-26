@@ -1,0 +1,34 @@
+{% if entities %}
+<div class="material">
+	  <div class="mat-content">
+	  <div class="photos_albums_container">
+      {% for entity in entities %}
+	  <div class="photo_row"><div class="cont">
+          <a href="{{ entity.entry_url }}" class="img_link" >
+		      <img alt="{{ entity.foto_alt }}" src="{{ entity.preview_foto }}" />
+			  <div class="photo_album_info">
+				 <b>Автор: 
+				 <a href="{{ entity.profile_url }}">{{ entity.author.name }}</a>
+				 </b>
+              </div>
+			  
+		      <div class="photo_album_mp">
+                 {% include "../includes/moder_panel.html" %}
+              </div>
+			 
+              <span class="photo_album_title">
+                    <span class="ge_photos_album fl_l" title="Название фотографии: {{ entity.title }}"><h1>{{ entity.title }}</h1></span>
+                    <span class="camera fl_r" title="Просмотров: {{ entity.views }}">{{ entity.views }}</span>
+              </span>
+          </a>
+       </div>
+       </div>
+      {% endfor %}  
+	  </div>
+	  </div>
+</div>
+{% else %}
+<div class="informs">
+Фотографий еще не добавлено.
+</div>
+{% endif %}

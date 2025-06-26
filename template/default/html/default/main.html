@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+<title>{{ title }}</title>
+
+<meta name="description" content="{{ meta_description }}" />
+<meta name="keywords" content="{{ meta_keywords }}" />
+<meta charset="UTF-8"/>
+
+<meta name='author' content='Andrey Brykin' />
+<meta name='robots' content='index, follow' />
+<meta name='rating' content='general' />
+<meta name='generator' content='DarsiPro CMS' />
+
+<link rel="shortcut icon" href="{{ template_path }}/favicon.ico" type="image/x-icon" />
+<link rel="icon" type="image/png" href="{{ template_path }}/img/favicon-96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="{{ template_path }}/img/favicon-228.png" sizes="228x228">
+<link rel="apple-touch-icon" href="{{ template_path }}/img/favicon-152.png" />
+<link type="text/css" rel="StyleSheet" href="{{ template_path }}/css/style.css" />
+
+
+
+
+
+<script type="text/javascript" src="{{ www_root }}/data/js/jquery.js"></script>
+<script type="text/javascript">
+    var WWW_ROOT = "{{ www_root }}",
+        LANG = "{{ lang }}";
+</script>
+<script type="text/javascript" src="{{ www_root }}/data/js/darsi.js"></script>
+
+<script type="text/javascript" src="{{ template_path }}/js/default.js"></script>
+
+{{ editor_head }}
+
+<!-- FancyBOX -->
+<link type="text/css" rel="StyleSheet" href="{{ template_path }}/css/jquery.fancybox.css" />
+<script type="text/javascript" src="{{ template_path }}/js/jquery.fancybox.js"></script>
+<!--/FancyBOX -->
+
+{% if user.id %}<script>check_pm();</script>{% endif %}
+</head>
+
+
+<body>
+{% include '../includes/headpanel.html' %}
+<div class="global">
+{% include '../includes/header.html' %}
+
+<div class="sider">
+    <div class="sidertop bigmenu">
+	  {{ mainmenu }}
+	  <div class="search">
+	   <form method="POST" action="{{ www_root }}/search/"> 
+        <input type="hidden" name="subaction" value="search"> 
+        <input name="search" placeholder="Найти что-нибудь..." type="text"> 
+        <input value="GO!" type="submit" name="send"> 
+       </form> 
+	  </div>
+	</div>
+	<!---------------------------------------------------------------------------CONTENT/----------------------------------------------------------------------------------------------->
+    <div class="content">
+<div class="spedbar">
+    <div>
+        <div>{{ navigation }}</div>
+    </div>
+</div>
+{% if pagination %}<div class="paginator">{{ meta }}<div class="pages">{{ pagination }}</div></div>{% endif %}
+{% if add_link %}<a href="{{ www_root }}/news/add_form/" class="lastpostsbutton button">Добавить новость</a>{% endif %}
+<div style="clear:both;"></div>
+<div class="cleartwoblocks">
+<div class="materials">
+		{{ content }}
+        {{ comments }}
+        {{ comments_form }}
+</div>
+<div class="rightbloks">
+		{{ popmat }}
+	    {{ last_comments }}
+	    {{ users_rating }}
+	    <div class="block">
+		  <div class="blockstop">Сайты на DarsiPro CMS</div>
+		  <div class="blokscontent">
+		  <ul class="mini_list">
+		     <li><img src="//darsi.pro/favicon.ico" height="16" width="16" alt=""/><a href="//darsi.pro" title="Презентационная страница DarsiPro" rel="nofollow">Презентационная страница DarsiPro</a></li>
+		  </ul>
+		  </div>
+		</div>
+</div>
+</div>
+	 {% if pagination %}<div class="paginator"><div class="pages">{{ pagination }}</div></div>{% endif %}
+	<div class="material">
+           <div class="inftitle">Сейчас online: {{ all_online }}. Зарегистрированных: {{ users_online }}. Гостей: {{ guests_online }}. </div>
+	       <div class="infcont">{{ online_users_list }}</div>
+	    </div>
+	</div>
+	<!---------------------------------------------------------------------------/CONTENT----------------------------------------------------------------------------------------------->
+</div>
+<!--------------------------------------------------------CHAT----------------------------------------------------------------------------------------------------------------------------->
+{% if drs_chat %}
+{% include '../includes/minichat.html' %}
+{% endif %}
+<!--------------------------------------------------------FOOTER-BUTTONS------------------------------------------------------------------>
+{% include '../includes/footer.html' %}
+</div>
+</body>
+</html>

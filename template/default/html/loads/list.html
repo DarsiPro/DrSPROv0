@@ -1,0 +1,21 @@
+{% if entities %}
+<div class="lineblock">
+	  <div class="linetitle"><h1>Каталог файлов</h1></div>
+	  <div class="linehead order"><div class="forstatus"></div><div class="forname">{{ getOrderLink(['title','Название']) }}</div><div class="forteme"><div><div class="mozilakostil">{{ getOrderLink(['downloads','Скачивания']) }} / {{ getOrderLink(['views','Просмотры']) }} / {{ getOrderLink(['comments','Комментарии']) }}</div></div></div><div class="fornewmess">{{ getOrderLink(['date','Добавлено']) }}</div></div>
+	  {% for entity in entities %}
+	  <div class="linecontent"><div class="forstatus"><span><img src="{{ template_path }}/img/load.png" alt=""/></span></div><div class="forname"><div class="mozilacostil"><div class="moderline">{% include "../includes/moder_panel.html" %}</div><div class="lineinfo"><a class="namefor" href="{{ entity.entry_url }}"><h2>{{ entity.title }}</h2></a><span class="button2" onclick="if($('#{{ entity.id }}').css('display') == 'none'){$('#{{ entity.id }}').show();}else{$('#{{ entity.id }}').hide();}">Подробнее</span><div class="fordescription hidden" id="{{ entity.id }}">{{ entity.announce }}</div></div></div></div>
+	  <div class="forteme">
+		<ul>
+			<li>Скачано: <strong>{{ entity.downloads }}</strong></li>
+			<li>Просмотров: <strong>{{ entity.views }}</strong></li>
+			<li>Комментариев: <strong>{{ entity.comments }}</strong></li>
+		</ul>
+		</div>
+	  <div class="fornewmess">{{ DrsDate(entity.date) }}<br />Добавил: <a href="{{ entity.profile_url }}">{{ entity.author.name }}</a><br />В раздел:<a href="{{ entity.category_url }}">{{ entity.category.title }}</a></div></div>
+	  {% endfor %}
+</div>
+{% else %}
+<div class="informs">
+Каталог файлов пуст.
+</div>
+{% endif %}

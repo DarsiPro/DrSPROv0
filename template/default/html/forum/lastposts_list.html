@@ -1,0 +1,19 @@
+<div class="lineblock">
+	  <div class="linetitle"><h1>{{ context.forum_name }}</h1></div>
+	  <div class="linehead order"><div class="forstatus"></div><div class="forname">{{ getOrderLink(['title','Тема']) }}</div><div class="forteme">{{ getOrderLink(['posts','Ответы']) }} / {{ getOrderLink(['views','Просмотры']) }}</div><div class="fornewmess">{{ getOrderLink(['last_post','Обновления']) }}</div></div>
+      {% if themes %}
+	  {% for theme in themes %}  
+	  <div class="linecontent {{ theme.drs_css_class }}"><div class="forstatus"><span>{{ theme.themeicon }}</span></div><div class="forname"><div class="mozilacostil">{% if theme.adminbar %}<div class="moderline">{{ theme.adminbar }}</div>{% endif %}<div class="lineinfo">{{ theme.importantly }}<a class="namefor" href="{{ theme.theme_url }}"><h2>{{ theme.title }}</h2></a>[{{ theme.parent_forum }}]{{ theme.near_pages }}<div class="fordescription">{{ theme.description }}</div></div></div></div>
+	  <div class="forteme">
+		<ul>
+			<li>Ответов: <strong>{{ theme.posts }}</strong></li>
+			<li>Просмотров: <strong>{{ theme.views }}</strong></li>
+			<li>Автор: <strong>{{ theme.author.name }}</strong></li>
+		</ul>
+		</div>
+	  <div class="fornewmess">{{ DrsDate(theme.last_post) }}<br />Сообщение от: <span class="lastPostUser">{{ theme.last_user }}</span><br />{{ theme.last_page }}</div></div>
+	  {% endfor %}
+	  {% else %}
+	  <div class="linecontent">Тем еще не создано.</div>
+	  {% endif %}
+</div>

@@ -1,0 +1,34 @@
+<html>
+<head>
+<title>{{ site_title }} - ИНФО</title>
+<meta charset="UTF-8"/>
+<link rel="shortcut icon" href="{{ template_path }}/favicon.ico" type="image/x-icon" />
+<link rel="apple-touch-icon" href="{{ template_path }}/img/apple-touch-icon.png" />
+<style type="text/css">
+.errorblock {
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 500px;
+    height: 150px;
+    max-width: 100%;
+    max-height: 100%;
+    color: #AAA;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+.errorblock a {color: #7BB2F8;}
+.errorblock .title {color: #333;font-size: 30px;}
+.errorblock .text {font-size: 20px;margin-top: 40px;}
+</style>
+</head>
+<body>
+<div class="errorblock">
+      <div class="title">{{ data.message }}</div>
+      <div class="text">{% if data.url %}<a href="{{ data.url }}">Продолжить</a>{% endif %}</div>
+</div>
+</body>
+</html>
