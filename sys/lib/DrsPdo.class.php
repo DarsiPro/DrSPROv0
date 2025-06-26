@@ -1,12 +1,22 @@
 <?php
 /**
-* @project    DarsiPro CMS
-* @package    DrsPdo Wrapper class
-* @url        https://darsi.pro
-*/
-
+ * @project    DarsiPro CMS
+ * @package    DrsPdo Wrapper class
+ * @author     Петров Евгений <email@mail.ru>
+ * @url        https://darsi.pro
+ * @version    1.0
+ * @php        5.6+
+ */
 class DrsPdo extends PDO {
     
+    /**
+     * Конструктор класса
+     * 
+     * @param string $dsn DSN для подключения к БД
+     * @param string|null $user Имя пользователя БД
+     * @param string|null $pass Пароль пользователя БД
+     * @param array $options Дополнительные опции PDO
+     */
     public function __construct($dsn, $user = null, $pass = null, $options = array()) {
         $options = array_merge(array(
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
@@ -19,26 +29,26 @@ class DrsPdo extends PDO {
         parent::query("SET @@session.time_zone = '+00:00';");
     }
     
-    
     /*
      * Экранирует название таблицы или поля
      * 
-     * @param string $name
-     * @return string
-    */
+     * @param string $name Название таблицы/поля (может содержать точку для разделения таблица.поле)
+     * @return string Экранированное название
+     */
     private function escapeName($name) {
-        $name = explode('.',$name);
+        $name = explode('.', $name);
         
-        $out = "`".str_replace("`","``",array_shift($name))."`";
+        $out = "`".str_replace("`", "``", $name[0])."`";
         
-        foreach($name as $part_name)
-            $out .= ".`".str_replace("`","``",$name)."`";
+        for ($i = 1, $count = count($name); $i < $count; $i++) {
+            $out .= ".`".str_replace("`", "``", $name[$i])."`";
+        }
         
         return $out;
     }
     
     /*
-     * Является своеобразным препроцессорм, расширяющим возможности подготавливаемых PDO запросов
+     * Является своеобразным препроцессором, расширяющим возможности подготавливаемых PDO запросов
      * А именно упрощает использование типизованных "плейсхолдеров":
      * 
      * - ?s ("string") - строки (а также DATE, FLOAT и DECIMAL). 
@@ -57,38 +67,38 @@ class DrsPdo extends PDO {
      * 
      * @param string $query - строка запроса
      * @param array $args - аргументы запроса(плейсхолдеры)
-     * @param array $driver_options -  значения атрибутов объекта PDOStatement, который будет возвращен
+     * @param array $driver_options - значения атрибутов объекта PDOStatement, который будет возвращен
      * @return PDOStatement
-    */
-    public function prepare_improved($query, $args=array(), $driver_options=array()) {
-        
+     */
+    public function prepare_improved($query, $args = array(), $driver_options = array()) {
         $params = array();
-        $split_query = preg_split('~(\?[nsiuapb]{1}(\:[\w]+)?)~u',$query,null,PREG_SPLIT_DELIM_CAPTURE);
-
+        $split_query = preg_split('~(\?[nsiuapb](:[a-zA-Z_][a-zA-Z0-9_]*)?)~', $query, -1, PREG_SPLIT_DELIM_CAPTURE);
         $new_query = '';
         
         // Номер элемента в выходном массиве(тот, что в PDO уходит)
         $n = 1;
-        // Разница между номером аргумента во входном массиве аргументов
-        // и выходном массиве
+        // Разница между номером аргумента во входном массиве аргументов и выходном массиве
         $d = -1;
-        // Флаг, говорящий пропускать ли следущий элемент входного запроса
+        // Флаг, говорящий пропускать ли следующий элемент входного запроса
         $skip = false;
         
         $named_args = array();
         
-        foreach($split_query as $haystack) {
+        for ($i = 0, $count = count($split_query); $i < $count; $i++) {
+            $haystack = $split_query[$i];
+            
             if ($skip) {
                 $skip = false;
                 continue;
             }
+            
             if (!empty($haystack) && $haystack[0] == '?') {
-                $type = substr($haystack,1,1);
-                $name = substr($haystack,2);
+                $type = substr($haystack, 1, 1);
+                $name = substr($haystack, 2);
                 
                 if (empty($name)) {
                     $haystack = '?';
-                    $place = $n+$d; // $args position
+                    $place = $n + $d; // $args position
                 } else {
                     $haystack = $place = $name;
                     $skip = true;
@@ -103,14 +113,14 @@ class DrsPdo extends PDO {
                         $haystack = $this->escapeName($args[$place]);
                         $new_query .= $haystack;
                         continue 2;
-                        break;
+                        
                     case 'p':
                         // Пропускаем элемент во входном массиве
                         // (если аргумент именованный, то его позиция не играет роли)
                         if (empty($name)) $d++; 
                         $new_query .= $args[$place];
                         continue 2;
-                        break;
+                        
                     case 'a':
                         // Пропускаем элемент во входном массиве
                         // (если аргумент именованный, то его позиция не играет роли)
@@ -132,7 +142,7 @@ class DrsPdo extends PDO {
                         
                         $new_query .= $haystack;
                         continue 2;
-                        break;
+                        
                     case 'u': 
                         // Пропускаем элемент во входном массиве
                         // (если аргумент именованный, то его позиция не играет роли)
@@ -154,14 +164,13 @@ class DrsPdo extends PDO {
                         
                         $new_query .= $haystack;
                         continue 2;
-                        break;
+                        
                     case 'i': $type = PDO::PARAM_INT; break;
                     case 'b': $type = PDO::PARAM_BOOL; break;
                     case 's':
                     default:
                         $type = PDO::PARAM_STR;
                 }
-                
                 
                 if (empty($name)) {
                     $params[] = array(
@@ -176,11 +185,9 @@ class DrsPdo extends PDO {
                         "id" => ($named_args[] = $name)
                     );
                 }
-                
             }
             $new_query .= $haystack;
         }
-        
         
         $sth = parent::prepare($new_query, $driver_options);
         foreach($params as $param) {
@@ -194,11 +201,11 @@ class DrsPdo extends PDO {
      * 
      * @param string $query - строка запроса
      * @param array $args - аргументы запроса(значения плейсхолдеров)
-     * @param array $fetch_style - параметры выборки
-     * @param array $driver_options -  значения атрибутов объекта PDOStatement
+     * @param int|null $fetch_style - параметры выборки
+     * @param array $driver_options - значения атрибутов объекта PDOStatement
      * @return array - одна запись из БД (field=>value)
-    */
-    public function getRow($query, $args=array(), $fetch_style=null, $driver_options=array()) {
+     */
+    public function getRow($query, $args = array(), $fetch_style = null, $driver_options = array()) {
         $sth = $this->prepare_improved($query, $args, $driver_options);
         $sth->execute();
         
@@ -210,15 +217,14 @@ class DrsPdo extends PDO {
      * 
      * @param string $query - строка запроса
      * @param array $args - аргументы запроса(значения плейсхолдеров)
-     * @param array $fetch_style - параметры выборки
-     * @param array $driver_options -  значения атрибутов объекта PDOStatement
+     * @param int|null $fetch_style - параметры выборки
+     * @param array $driver_options - значения атрибутов объекта PDOStatement
      * @return array - многомерный массив записей из БД (field=>value)
-    */
-    public function getAll($query, $args=array(), $fetch_style=null, $driver_options=array()) {
+     */
+    public function getAll($query, $args = array(), $fetch_style = null, $driver_options = array()) {
         $sth = $this->prepare_improved($query, $args, $driver_options);
         $sth->execute();
         
         return $sth->fetchAll($fetch_style);
     }
 }
-

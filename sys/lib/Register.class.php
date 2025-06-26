@@ -1,151 +1,226 @@
 <?php
-
-
+/**
+ * Класс Register - реализация паттерна "Реестр" (Registry)
+ *
+ * Предоставляет глобальное хранилище для объектов и данных в приложении.
+ * Реализует интерфейсы ArrayAccess, Iterator и Countable для удобной работы.
+ *
+ * @project    DarsiPro CMS
+ * @package    Core
+ * @author     Петров Евгений <email@mail.ru>
+ * @url        https://darsi.pro
+ * @version    1.0
+ * @php        5.6+
+ */
 
 class Register implements ArrayAccess, Iterator, Countable
 {
+    /**
+     * @var Register|null Единственный экземпляр класса (реализация Singleton)
+     */
+    private static $instance = null;
+    
+    /**
+     * @var array Внутреннее хранилище данных
+     */
+    private $storage = array();
+    
+    /**
+     * @var int Текущая позиция итератора
+     */
+    private $iteratorPosition = 0;
+    
+    /**
+     * @var array Ключи массива для корректной работы итератора
+     */
+    private $iteratorKeys = array();
 
-    private static $instance = NULL;
+    /**
+     * Закрытый конструктор (запрещаем прямое создание экземпляра)
+     */
+    private function __construct()
+    {
+    }
 
-
+    /**
+     * Получение экземпляра класса (Singleton)
+     *
+     * @return Register Экземпляр класса Register
+     */
     public static function getInstance()
     {
-        if (self::$instance == NULL) {
-             self::$instance = new self();
+        if (self::$instance === null) {
+            self::$instance = new self();
         }
         return self::$instance;
     }
 
-
-    function set($Name,$Value)
+    /**
+     * Добавление значения в реестр
+     *
+     * @param string|null $name Ключ (если не указан, значение будет добавлено с числовым индексом)
+     * @param mixed $value Значение для сохранения
+     */
+    public function set($name, $value)
     {
-        if (empty($Name))
-        {
-            $this->storage[] = $Value;
+        if (empty($name)) {
+            $this->storage[] = $value;
+        } else {
+            $this->storage[$name] = $value;
         }
-        else
-        {
-            $this->storage[$Name] = $Value;
-        }
+        $this->updateIteratorKeys();
     }
 
-
-    function get($Name)
+    /**
+     * Получение значения из реестра
+     *
+     * @param string $name Ключ значения
+     * @return mixed|null Значение или null, если ключ не существует
+     */
+    public function get($name)
     {
-        if (isset($this->storage[$Name]))
-        {
-            return $this->storage[$Name];
-        }
-        return NULL;
+        return isset($this->storage[$name]) ? $this->storage[$name] : null;
     }
 
-
-    /** Get,returned and saving class */
-    static function getClass($name) {
+    /**
+     * Получение экземпляра класса с автоматическим созданием при необходимости
+     *
+     * @param string $name Имя класса
+     * @return object Экземпляр запрошенного класса
+     * @throws Exception Если класс не существует
+     */
+    public static function getClass($name)
+    {
         $Register = self::getInstance();
-        if (!isset($Register[$name]))
-            $Register[$name] = new $name;
+        if (!isset($Register[$name])) {
+            if (!class_exists($name)) {
+                throw new Exception("Class {$name} does not exist");
+            }
+            $Register[$name] = new $name();
+        }
         return $Register[$name];
     }
 
+    /**
+     * Обновление ключей для итератора
+     */
+    private function updateIteratorKeys()
+    {
+        $this->iteratorKeys = array_keys($this->storage);
+    }
+
+    /***************************/
+    /* Реализация ArrayAccess  */
+    /***************************/
 
     /**
-     * @param  $offset
+     * Проверка существования ключа в реестре
+     *
+     * @param mixed $offset Ключ для проверки
      * @return bool
      */
     public function offsetExists($offset)
     {
-        return array_key_exists($offset, $this->storage);
+        return isset($this->storage[$offset]);
     }
 
-
     /**
-     * @param  $key
-     * @param  $value
-     * @return bool
+     * Установка значения по ключу
+     *
+     * @param mixed $offset Ключ
+     * @param mixed $value Значение
      */
-    public function offsetSet($key, $value)
+    public function offsetSet($offset, $value)
     {
-        $this->storage[$key] = $value;
-        return true;
+        if ($offset === null) {
+            $this->storage[] = $value;
+        } else {
+            $this->storage[$offset] = $value;
+        }
+        $this->updateIteratorKeys();
     }
 
     /**
-     * @param  $key
-     * @return array
+     * Получение значения по ключу
+     *
+     * @param mixed $offset Ключ
+     * @return mixed|null Значение или null, если ключ не существует
      */
-    public function offsetGet($key)
+    public function offsetGet($offset)
     {
-        return (!empty($this->storage[$key])) ? $this->storage[$key] : false;
+        return isset($this->storage[$offset]) ? $this->storage[$offset] : null;
     }
 
     /**
-     * @param  $key
-     * @return void
+     * Удаление значения из реестра
+     *
+     * @param mixed $offset Ключ
      */
-    public function offsetUnset($key)
+    public function offsetUnset($offset)
     {
-        unset($this->storage[$key]);
+        unset($this->storage[$offset]);
+        $this->updateIteratorKeys();
     }
 
-
-
-    /*
-     * Next Iterator interface
-     */
-
-
+    /***************************/
+    /* Реализация Iterator    */
+    /***************************/
 
     /**
-     * @return array
+     * Получение текущего элемента итератора
+     *
+     * @return mixed Текущее значение
      */
     public function current()
     {
-        return $this->storage[$this->key];
+        return $this->storage[$this->iteratorKeys[$this->iteratorPosition]];
     }
 
     /**
-     * @return int
+     * Получение текущего ключа итератора
+     *
+     * @return mixed Текущий ключ
      */
     public function key()
     {
-        return $this->key;
+        return $this->iteratorKeys[$this->iteratorPosition];
     }
 
     /**
-     * @return void
+     * Переход к следующему элементу
      */
     public function next()
     {
-        $this->key++;
+        $this->iteratorPosition++;
     }
 
     /**
-     * @return void
+     * Сброс итератора
      */
     public function rewind()
     {
-        $this->key = 0;
+        $this->iteratorPosition = 0;
     }
 
     /**
+     * Проверка валидности текущей позиции итератора
+     *
      * @return bool
      */
     public function valid()
     {
-        return array_key_exists($this->key, $this->storage);
+        return isset($this->iteratorKeys[$this->iteratorPosition]) && 
+               isset($this->storage[$this->iteratorKeys[$this->iteratorPosition]]);
     }
 
-
-
-    /*
-     * For Countable Interface
-     */
-
-
+    /***************************/
+    /* Реализация Countable   */
+    /***************************/
 
     /**
-     * @return int
+     * Подсчет элементов в реестре
+     *
+     * @return int Количество элементов
      */
     public function count()
     {

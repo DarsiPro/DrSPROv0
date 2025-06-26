@@ -283,18 +283,48 @@ function getDB() {
  * Получает экземпляр класса DrsPdo (подключение к БД) с использованием шаблона Singleton
  * 
  * @return DrsPdo Экземпляр подключения к базе данных
+ * @throws PDOException Если подключение не удалось
  */
 function getDrsPdo() {
-    static $dbh;
+    // Статическая переменная для хранения подключения (Singleton)
+    static $dbh = null;
 
-    if (!isset($dbh)) {
-        // Присвоить ссылку статической переменной
+    // Если подключение еще не установлено
+    if ($dbh === null) {
+        // Получаем параметры подключения из конфигурации
         $dblocation = Config::read('host', '__db__');
         $dbuser = Config::read('user', '__db__');
         $dbpasswd = Config::read('pass', '__db__');
         $dbname = Config::read('name', '__db__');
         
-        $dbh = new DrsPdo("mysql:dbname=$dbname;host=$dblocation;charset=utf8", $dbuser, $dbpasswd);
+        // Проверяем наличие обязательных параметров
+        if (empty($dblocation) || empty($dbname)) {
+            throw new RuntimeException('Не заданы параметры подключения к БД');
+        }
+
+        // Формируем DSN строку для подключения
+        $dsn = "mysql:dbname={$dbname};host={$dblocation};charset=utf8";
+        
+        // Опции подключения PDO
+        $options = array(
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // Генерировать исключения при ошибках
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, // Возвращать ассоциативные массивы
+            PDO::ATTR_EMULATE_PREPARES => false, // Использовать настоящие prepared statements
+            PDO::ATTR_PERSISTENT => false, // Не использовать постоянные подключения
+            PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4' COLLATE 'utf8mb4_unicode_ci'" // Явно указываем кодировку
+        );
+
+        try {
+            // Создаем подключение к базе данных
+            $dbh = new DrsPdo($dsn, $dbuser, $dbpasswd, $options);
+            
+            // Устанавливаем таймауты для дополнительной надежности
+            $dbh->setAttribute(PDO::ATTR_TIMEOUT, 5); // 5 секунд таймаут
+        } catch (PDOException $e) {
+            // Логируем ошибку подключения
+            error_log("Ошибка подключения к БД: " . $e->getMessage());
+            throw $e; // Пробрасываем исключение дальше
+        }
     }
     
     return $dbh;
@@ -1358,7 +1388,6 @@ function getBornTodayUsers() {
 
     return is_array($today_born) ? $today_born : array();
 }
-
 
 /**
  * Возвращает общее количество зарегистрированных пользователей
