@@ -2,7 +2,7 @@
 
 
 
-class Viewer_Node_Text extends Viewer_Node_Expresion
+class Viewer_Node_Text extends Viewer_Node_Expression
 {
 
     protected $data;

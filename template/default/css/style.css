@@ -19,9 +19,9 @@
     font-style: normal;
 }
 /*----------------------------------------------------------/FONT--------------------------------------------------------------------------------*/
-body {text-align:center;margin: 0;background: url('../img/bg.jpg') repeat;min-height: 100%;min-width: 1000px;}
+body {text-align:center;margin: 0;background: url('/.s/scr/img/fabric.png') repeat;min-height: 100%;min-width: 1000px;}
 /*----------------------------------------------------------LINKS--------------------------------------------------------------------------------*/
-a {color: #888;text-decoration: none;font-family: ArialNarrow,sans-serif;cursor: pointer;}
+a {color: #fff;text-decoration: none;font-family: ArialNarrow,sans-serif;cursor: pointer;}
 a:hover {color: #CCC;}
 /*-----------------------------sql_querys---------------------------------*/
 #sql_querys {padding: 40px;background: #FFDFDF;border-top: 1px solid #461B1B;color: #461B1B;}
@@ -159,23 +159,7 @@ border-radius: 7px;-moz-border-radius: 7px;-webkit-border-radius: 7px;
 /*------------------------------------------------------------RAZMETKA------------------------------------------------------------------------------*/
 .global {width: 100%;margin: 0 auto;min-height: 100%;}
 .header {width: 98%;margin: 0 auto;height: 250px;}
-/*----------------------------------------------------------ADMIN-PANEL--------------------------------------------------------------------------------*/
-.headpanel {
-position:fixed;
-width: 100%;
-min-width: 1000px;
-border-bottom: 1px solid #888;
-height:30px;
-z-index: 10;
-background: #525252 url('../img/button.png') repeat-x 0 -27px;
-box-shadow: 0 1px 20px #000; -webkit-box-shadow: 0 1px 20px #000; -moz-box-shadow: 0 1px 20px #000;
-}
-.headpanel div {display: inline-block;position: relative;font-size: 14px;color: #d6d6d6;text-shadow: 0 1px 0 #000;font-family: Arial,"Helvetica CY",Helvetica,sans-serif;}
-.headpanel .linksap {float: left;margin-left: 20px;}
-.headpanel .userlinksap {float: right;margin-right: 20px;}
-.headpanel div a {display:block;padding: 0 6px;line-height: 30px;height: 30px;color: #DDD;background: url('../img/mezhadmin.png') right no-repeat;font-stretch: condensed; }
-.headpanel div a:hover {color: #fff;}
-.headpanel div div:last-child a {background: none;}
+
 /*--------------------------------------------------------------FOOTER-BUTTONS----------------------------------------------------------------------------*/
 
 /*--------------------------------------------------------------WINDOWS----------------------------------------------------------------------------*/
@@ -269,7 +253,7 @@ box-shadow: inset 0 0 3px #000;-webkit-box-shadow: inset 0 0 3px #000;-moz-box-s
 .activewindow div .uslinkminpro a:first-child {border-radius:5px 5px 0 0; -moz-border-radius: 5px 5px 0 0; -webkit-border-radius: 5px 5px 0 0; -khtml-border-radius: 5px 5px 0 0;}
 .activewindow div .uslinkminpro a:last-child {border-radius:0 0 5px 5px; -moz-border-radius: 0 0 5px 5px; -webkit-border-radius: 0 0 5px 5px; -khtml-border-radius: 0 0 5px 5px;}
 /*--------------------------------------------------------------LOGOFAPOS----------------------------------------------------------------------------*/
-.logohead {width: 200px;height: 200px;float: left;background: url('../img/globalogo.png') -5px -3px no-repeat;margin: 43px 20px 0;position: relative;overflow: hidden;}
+.logohead {width: 300px;height: 55px;float: left;background: url('/.s/scr/img/login-title.png') -5px -3px no-repeat;margin: 110px 20px 0;position: relative;overflow: hidden;}
 /*-------------------------------------------------------------INFORMATION-----------------------------------------------------------------------------*/
 img.avatar, img.ava {max-width: 95px;max-height: 95px;position: absolute;margin: auto;top: 0;bottom: 0;left: 0;right: 0;}
 .infohead {width: 620px;height: 210px;margin-top: 40px;float: right;}

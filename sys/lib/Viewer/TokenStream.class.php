@@ -1,33 +1,48 @@
 <?php
 
-
 /**
- * Represents a token stream.
+ * Класс для работы с потоком токенов в шаблонизаторе DarsiPro CMS
  *
+ * @project    DarsiPro CMS
+ * @author     Петров Евгений <email@mail.ru>
+ * @url        https://darsi.pro
+ * @version    1.0
+ * @php        5.6+
  */
 class Viewer_TokenStream
 {
+    /**
+     * @var array Массив токенов
+     */
     protected $tokens;
+    
+    /**
+     * @var int Текущая позиция в потоке токенов
+     */
     protected $current;
+    
+    /**
+     * @var string|null Имя файла, связанного с потоком токенов (для отладки)
+     */
     protected $filename;
 
     /**
-     * Constructor.
+     * Конструктор класса
      *
-     * @param array  $tokens   An array of tokens
-     * @param string $filename The name of the filename which tokens are associated with
+     * @param array $tokens Массив объектов Viewer_Token
+     * @param string|null $filename Имя файла (для отладки)
      */
     public function __construct(array $tokens, $filename = null)
     {
-        $this->tokens     = $tokens;
-        $this->current    = 0;
-        $this->filename   = $filename;
+        $this->tokens = $tokens;
+        $this->current = 0;
+        $this->filename = $filename;
     }
 
     /**
-     * Returns a string representation of the token stream.
+     * Преобразует поток токенов в строку
      *
-     * @return string
+     * @return string Строковое представление потока токенов
      */
     public function __toString()
     {
@@ -35,65 +50,82 @@ class Viewer_TokenStream
     }
 
     /**
-     * Sets the pointer to the next token and returns the old one.
+     * Перемещает указатель на следующий токен и возвращает текущий
      *
-     * @return Viewer_Token
+     * @return Viewer_Token Текущий токен перед перемещением указателя
+     * @throws Exception Если достигнут конец потока токенов
      */
     public function next()
     {
         if (!isset($this->tokens[++$this->current])) {
-            throw new Exception('Unexpected end of template', -1, $this->filename);
+            throw new Exception(
+                'Unexpected end of template', 
+                -1, 
+                $this->filename
+            );
         }
 
         return $this->tokens[$this->current - 1];
     }
 
     /**
-     * Tests a token and returns it or throws a syntax error.
+     * Проверяет текущий токен на соответствие типу и значению
      *
-     * @return Viewer_Token
+     * @param int $type Ожидаемый тип токена (используйте константы Viewer_Token)
+     * @param mixed $value Ожидаемое значение токена (опционально)
+     * @param string|null $message Сообщение об ошибке (опционально)
+     * @return Viewer_Token Текущий токен
+     * @throws Exception Если токен не соответствует ожидаемым параметрам
      */
     public function expect($type, $value = null, $message = null)
     {
         $token = $this->tokens[$this->current];
+        
         if (!$token->test($type, $value)) {
             $line = $token->getLine();
-            throw new Exception(sprintf('%s Unexpected token "%s" of value "%s" ("%s" expected%s)',
+            throw new Exception(
+                sprintf(
+                    '%s Unexpected token "%s" of value "%s" ("%s" expected%s)',
                     $message ? $message.'. ' : '',
-                    $token->getType(),
+                    Viewer_Token::typeToString($token->getType()),
                     $token->getValue(),
-                    $type,
+                    Viewer_Token::typeToString($type),
                     $value ? sprintf(' with value "%s"', $value) : ''
                 ),
                 $line
-                //, $this->filename
             );
         }
+        
         $this->next();
-
         return $token;
     }
 
     /**
-     * Looks at the next token.
+     * Просматривает токен на указанной позиции относительно текущей
      *
-     * @param integer $number
-     *
-     * @return Viewer_Token
+     * @param int $number Смещение относительно текущей позиции (по умолчанию 1)
+     * @return Viewer_Token Токен на указанной позиции
+     * @throws Exception Если достигнут конец потока токенов
      */
     public function look($number = 1)
     {
         if (!isset($this->tokens[$this->current + $number])) {
-            throw new Exception('Unexpected end of template', -1, $this->filename);
+            throw new Exception(
+                'Unexpected end of template', 
+                -1, 
+                $this->filename
+            );
         }
 
         return $this->tokens[$this->current + $number];
     }
 
     /**
-     * Tests the current token
+     * Проверяет текущий токен на соответствие типу и значению
      *
-     * @return bool
+     * @param int $primary Ожидаемый тип токена
+     * @param mixed $secondary Ожидаемое значение токена (опционально)
+     * @return bool Результат проверки
      */
     public function test($primary, $secondary = null)
     {
@@ -101,9 +133,9 @@ class Viewer_TokenStream
     }
 
     /**
-     * Checks if end of stream was reached
+     * Проверяет, достигнут ли конец потока токенов
      *
-     * @return bool
+     * @return bool True если достигнут конец потока, иначе false
      */
     public function isEOF()
     {
@@ -111,9 +143,9 @@ class Viewer_TokenStream
     }
 
     /**
-     * Gets the current token
+     * Возвращает текущий токен
      *
-     * @return Viewer_Token
+     * @return Viewer_Token Текущий токен
      */
     public function getCurrent()
     {
@@ -121,9 +153,9 @@ class Viewer_TokenStream
     }
 
     /**
-     * Gets the filename associated with this stream
+     * Возвращает имя файла, связанного с потоком токенов
      *
-     * @return string
+     * @return string|null Имя файла или null, если не установлено
      */
     public function getFilename()
     {

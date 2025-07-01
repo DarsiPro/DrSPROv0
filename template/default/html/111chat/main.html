@@ -7,9 +7,6 @@
 <meta name="keywords" content="{{ meta_keywords }}" />
 <meta charset="UTF-8"/>
 
-<meta name='author' content='Andrey Brykin' />
-<meta name='robots' content='index, follow' />
-<meta name='rating' content='general' />
 <meta name='generator' content='DarsiPro CMS' />
 
 <link rel="shortcut icon" href="{{ template_path }}/favicon.ico" type="image/x-icon" />
@@ -25,14 +22,16 @@
 
 <script type="text/javascript" src="{{ template_path }}/js/default.js"></script>
 
-{{ editor_head }}
-
 <!-- FancyBOX -->
 <link type="text/css" rel="StyleSheet" href="{{ template_path }}/css/jquery.fancybox.css" />
 <script type="text/javascript" src="{{ template_path }}/js/jquery.fancybox.js"></script>
 <!--/FancyBOX -->
 
-{% if user.id %}<script>check_pm();</script>{% endif %}
+<script type="text/javascript">
+{% if user.id %}
+    check_pm();
+{% endif %}
+</script>
 </head>
 
 
@@ -40,47 +39,51 @@
 
 <div class="global">
 {% include '../includes/header.html' %}
-
 <div class="sider">
     <div class="sidertop bigmenu">
-	  {{ mainmenu }}
-	  <div class="search">
-	   <form method="POST" action="{{ www_root }}/search/"> 
+      {{ mainmenu }}
+      <div class="search">
+       <form method="POST" action="{{ www_root }}/search/"> 
         <input type="hidden" name="subaction" value="search"> 
         <input name="search" placeholder="Найти что-нибудь..." type="text"> 
         <input value="GO!" type="submit" name="send"> 
        </form> 
-	  </div>
-	</div>
-	<!---------------------------------------------------------------------------CONTENT/----------------------------------------------------------------------------------------------->
+      </div>
+    </div>
+    <!---------------------------------------------------------------------------CONTENT/----------------------------------------------------------------------------------------------->
     <div class="content">
 <div class="spedbar">
     <div>
-        <div>{{ navigation }}</div>
+        {{ navigation }}
     </div>
 </div>
-{% if add_link %}<a href="{{ www_root }}/loads/add_form/" class="lastpostsbutton button">Загрузить файл</a>{% endif %}
-<div style="clear:both;"></div>
-<div class="materials" id="full">
-	    {% if pagination %}<div class="mezdyblock"><span class="meta">{{ meta }}</span><div class="paginator"><div class="pages">{{ pagination }}</div></div></div>{% endif %}
-		{{ content }}
-		{% if pagination %}<div class="mezdyblock"><div class="paginator"><div class="pages">{{ pagination }}</div></div></div>{% endif %}
-        {{ comments }}
-        {{ comments_form }}
-        {% if categories %}<div class="material"><div class="inftitle">Категории:</div><div class="infcont"><ul>{{ categories }}</ul></div></div>{% endif %}
+
+<div class="material">
+      <div class="mat-title"><span id="switchsound"></span><h1>Общий чат</h1></div>
+      <div class="mat-content">
+      {{ content }}
+      </div>
 </div>
-	
-	<div class="material">
+<style type="text/css">
+#bigformlink {display:none;}
+.scrollBox {padding: 10px 8%;background: rgba(255, 224, 0, 0.08);border-bottom: 1px solid #bbb;}
+#chatModule {min-height: 100px;}
+#chat {height: 320px;}
+#chat .block_chat {padding: 10px!important;font-size: 16px!important;}
+#chat .mess {padding-top: 10px!important;font-size: 14px!important;}
+.chat-addfrom .chat_captcha {white-space: normal;height: auto;margin: 18px;padding: 0;width: 122px;text-align: center;}
+.chat-addfrom .chat_captcha input {display: block;margin: 3px -3px 10px;width: 120px;}
+.chat-addfrom input[type="submit"] {margin: 0 10px;}
+#chat .jspVerticalBar {width: 15px;}
+</style>
+
+    <div class="material">
            <div class="inftitle">Сейчас online: {{ all_online }}. Зарегистрированных: {{ users_online }}. Гостей: {{ guests_online }}. </div>
-	       <div class="infcont">{{ online_users_list }}</div>
-	    </div>
-	</div>
-	<!---------------------------------------------------------------------------/CONTENT----------------------------------------------------------------------------------------------->
+           <div class="infcont">{{ online_users_list }}</div>
+        </div>
+    </div>
+    <!---------------------------------------------------------------------------/CONTENT----------------------------------------------------------------------------------------------->
 </div>
-<!--------------------------------------------------------CHAT----------------------------------------------------------------------------------------------------------------------------->
-{% if drs_chat %}
-{% include '../includes/minichat.html' %}
-{% endif %}
 <!--------------------------------------------------------FOOTER-BUTTONS------------------------------------------------------------------>
 {% include '../includes/footer.html' %}
 </div>

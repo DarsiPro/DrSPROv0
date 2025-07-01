@@ -1,74 +1,86 @@
 <?php
 
+/**
+ * Класс для парсинга токенов в шаблонизаторе DarsiPro CMS
+ *
+ * @project    DarsiPro CMS
+ * @author     Петров Евгений <email@mail.ru>
+ * @url        https://darsi.pro
+ * @version    1.0
+ * @php        5.6+
+ */
 class Viewer_TokensParser
 {
-    // Приватные свойства класса
-    private $delimiters;     // Разделители тегов (начало и конец)
-    private $regexes;        // Регулярные выражения для разбора
-    private $state;          // Текущее состояние парсера
-    private $states;         // Стек состояний парсера
-    private $position;       // Текущая позиция в массиве позиций
-    private $positions;      // Массив позиций тегов в коде
+    // Свойства класса
+    private $delimiters;    // Разделители тегов
+    private $regexes;       // Регулярные выражения для парсинга
+    private $state;         // Текущее состояние парсера
+    private $states;        // Стек состояний парсера
+    private $position;      // Текущая позиция в массиве позиций
+    private $positions;     // Массив позиций тегов в коде
     private $cursor;        // Текущая позиция в коде
-    private $code;          // Исходный код для разбора
+    private $code;          // Исходный код для парсинга
     private $lineno;        // Номер текущей строки
     private $end;           // Длина кода
-    private $tokens;        // Массив токенов
+    private $tokens;        // Массив распарсенных токенов
     private $brackets;      // Стек скобок для проверки вложенности
-    private $filename;      // Имя файла (если есть)
+    private $filename;      // Имя файла (для отладки)
 
     // Константы состояний парсера
-    const STATE_DATA            = 0;  // Обработка обычного текста
-    const STATE_BLOCK           = 1;  // Обработка блока ({% %})
-    const STATE_VAR             = 2;  // Обработка переменной ({{ }} или $ $)
-    const STATE_STRING          = 3;  // Обработка строки в двойных кавычках
-    const STATE_URL             = 4;  // Обработка URL ([~ ~])
-    const STATE_COMMENT         = 5;  // Обработка комментария ({# #})
+    const STATE_DATA    = 0;    // Режим парсинга обычного текста
+    const STATE_BLOCK   = 1;    // Режим парсинга блока ({% ... %})
+    const STATE_VAR     = 2;    // Режим парсинга переменной ({{ ... }})
+    const STATE_STRING  = 3;    // Режим парсинга строки в двойных кавычках
+    const STATE_URL     = 4;    // Режим парсинга URL ([~ ... ~])
+    const STATE_COMMENT = 5;    // Режим парсинга комментария ({# ... #})
 
-    // Регулярные выражения для разбора
-    const REGEX_NAME            = '/[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/uA';  // Имена переменных
-    const REGEX_NUMBER          = '/\-?[0-9]+(?:\.[0-9]+)?/uA';                     // Числа
-    const REGEX_STRING          = '/"([^#"\\\\]*(?:\\\\.[^#"\\\\]*)*)"|\'([^\'\\\\]*(?:\\\\.[^\'\\\\]*)*)\'/uAs';  // Строки
-    const REGEX_DQ_STRING_DELIM = '/"/uA';                                          // Двойные кавычки
-    const REGEX_DQ_STRING_PART  = '/[^#"\\\\]*(?:(?:\\\\.|#(?!\{))[^#"\\\\]*)*/uAs'; // Части строки в двойных кавычках
-    const PUNCTUATION           = '()[]{}?:.,~|';                                   // Знаки пунктуации
+    // Регулярные выражения для парсинга
+    const REGEX_NAME            = '/[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/uA';
+    const REGEX_NUMBER          = '/\-?[0-9]+(?:\.[0-9]+)?/uA';
+    const REGEX_STRING          = '/"([^#"\\\\]*(?:\\\\.[^#"\\\\]*)*)"|\'([^\'\\\\]*(?:\\\\.[^\'\\\\]*)*)\'/uAs';
+    const REGEX_DQ_STRING_DELIM = '/"/uA';
+    const REGEX_DQ_STRING_PART  = '/[^#"\\\\]*(?:(?:\\\\.|#(?!\{))[^#"\\\\]*)*/uAs';
+    const PUNCTUATION           = '()[]{}?:.,~|';
 
+    /**
+     * Конструктор класса
+     *
+     * @param string $code Исходный код для парсинга
+     */
     public function __construct($code = '')
     {
-        // Устанавливаем кодировку
+        // Установка кодировки
+        mb_internal_encoding("ASCII");
         mb_internal_encoding("UTF-8");
 
-        // Определяем разделители тегов
+        // Инициализация разделителей тегов
         $this->delimiters = array(
-            'tag_var' => array('{{', '}}'),     // Переменные
-            'tag_var_alt' => array('$', '$'),   // Альтернативный синтаксис переменных
-            'tag_block' => array('{%', '%}'),   // Блоки
-            'tag_url' => array('[~', '~]'),     // URL
-            'tag_comment' => array('{#', '#}'), // Комментарии
+            'tag_var' => array('{{', '}}'),
+            'tag_block' => array('{%', '%}'),
+            'tag_url' => array('[~', '~]'),
+            'tag_comment' => array('{#', '#}'),
         );
 
-        // Компилируем регулярные выражения для разбора
+        // Инициализация регулярных выражений
         $this->regexes = array(
-            'lex_var' => '#\s*(?:' . preg_quote($this->delimiters['tag_var'][1], '#') . '|' . preg_quote($this->delimiters['tag_var_alt'][1], '#') . ')#uA',
-            'lex_url' => '#\s*' . preg_quote($this->delimiters['tag_url'][1], '#') . '#uA',
-            'lex_comment' => '#\s*' . preg_quote($this->delimiters['tag_comment'][1], '#') . '#uA',
-            'lex_block' => '#\s*(?:' . preg_quote($this->delimiters['tag_block'][1]) . ')#uA',
-            'lex_start' => '#(' . 
-                preg_quote($this->delimiters['tag_var'][0]) . '|' .
-                '(?<!\$)\$(?![\$\w])|' . // Одиночный $, не перед другим $ или буквой
-                preg_quote($this->delimiters['tag_block'][0]) . '|' .
-                preg_quote($this->delimiters['tag_url'][0]) . '|' .
-                preg_quote($this->delimiters['tag_comment'][0], '#') .
-                ')(?:\s|$)#us',
+            'lex_var' => '#\s+' . preg_quote($this->delimiters['tag_var'][1], '#') . '#uA',
+            'lex_url' => '#\s+' . preg_quote($this->delimiters['tag_url'][1], '#') . '#uA',
+            'lex_comment' => '#\s+' . preg_quote($this->delimiters['tag_comment'][1], '#') . '#uA',
+            'lex_block' => '#\s+(?:' . preg_quote($this->delimiters['tag_block'][1]) . '|' . 
+                          preg_quote($this->delimiters['tag_block'][1]) . ')#uA',
+            'lex_start' => '#(' . preg_quote($this->delimiters['tag_var'][0]) . '|' . 
+                           preg_quote($this->delimiters['tag_block'][0]) . '|' . 
+                           preg_quote($this->delimiters['tag_url'][0]) . '|' . 
+                           preg_quote($this->delimiters['tag_comment'][0], '#') . ')\s#us',
             'operators' => '#not in(?=[\s()])|and(?=[\s()])|not(?=[\s()])|in(?=[\s()])|\<\=|\>\=|\=\=\=|\=\=|or(?=[\s()])|\!\=\=|\!\=|%|\>|\+|(?<!\(|,\s)-|\<|/{1,2}|\=|\*{1,2}#uA',
-            'var_alt_end_lookahead' => '#(?=\S*' . preg_quote($this->delimiters['tag_var_alt'][1], '#') . ')#uA',
         );
     }
 
     /**
-     * Основной метод разбора кода в токены
-     * @param string $code Исходный код
-     * @param string|null $filename Имя файла (опционально)
+     * Основной метод парсинга кода в токены
+     *
+     * @param string $code Исходный код для парсинга
+     * @param string|null $filename Имя файла (для отладки)
      * @return Viewer_TokenStream Поток токенов
      */
     public function parseTokens($code, $filename = null)
@@ -82,54 +94,55 @@ class Viewer_TokensParser
         $this->position = -1;
         $this->cursor = 0;
         $this->filename = $filename;
+        $this->brackets = array();
 
-        // Находим все начальные теги в коде
+        // Поиск всех стартовых тегов в коде
         preg_match_all($this->regexes['lex_start'], $this->code, $matches, PREG_OFFSET_CAPTURE);
         $this->positions = $matches;
 
-        // Основной цикл разбора
+        // Основной цикл парсинга
         while ($this->cursor < $this->end) {
             switch ($this->state) {
                 case self::STATE_DATA:
-                    $this->lexData();    // Обработка обычного текста
+                    $this->lexData();
                     break;
 
                 case self::STATE_BLOCK:
-                    $this->lexBlock();    // Обработка блока
+                    $this->lexBlock();
                     break;
 
                 case self::STATE_VAR:
-                    $this->lexVar();     // Обработка переменной
+                    $this->lexVar();
                     break;
 
                 case self::STATE_STRING:
-                    $this->lexString();   // Обработка строки
+                    $this->lexString();
                     break;
 
                 case self::STATE_URL:
-                    $this->lexUrl();      // Обработка URL
+                    $this->lexUrl();
                     break;
+
                 case self::STATE_COMMENT:
-                    $this->lexComment();  // Обработка комментария
+                    $this->lexComment();
                     break;
             }
         }
 
-        // Добавляем токен конца файла
+        // Добавление токена конца файла
         $this->pushToken(Viewer_Token::EOF_TYPE);
 
-        // Проверяем незакрытые скобки
+        // Проверка незакрытых скобок
         if (!empty($this->brackets)) {
             list($expect, $lineno) = array_pop($this->brackets);
             throw new Exception(sprintf('Unclosed "%s"', $expect), $lineno);
         }
 
-        // Возвращаем поток токенов
         return new Viewer_TokenStream($this->tokens, $this->filename);
     }
 
     /**
-     * Обработка строки в двойных кавычках
+     * Парсинг строки в двойных кавычках
      */
     protected function lexString()
     {
@@ -138,22 +151,22 @@ class Viewer_TokensParser
             $this->pushToken(Viewer_Token::INTERPOLATION_START_TYPE);
             $this->moveCursor($match[0]);
             $this->pushState(self::STATE_INTERPOLATION);
-        } else if (preg_match(self::REGEX_DQ_STRING_PART, $this->code, $match, null, $this->cursor) && strlen($match[0]) > 0) {
+        } elseif (preg_match(self::REGEX_DQ_STRING_PART, $this->code, $match, null, $this->cursor) && strlen($match[0]) > 0) {
             $this->pushToken(Viewer_Token::STRING_TYPE, stripcslashes($match[0]));
             $this->moveCursor($match[0]);
-        } else if (preg_match(self::REGEX_DQ_STRING_DELIM, $this->code, $match, null, $this->cursor)) {
+        } elseif (preg_match(self::REGEX_DQ_STRING_DELIM, $this->code, $match, null, $this->cursor)) {
             list($expect, $lineno) = array_pop($this->brackets);
             if ($this->code[$this->cursor] != '"') {
                 throw new Exception(sprintf('Unclosed "%s"', $expect), $lineno);
             }
+
             $this->popState();
             ++$this->cursor;
-            return;
         }
     }
 
     /**
-     * Обработка URL ([~ ~])
+     * Парсинг URL ([~ ... ~])
      */
     protected function lexUrl()
     {
@@ -162,17 +175,16 @@ class Viewer_TokensParser
             $this->moveCursor($match[0]);
             $this->popState();
         } else {
-            $this->lexExpression();  // Разбираем выражение внутри URL
+            $this->lexExpression();
         }
     }
 
     /**
-     * Обработка комментария ({# #})
+     * Парсинг комментария ({# ... #})
      */
     protected function lexComment()
     {
         $start = $this->cursor;
-        // Пропускаем весь текст до закрывающего тега комментария
         while (!(empty($this->brackets) && preg_match($this->regexes['lex_comment'], $this->code, $match, null, $this->cursor))) {
             $this->cursor++;
         }
@@ -186,56 +198,35 @@ class Viewer_TokensParser
     }
 
     /**
-     * Обработка переменной ({{ }} или $ $)
+     * Парсинг переменной ({{ ... }})
      */
     protected function lexVar()
     {
-        $endTags = [
-            $this->delimiters['tag_var'][1],
-            $this->delimiters['tag_var_alt'][1]
-        ];
-        
-        $pattern = '#\s*(?:' . preg_quote($endTags[0], '#') . '|' . preg_quote($endTags[1], '#') . ')#uA';
-        
-        // Специальная обработка для альтернативного синтаксиса ($ $)
-        if ($this->positions[1][$this->position][0] == '$') {
-            $remainingCode = substr($this->code, $this->cursor);
-            if (strpos($remainingCode, '$') === false) {
-                // Если нет закрывающего $, обрабатываем как обычный текст
-                $this->cursor = $this->positions[0][$this->position][1];
-                $this->pushToken(Viewer_Token::TEXT_TYPE, '$');
-                $this->cursor++;
-                $this->popState();
-                return;
-            }
-        }
-
-        // Если нашли закрывающий тег
-        if (empty($this->brackets) && preg_match($pattern, $this->code, $match, null, $this->cursor)) {
+        if (empty($this->brackets) && preg_match($this->regexes['lex_var'], $this->code, $match, null, $this->cursor)) {
             $this->pushToken(Viewer_Token::VAR_END_TYPE);
             $this->moveCursor($match[0]);
             $this->popState();
         } else {
-            $this->lexExpression();  // Разбираем выражение внутри переменной
+            $this->lexExpression();
         }
     }
 
     /**
-     * Обработка обычного текста (вне тегов)
+     * Парсинг обычного текста (вне тегов)
      */
     private function lexData()
     {
-        // Если это последняя позиция, обрабатываем оставшийся текст
+        // Если достигли конца массива позиций
         if ($this->position === count($this->positions[1]) - 1) {
             $this->pushToken(Viewer_Token::TEXT_TYPE, substr($this->code, $this->cursor));
             $this->cursor = $this->end;
             return;
         }
 
-        // Переходим к следующей позиции
+        // Находим следующую позицию тега
         $position = $this->positions[0][++$this->position];
 
-        // Пропускаем позиции, которые уже обработаны
+        // Пропускаем теги, которые уже были обработаны
         while ($position[1] < $this->cursor) {
             if ($this->position == count($this->positions[0]) - 1) {
                 return;
@@ -243,7 +234,7 @@ class Viewer_TokensParser
             $position = $this->positions[0][++$this->position];
         }
 
-        // Извлекаем текст до следующего тега
+        // Добавляем текст до тега
         $text = $textContent = substr($this->code, $this->cursor, $position[1] - $this->cursor);
         if (isset($this->positions[2][$this->position][0])) {
             $text = rtrim($text);
@@ -252,36 +243,24 @@ class Viewer_TokensParser
         $this->pushToken(Viewer_Token::TEXT_TYPE, $text);
         $this->moveCursor($textContent.$position[0]);
 
-        // Определяем тип тега и переходим в соответствующее состояние
+        // Определяем тип тега и переключаем состояние
         switch ($this->positions[1][$this->position][0]) {
-            case $this->delimiters['tag_block'][0]:  // {% - начало блока
+            case $this->delimiters['tag_block'][0]:
                 $this->pushToken(Viewer_Token::BLOCK_START_TYPE);
                 $this->pushState(self::STATE_BLOCK);
                 break;
 
-            case $this->delimiters['tag_var'][0]:     // {{ - начало переменной
+            case $this->delimiters['tag_var'][0]:
                 $this->pushToken(Viewer_Token::VAR_START_TYPE);
                 $this->pushState(self::STATE_VAR);
                 break;
 
-            case $this->delimiters['tag_var_alt'][0]: // $ - альтернативный синтаксис переменной
-                // Проверяем что это действительно тег (есть закрывающий $)
-                $nextDollarPos = strpos($this->code, '$', $this->cursor);
-                if ($nextDollarPos === false || preg_match('/\s/', substr($this->code, $this->cursor, $nextDollarPos - $this->cursor))) {
-                    // Если нет закрывающего $ или между $ есть пробелы - обрабатываем как текст
-                    $this->pushToken(Viewer_Token::TEXT_TYPE, '$');
-                    $this->cursor++;
-                    break;
-                }
-                $this->pushToken(Viewer_Token::VAR_START_TYPE);
-                $this->pushState(self::STATE_VAR);
-                break;
-
-            case $this->delimiters['tag_url'][0]:     // [~ - начало URL
+            case $this->delimiters['tag_url'][0]:
                 $this->pushToken(Viewer_Token::URL_START_TYPE);
                 $this->pushState(self::STATE_URL);
                 break;
-            case $this->delimiters['tag_comment'][0]: // {# - начало комментария
+
+            case $this->delimiters['tag_comment'][0]:
                 $this->pushToken(Viewer_Token::COMMENT_START_TYPE);
                 $this->pushState(self::STATE_COMMENT);
                 break;
@@ -289,7 +268,7 @@ class Viewer_TokensParser
     }
 
     /**
-     * Обработка блока ({% %})
+     * Парсинг блока ({% ... %})
      */
     protected function lexBlock()
     {
@@ -298,12 +277,12 @@ class Viewer_TokensParser
             $this->moveCursor($match[0]);
             $this->popState();
         } else {
-            $this->lexExpression();  // Разбираем выражение внутри блока
+            $this->lexExpression();
         }
     }
 
     /**
-     * Разбор выражений (общая часть для блоков, переменных и URL)
+     * Парсинг выражений внутри тегов
      */
     protected function lexExpression()
     {
@@ -312,37 +291,36 @@ class Viewer_TokensParser
             $this->moveCursor($match[0]);
 
             if ($this->cursor >= $this->end) {
-                throw new Exception(sprintf('Unexpected end of file: Unclosed "%s"', $this->state === self::STATE_BLOCK ? 'block' : 'variable or url'));
+                throw new Exception(sprintf('Unexpected end of file: Unclosed "%s"', 
+                    $this->state === self::STATE_BLOCK ? 'block' : 'variable or url'));
             }
         }
-
-        // Разбор операторов
-        if (preg_match($this->regexes['operators'], $this->code, $match, null, $this->cursor)) {
+        // Операторы
+        elseif (preg_match($this->regexes['operators'], $this->code, $match, null, $this->cursor)) {
             $this->pushToken(Viewer_Token::OPERATOR_TYPE, $match[0]);
             $this->moveCursor($match[0]);
         }
-        // Разбор имен переменных
+        // Имена переменных/функций
         elseif (preg_match(self::REGEX_NAME, $this->code, $match, null, $this->cursor)) {
             $this->pushToken(Viewer_Token::NAME_TYPE, $match[0]);
             $this->moveCursor($match[0]);
         }
-        // Разбор чисел
+        // Числа
         elseif (preg_match(self::REGEX_NUMBER, $this->code, $match, null, $this->cursor)) {
             $number = (float) $match[0];
             if (ctype_digit($match[0]) && $number <= PHP_INT_MAX) {
                 $number = (int) $match[0];
             }
-
             $this->pushToken(Viewer_Token::NUMBER_TYPE, $number);
             $this->moveCursor($match[0]);
         }
-        // Разбор пунктуации
+        // Знаки пунктуации
         elseif (false !== mb_strpos(self::PUNCTUATION, $this->code[$this->cursor])) {
-            // Открывающие скобки добавляем в стек
+            // Открывающая скобка
             if (false !== mb_strpos('([{', $this->code[$this->cursor])) {
                 $this->brackets[] = array($this->code[$this->cursor], $this->lineno);
             }
-            // Закрывающие скобки проверяем на соответствие
+            // Закрывающая скобка
             elseif (false !== mb_strpos(')]}', $this->code[$this->cursor])) {
                 if (empty($this->brackets)) {
                     throw new Exception(sprintf('Unexpected "%s"', $this->code[$this->cursor]), $this->lineno);
@@ -357,7 +335,7 @@ class Viewer_TokensParser
             $this->pushToken(Viewer_Token::PUNCTUATION_TYPE, $this->code[$this->cursor]);
             ++$this->cursor;
         }
-        // Разбор строк в кавычках
+        // Строки в кавычках
         elseif (preg_match(self::REGEX_STRING, $this->code, $match, null, $this->cursor)) {
             $this->pushToken(Viewer_Token::STRING_TYPE, stripcslashes(substr($match[0], 1, -1)));
             $this->moveCursor($match[0]);
@@ -368,6 +346,7 @@ class Viewer_TokensParser
             $this->pushState(self::STATE_STRING);
             $this->moveCursor($match[0]);
         }
+        // Неизвестный символ
         else {
             throw new Exception(sprintf('Unexpected character "%s"', $this->code[$this->cursor]), $this->lineno);
         }
@@ -375,10 +354,13 @@ class Viewer_TokensParser
 
     /**
      * Добавление токена в массив
-     * @param string $type Тип токена
+     *
+     * @param int $type Тип токена
      * @param string $value Значение токена
      */
-    private function pushToken($type, $value = '') {
+    private function pushToken($type, $value = '')
+    {
+        // Не добавляем пустые текстовые токены
         if (Viewer_Token::TEXT_TYPE === $type && '' === $value) {
             return;
         }
@@ -387,9 +369,10 @@ class Viewer_TokensParser
     }
 
     /**
-     * Подготовка кода (нормализация переводов строк)
+     * Подготовка кода перед парсингом
+     *
      * @param string $code Исходный код
-     * @return string Подготовленный код
+     * @return string Обработанный код
      */
     private function prepareCode($code)
     {
@@ -397,8 +380,9 @@ class Viewer_TokensParser
     }
 
     /**
-     * Перемещение курсора с подсчетом строк
-     * @param string $text Текст, на который перемещаем курсор
+     * Перемещение курсора и подсчет строк
+     *
+     * @param string $text Текст, на который перемещается курсор
      */
     protected function moveCursor($text)
     {
@@ -408,6 +392,7 @@ class Viewer_TokensParser
 
     /**
      * Сохранение текущего состояния и переход в новое
+     *
      * @param int $state Новое состояние
      */
     protected function pushState($state)

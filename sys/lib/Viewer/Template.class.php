@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Абстрактный базовый класс для шаблонов в DarsiPro CMS
+ *
+ * @project    DarsiPro CMS
+ * @author     Петров Евгений <email@mail.ru>
+ * @url        https://darsi.pro
+ * @version    1.0
+ * @php        5.6+
+ */
 abstract class Viewer_Template {
 
     // Массив(или обьект) переменных, созданных пользователем

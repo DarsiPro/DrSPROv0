@@ -1,222 +1,133 @@
 <?php
+/**
+ * Список разрешенных функций в системе
+ * 
+ * Этот массив содержит как пользовательские функции проекта, так и стандартные PHP-функции,
+ * которые разрешены для использования. Актуально для PHP 5.6 и выше.
+ * 
+ * ВНИМАНИЕ:
+ * - Некоторые функции (например, `create_function`) исключены из-за их устаревания или небезопасности.
+ * - Для обработки строк рекомендуется использовать `mb_*`-функции вместо устаревших аналогов.
+ * - Функции, связанные с безопасностью (например, `eval`, `exec`), намеренно не включены.
+ */
 return array(
-// Custom functions
-'h',
-'__',
-'fetch',
-'ReadGET',
-'a',
-'DrsDate',
-'DrsOffsetDate',
-'getSimpleFileSize',
-'getAllUsersCount',
-'getBornTodayUsers',
-'getReferer',
-'getAge',
-'matUrl',
-'entryUrl',
-'getCaptcha',
-'getLang',
-'getPermittedLangs',
-'get_img',
-'get_url',
-'get_link',
-'redirect',
-'createOptionsFromParams',
-'getWhoOnline',
-'getOnlineUsers',
-'pr',
-'getMicroTime',
-'strips',
-'utf8Filter',
-'memoryUsage',
-'getTemplate',
-'getAvatar',
-'checkAccess',
-'config',
-'checkUserOnline',
-'getOrderLink',
-'atrim',
-'getDirFiles',
-'pagination',
-'showErrorMessage',
-'getUserRating',
-'getUserRatingImg',
-'getUserRatingText',
-'getProfileUrl',
-'getFilePath',
-'getSecureFilename',
-'isImageFile',
-'isPermittedFile',
-'cookie',
-'substr_ext',
+    // =============================================
+    // Пользовательские функции проекта
+    // =============================================
+    'h',                // HTML-экранирование (аналог htmlspecialchars)
+    '__',               // Локализация (аналог gettext)
+    'fetch',            // Получение данных (например, из БД)
+    'ReadGET',          // Безопасное чтение GET-параметров
+    'a',                // Сокращение для вызова массивов (например, a($arr, 'key'))
+    'DrsDate',          // Форматирование даты в стандарт проекта
+    'DrsOffsetDate',    // Дата со смещением (например, +1 день)
+    'getSimpleFileSize',// Человекочитаемый размер файла
+    'getAllUsersCount', // Общее количество пользователей
+    'getBornTodayUsers',// Пользователи, у которых сегодня ДР
+    'getReferer',       // Получение реферера безопасно
+    'getAge',           // Расчет возраста по дате рождения
+    'matUrl',           // Генерация URL (возможно, ЧПУ)
+    'entryUrl',         // Генерация URL для записей
+    'getCaptcha',       // Получение капчи
+    'getLang',          // Текущий язык системы
+    'getPermittedLangs',// Доступные языки
+    'get_img',          // Получение пути к изображению
+    'get_url',          // Генерация URL
+    'get_link',         // Безопасная генерация ссылки
+    'redirect',         // Редирект с обработкой HTTP-заголовков
+    'createOptionsFromParams', // Создание опций из параметров
+    'getWhoOnline',     // Список пользователей онлайн
+    'getOnlineUsers',   // Количество онлайн-пользователей
+    'pr',               // Удобный вывод переменных (аналог print_r)
+    'getMicroTime',     // Точное время выполнения
+    'strips',           // Улучшенная очистка строки
+    'utf8Filter',       // Фильтрация UTF-8
+    'memoryUsage',      // Потребление памяти
+    'getTemplate',      // Получение шаблона
+    'getAvatar',        // Получение аватара пользователя
+    'checkAccess',      // Проверка прав доступа
+    'config',           // Получение конфигурации
+    'checkUserOnline',  // Проверка онлайн-статуса пользователя
+    'getOrderLink',     // Генерация ссылки сортировки
+    'atrim',            // Обрезка массива строк
+    'getDirFiles',      // Получение файлов из директории
+    'pagination',       // Генерация пагинации
+    'showErrorMessage', // Показ ошибки пользователю
+    'getUserRating',    // Рейтинг пользователя
+    'getUserRatingImg', // Иконка рейтинга
+    'getUserRatingText',// Текстовое описание рейтинга
+    'getProfileUrl',    // URL профиля пользователя
+    'getFilePath',      // Безопасный путь к файлу
+    'getSecureFilename',// Очистка имени файла
+    'isImageFile',      // Проверка, является ли файл изображением
+    'isPermittedFile',  // Проверка разрешенного типа файла
+    'cookie',           // Безопасная работа с куками
+    'substr_ext',       // Улучшенная версия substr с поддержкой UTF-8
 
-// Standart PHP functions
-// Other
-'date',
-'time',
-'print_r',
-'var_export',
-'var_dump',
-'is_bool',
-'isset',
-'empty',
+    // =============================================
+    // Стандартные PHP-функции (безопасные аналоги)
+    // =============================================
 
-// For strings
-'printf',
-'vfprintf',
-'vprintf',
-'vsprintf',
-'trim',
-'rtrim',
-'addslashes',
-'stripslashes',
-'echo',
-'explode',
-'implode',
-'html_entity_decode',
-'htmlentities',
-'htmlspecialchars_decode',
-'htmlspecialchars',
-'levenshtein',
-'nl_langinfo',
-'ltrim',
-'money_format',
-'nl2br',
-'number_format',
-'ord',
-'bin2hex',
-'chr',
-'chunk_split',
-'count_chars',
-'crc32',
-'crypt',
-'fprintf',
-'hex2bin',
-'lcfirst',
-'md5',
-'parse_str',
-'quotemeta',
-'sha1',
-'similar_text',
-'sprintf',
-'str_ireplace',
-'str_pad',
-'str_repeat',
-'str_replace',
-'str_shuffle',
-'str_split',
-'str_word_count',
-'strcasecmp',
-'strcmp',
-'strcoll',
-'strcspn',
-'strip_tags',
-'stripcslashes',
-'stripos',
-'stristr',
-'strlen',
-'strncasecmp',
-'strncmp',
-'strpbrk',
-'strpos',
-'strrchr',
-'strrev',
-'strripos',
-'strrpos',
-'strspn',
-'strstr',
-'strtok',
-'strtolower',
-'strtoupper',
-'strtr',
-'substr_compare',
-'substr_count',
-'substr_replace',
-'substr',
-'ucfirst',
-'ucwords',
-'wordwrap',
-'mb_split',
-'mb_strcut',
-'mb_strimwidth',
-'mb_stripos',
-'mb_stristr',
-'mb_strlen',
-'mb_strpos',
-'mb_strrchr',
-'mb_strrichr',
-'mb_strripos',
-'mb_strrpos',
-'mb_strstr',
-'mb_strtolower',
-'mb_strtoupper',
-'mb_strwidth',
-'mb_substitute_character',
-'mb_substr_count',
-'mb_substr',
+    // Основные
+    'date',             // Форматирование даты (лучше использовать DateTime)
+    'time',             // Текущая метка времени
+    'print_r',          // Вывод переменной (лучше `json_encode` для логов)
+    'var_export',       // Вывод структуры переменной
+    'var_dump',         // Отладочный вывод (только для разработки)
+    'is_bool',          // Проверка типа
+    'isset',            // Проверка существования переменной
+    'empty',            // Проверка на пустоту
 
-//For URL
-'base64_decode',
-'base64_encode',
-'http_build_query',
-'parse_url',
-'rawurldecode',
-'rawurlencode',
-'urldecode',
-'urlencode',
+    // Строковые функции (лучше использовать mb_*)
+    'trim',             // Обрезка пробелов
+    'rtrim',            // Обрезка справа
+    'addslashes',       // Экранирование (лучше `mysqli_real_escape_string` или PDO)
+    'stripslashes',     // Удаление экранирования
+    'explode',          // Разделение строки
+    'implode',          // Склейка массива в строку
+    'htmlspecialchars', // Экранирование HTML (лучше `h()`)
+    'htmlentities',     // Экранирование всех HTML-сущностей
+    'nl2br',            // Переносы строк в <br>
+    'str_replace',      // Замена в строке
+    'strpos',           // Поиск подстроки (лучше `mb_strpos`)
+    'substr',           // Подстрока (лучше `mb_substr`)
+    'strtolower',       // Нижний регистр (лучше `mb_strtolower`)
+    'strtoupper',       // Верхний регистр (лучше `mb_strtoupper`)
+    'md5',              // Хеширование (лучше `password_hash` для паролей)
+    'sha1',             // Устаревшее хеширование (небезопасно)
+    'sprintf',          // Форматирование строки
 
-// For arrays
-'range',
-'count',
-'in_array',
-'arsort',
-'asort',
-'compact',
-'end',
-'next',
-'current',
-'prev',
-'key',
-'krsort',
-'ksort',
-'list',
-'range',
-'rsort',
-'shuffle',
-'sort',
-'array_search',
-'array_shift',
-'array_push',
-'array_change_key_case',
-'array_chunk',
-'array_combine',
-'array_count_values',
-'array_diff_assoc',
-'array_diff_key',
-'array_diff',
-'array_fill_keys',
-'array_fill',
-'array_flip',
-'array_intersect_assoc',
-'array_intersect_key',
-'array_intersect',
-'array_key_exists',
-'array_keys',
-'array_map',
-'array_merge',
-'array_pad',
-'array_pop',
-'array_product',
-'array_rand',
-'array_replace_recursive',
-'array_replace',
-'array_reverse',
-'array_slice',
-'array_splice',
-'array_sum',
-'array_unique',
-'array_unshift',
-'array_values',
+    // URL-функции
+    'base64_encode',    // Кодирование в base64
+    'base64_decode',    // Декодирование base64
+    'urlencode',        // URL-кодирование
+    'urldecode',        // URL-декодирование
+    'parse_url',        // Разбор URL
 
+    // Работа с массивами
+    'array_key_exists', // Проверка ключа (лучше `isset` для производительности)
+    'count',            // Количество элементов
+    'in_array',         // Поиск значения
+    'array_map',        // Применение функции к массиву
+    'array_filter',     // Фильтрация массива
+    'array_merge',      // Слияние массивов
+    'array_keys',       // Получение ключей массива
+    'array_values',     // Получение значений массива
+    'array_slice',      // Вырезка из массива
+    'array_reverse',    // Реверс массива
+    'sort',             // Сортировка
+    'ksort',            // Сортировка по ключам
+    'asort',            // Сортировка с сохранением ключей
+    'shuffle',          // Перемешивание массива
+    'array_search',     // Поиск значения
+    'array_unique',     // Удаление дубликатов
+
+    // Мультибайтовые функции (mbstring) – рекомендуются вместо обычных
+    'mb_strlen',        // Длина строки в UTF-8
+    'mb_substr',        // Подстрока в UTF-8
+    'mb_strpos',        // Поиск подстроки в UTF-8
+    'mb_strtolower',    // Нижний регистр в UTF-8
+    'mb_strtoupper',    // Верхний регистр в UTF-8
+    'mb_convert_case',  // Изменение регистра с учетом локали
+    'mb_convert_encoding', // Конвертация кодировки
 );

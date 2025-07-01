@@ -1,0 +1,55 @@
+<div class="headpanel">
+ <div class="linksap">
+{% if langs %}
+<div class="activewindow">
+    <a href="#">Язык</a>
+    <div class="lang" style="width: 62px;min-height:55px;">
+    {% for id,name in langs %}
+        <a href="{{ www_root }}/{{ name }}"{% if lang == name %} class="select"{% endif %}>{{ name }}</a>
+    {% endfor %}
+    </div>
+    <script>
+        $(function(){
+        var path = window.location.pathname.replace(/({{ str_replace( '/', '\\/', www_root) }}(\/({{ langs|join('|') }}))*)/ig, '');
+
+        {% for i,name in langs %}
+            $('.lang a:eq({{ i }})').attr('href', $('.lang a:eq({{ i }})').attr('href') + path + window.location.search);
+        {% endfor %}
+        });
+    </script>
+</div>
+{% endif %}
+<div><a href="http://darsi.pro" rel="nofollow">Оф. сайт</a></div>
+<div><a href="http://darsi.pro/forum/" rel="nofollow">Поддержка</a></div></div>
+ <div class="userlinksap">
+{% if user.id %}
+<div><a href="{{ www_root }}/users/pm/">Сообщения</a></div>
+<div class="activewindow"><a href="{{ user.profile }}">{{ user.name }}</a><div class="miniprofileadm" style="width: 300px;padding: 10px;">
+    <span class="avatarminpro"><img class="avatar" src="{{ user.avatar_url }}" alt=""/></span>
+    <span class="uslinkminpro">
+        <a href="{{ user.profile }}">Мой профиль</a>
+        <a href="{{ www_root }}/users/send_pm_form/">Отправить сообщение</a>
+		<a href="{{ www_root }}/users/edit_form/">Настройки</a>
+        {% if drs_admin_access == 1 %}
+		<a href="{{ www_root }}/admin/" target="_blank">Админка</a>
+		{% endif %}
+    </span>
+</div></div>
+<div><a href="{{ www_root }}/users/logout">Выход</a></div>
+{% else %}
+<div class="ulogin">{{ ulogin }}</div>
+<div><a href="{{ www_root }}/users/add_form">Регистрация</a></div>
+<div class="activewindow"><a href="{{ www_root }}/users/login_form/">Войти</a>
+<div style="width: 250px;"><span>
+<form id="mloginForm" name="mloginForm" action="{{ www_root }}/users/login/" onsubmit="sendu('mloginForm'); return false" method="post">
+    Логин: <input type="text" class="loginad" name="username">
+    Пароль: <input type="password" class="passad" name="password">
+    Автовход: <input type="checkbox" name="autologin" value="1">
+    <button type="submit" class="buttonadm">ВОЙТИ</button>
+    <input type="hidden" value="submit" name="submitForm">
+</form>
+</span></div></div>
+{% endif %}
+<div><a href="{{ www_root }}/users/">Пользователи</a></div>
+ </div>
+</div>
